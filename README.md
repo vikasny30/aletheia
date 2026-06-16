@@ -1,4 +1,4 @@
-# AI Behavioral Signatures — Benchmark Suite
+# Aletheia — Behavioral Signatures of Unintended AI
 
 > Shifting AI safety from an academic alignment problem to a standard enterprise observability problem.
 
