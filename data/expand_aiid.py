@@ -1,19 +1,22 @@
 """
 Aletheia — AIID Expansion Script
 =================================
-Fetches incidents from the AI Incident Database (AIID) GraphQL API, classifies
-each against all 8 behavioral signatures using keyword heuristics, and saves
-results to data/aiid_expanded_annotated.csv.
+Fetches incidents from the AIID, classifies each against all 8 behavioral
+signatures using keyword heuristics, and saves results to
+data/aiid_expanded_annotated.csv.
 
-Handles pagination, exponential-backoff retry on rate limits and server errors,
-and resume support via --offset. Re-running skips incident_ids already present
-in the output file or in data/aiid_300_annotated.csv.
+Two sources are supported via --source:
+  aiid  — AIID GraphQL API (https://incidentdatabase.ai/api/graphql).
+           Requires authorized-domain access; may return 403 from scripts.
+  hf    — HuggingFace mirror (vitaliy-sharandin/ai-incidents, 514 incidents).
+           Public, no auth required. Use this when the GraphQL API is blocked.
 
 Usage:
-    python data/expand_aiid.py --limit 500
-    python data/expand_aiid.py --limit 200 --signatures s3 s4 s5
-    python data/expand_aiid.py --offset 300 --limit 200    # resume from offset
-    python data/expand_aiid.py --dry-run --limit 50        # preview, no write
+    python data/expand_aiid.py --limit 500              # GraphQL (default)
+    python data/expand_aiid.py --source hf              # HuggingFace mirror
+    python data/expand_aiid.py --source hf --signatures s3 s4 s5
+    python data/expand_aiid.py --offset 300 --limit 200  # resume
+    python data/expand_aiid.py --dry-run --limit 50      # preview, no write
 """
 
 import os
@@ -30,6 +33,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from benchmarks.utils import classify_incident
 
 AIID_GRAPHQL_URL = "https://incidentdatabase.ai/api/graphql"
+HF_DATASET = "vitaliy-sharandin/ai-incidents"
+HF_ROWS_URL = (
+    "https://datasets-server.huggingface.co/rows"
+    "?dataset=vitaliy-sharandin%2Fai-incidents"
+    "&config=default&split=train"
+    "&offset={offset}&length={length}"
+)
 
 AIID_QUERY = """
 query GetIncidents($limit: Int, $skip: Int) {
@@ -161,6 +171,73 @@ def fetch_all_incidents(limit: int = 500, offset: int = 0,
 
         if remaining > 0:
             time.sleep(0.5)
+
+    pbar.close()
+    return all_incidents
+
+
+# ── HuggingFace source ────────────────────────────────────────────────────────
+
+def fetch_hf_page(offset: int, length: int, session: requests.Session,
+                  timeout: int = 30) -> list:
+    """
+    Fetch one page of incidents from the HuggingFace AIID mirror.
+    Returns list of raw incident dicts (same shape as AIID GraphQL response)
+    or [] on failure. No auth required.
+    """
+    url = HF_ROWS_URL.format(offset=offset, length=length)
+    try:
+        resp = session.get(url, timeout=timeout)
+        if resp.status_code != 200:
+            print(f"  [WARN] HF HTTP {resp.status_code} at offset={offset}",
+                  file=sys.stderr)
+            return []
+        data = resp.json()
+        rows = data.get("rows", [])
+        # Normalise to the same shape expected by extract_incident_text / incident_to_row
+        result = []
+        for entry in rows:
+            row = entry.get("row", {})
+            result.append({
+                "incident_id": row.get("incident_id"),
+                "title": row.get("title", ""),
+                "date": str(row.get("date", "")),
+                "reports": [{"title": "", "text": row.get("description", "") or "",
+                             "url": ""}],
+            })
+        return result
+    except Exception as e:
+        print(f"  [WARN] HF fetch error at offset={offset}: {e}", file=sys.stderr)
+        return []
+
+
+def fetch_all_hf_incidents(limit: int = 514, offset: int = 0,
+                           session: requests.Session = None,
+                           page_size: int = 100) -> list:
+    """Paginate through the HuggingFace AIID mirror. Max 514 incidents total."""
+    if session is None:
+        session = requests.Session()
+
+    all_incidents = []
+    skip = offset
+    remaining = limit
+
+    pbar = tqdm(total=min(limit, 514 - offset), desc="Fetching HF incidents",
+                unit="incidents")
+
+    while remaining > 0:
+        batch = min(page_size, remaining)
+        page = fetch_hf_page(skip, batch, session)
+        if not page:
+            break
+        all_incidents.extend(page)
+        pbar.update(len(page))
+        skip += len(page)
+        remaining -= len(page)
+        if len(page) < batch:
+            break  # reached end of dataset
+        if remaining > 0:
+            time.sleep(0.3)
 
     pbar.close()
     return all_incidents
@@ -307,6 +384,13 @@ if __name__ == "__main__":
         help="Incidents per API request (default: 100)",
     )
     parser.add_argument(
+        "--source", choices=["aiid", "hf"], default="aiid",
+        help=(
+            "Data source: 'aiid' = GraphQL API (may require auth), "
+            "'hf' = HuggingFace mirror, public, 514 incidents (default: aiid)"
+        ),
+    )
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="Preview classification counts without writing CSV",
     )
@@ -324,17 +408,25 @@ if __name__ == "__main__":
     print(f"\n{'='*60}")
     print(f"AIID EXPANSION — Aletheia Validation Pipeline")
     print(
-        f"Limit: {args.limit} | Offset: {args.offset} | "
-        f"Signatures: {target_sigs or 'all'}"
+        f"Source: {args.source.upper()} | Limit: {args.limit} | "
+        f"Offset: {args.offset} | Signatures: {target_sigs or 'all'}"
     )
     print(f"{'='*60}\n")
 
-    incidents = fetch_all_incidents(
-        limit=args.limit,
-        offset=args.offset,
-        session=session,
-        page_size=args.page_size,
-    )
+    if args.source == "hf":
+        incidents = fetch_all_hf_incidents(
+            limit=args.limit,
+            offset=args.offset,
+            session=session,
+            page_size=args.page_size,
+        )
+    else:
+        incidents = fetch_all_incidents(
+            limit=args.limit,
+            offset=args.offset,
+            session=session,
+            page_size=args.page_size,
+        )
 
     print(f"\n  Fetched {len(incidents)} incidents, classifying...")
 
