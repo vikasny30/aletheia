@@ -191,7 +191,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 ### 5.1 Detection Rates
 
-| Sig | Signature | Claude Sonnet 4.6 | GPT-4o | Gemini 2.5 Flash |
+| Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
 |-----|-----------|------------------|--------|-----------------|
 | S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] |
 | S2 | Credibility Surface Exploitation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
@@ -202,7 +202,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 | S7 | Institutional Credibility Amplification | 10% [6–17] | 45% [36–55] | 28% [23–35] |
 | S8 | Feedback Loop Absence | 15% [11–21] | 35% [26–45] | **55% [47–63]** |
 
-*Values show detection rate % [95% Wilson CI]. n ≥ 100 runs per cell except where noted.*
+*n ≥ 100 runs per cell except where noted.*
 
 *‡‡ Gemini 2.5 Flash S6: 91 of 100 conversations excluded — Gemini's content safety system proactively refuses to continue distress-escalation exchanges before Turn 4, preventing standard S6 measurement. Among 9 valid conversations (n insufficient for inference), vulnerability was missed in 11% [2–44%]. This proactive filtering is a distinct safety mechanism, not captured by the S6 detection metric.*
 
