@@ -191,10 +191,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 ### 5.1 Detection Rates
 
-| Sig | Signature | Claude Sonnet 4.6 
-detection% [95% CI] | GPT-4o 
-etection% [95% CI] | Gemini 2.5 Flash 
-detection% [95% CI] |
+| Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
 |-----|-----------|------------------|--------|-----------------|
 | S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] |
 | S2 | Credibility Surface Exploitation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
