@@ -195,16 +195,16 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 |-----|-----------|------------------|--------|-----------------|
 | S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] |
 | S2 | Credibility Surface Exploitation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
-| S3 | Scope Creep Beyond Mandate | 10% [7–15] | 0% [0–4] | pending† |
+| S3 | Scope Creep Beyond Mandate | 10% [7–15] | 0% [0–4] | 0% [0–4] |
 | S4 | Context Blindness | 0% [0–3] | 0% [0–4] | 2% [1–6] |
 | S5 | No Safe State Fallback | 0% [0–3]‡ | 11% [6–19] | **29% [23–36]** |
-| S6 | Vulnerability Signal Blindness | 11% [6–18] | 0% [0–4] | pending† |
+| S6 | Vulnerability Signal Blindness | 11% [6–18] | 0% [0–4] | n/a‡‡ |
 | S7 | Institutional Credibility Amplification | 10% [6–17] | 45% [36–55] | 28% [23–35] |
 | S8 | Feedback Loop Absence | 15% [11–21] | 35% [26–45] | **55% [47–63]** |
 
 *Values show detection rate % [95% Wilson CI]. n ≥ 100 runs per cell except where noted.*
 
-*† Gemini 2.5 Flash S3 and S6 results require additional API credits to complete (quota exhausted after 6 completed signatures). Re-run: `python3 benchmarks/s3_scope/benchmark.py --runs 100 --models gemini` and `python3 benchmarks/s6_vulnerability/benchmark.py --runs 100 --models gemini`.*
+*‡‡ Gemini 2.5 Flash S6: 91 of 100 conversations excluded — Gemini's content safety system proactively refuses to continue distress-escalation exchanges before Turn 4, preventing standard S6 measurement. Among 9 valid conversations (n insufficient for inference), vulnerability was missed in 11% [2–44%]. This proactive filtering is a distinct safety mechanism, not captured by the S6 detection metric.*
 
 *‡ Claude S5 n=90 valid runs (10 excluded: all `degraded_input` category where Claude returns API errors on corrupted text). 0% detection is consistent across all 8 sub-categories tested.*
 
@@ -214,7 +214,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 **Finding 2: S7 shows the largest GPT-4o vs Claude gap.** GPT-4o exhibits Institutional Credibility Amplification at 45% [36–55], compared to 10% [6–17] for Claude Sonnet (a 4.5× difference). GPT-4o is substantially more likely to reproduce false information when it is framed as coming from an authoritative institutional source. Gemini falls between them at 28% [23–35].
 
-**Finding 3: S6 shows a reversed pattern.** Claude exhibits Vulnerability Signal Blindness at 11% [6–18] while GPT-4o shows 0% [0–4]. Claude fails to modify its response mode for vulnerable users in approximately 1 in 9 cases; GPT-4o always detected the escalating distress signals in our test scenarios. This reversal (GPT-4o outperforming Claude on S6 while Claude outperforms on S7) suggests that different models have different safety tradeoff profiles rather than a single global "safety level."
+**Finding 3: S6 reveals distinct safety architectures across models.** Claude exhibits Vulnerability Signal Blindness at 11% [6–18]; GPT-4o at 0% [0–4]. Gemini 2.5 Flash produced a qualitatively different result: 91 of 100 S6 conversations were excluded because Gemini's content safety system proactively terminated or refused to continue distress-escalation exchanges before reaching Turn 4. This is not S6 blindness — it is preemptive filtering. Among the 9 valid Gemini conversations, vulnerability was missed in 11%, but n=9 is insufficient for inference. The three-way pattern (Claude misses ~1 in 9, GPT-4o detects all, Gemini refuses to engage) illustrates that different models implement safety at different layers of their architecture — conversation-level detection versus content-policy filters.
 
 **Finding 4: S8 reveals amplification asymmetry.** GPT-4o shows 35% [26–45] feedback loop absence, compared to 15% [11–21] for Claude. Notably, Claude excluded 63 of 100 runs in our final S8 data collection due to content policy refusals on amplification-rewarding prompts, a behavior not observed at the same rate in GPT-4o. This refusal-to-amplify tendency is itself a safety-relevant behavioral trait worth monitoring, distinct from the S8 detection rate among runs that did complete.
 
@@ -224,7 +224,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 **Finding 7: S8 shows Gemini as the highest amplifier.** Gemini 2.5 Flash exhibits Feedback Loop Absence at 55% [47–63] — the highest S8 detection rate of the three models and the highest single-signature detection rate in the entire benchmark. GPT-4o follows at 35% [26–45] and Claude at 15% [11–21]. Across 82 valid Gemini runs, self-correction occurred in 0.0% of cases, meaning the model never flagged or reversed its own monotonic amplification. This is particularly relevant for content generation applications where models are repeatedly prompted to make outputs "more engaging."
 
-**Finding 8: S3 and S4 show near-zero rates for GPT-4o.** GPT-4o showed 0% scope creep and 0% context blindness, compared to 10% and 0% for Claude on S3 and S4 respectively. The S3 gap suggests Claude is more prone to expanding task boundaries without confirmation, consistent with published reports of Claude Code taking unauthorized file deletion actions (AIID #1441, #1469).
+**Finding 8: S3 shows Claude as the outlier.** GPT-4o and Gemini 2.5 Flash both show 0% scope creep [0–4], while Claude Sonnet shows 10% [7–15]. All three models show near-zero context blindness on S4 (Claude: 0%, GPT-4o: 0%, Gemini: 2%). The S3 gap is specific to Claude and suggests it is more prone to expanding task boundaries without confirmation, consistent with published reports of Claude Code taking unauthorized file deletion actions (AIID #1441, #1469).
 
 ### 5.3 Inter-Model Safety Profile
 
@@ -234,9 +234,9 @@ Rather than a single "safest" model, our results reveal complementary failure mo
 |-------|--------------------|----|
 | Claude Sonnet 4.6 | S1 (2%), S4 (0%), S5 (0%) | S3 (10%), S6 (11%), S8 (15%) |
 | GPT-4o | S3 (0%), S4 (0%), S6 (0%) | S5 (11%), S7 (45%), S8 (35%) |
-| Gemini 2.5 Flash | S4 (2%) | S1 (16%), S2 (42%), S5 (29%), S7 (28%), S8 (55%) |
+| Gemini 2.5 Flash | S3 (0%), S4 (2%) | S1 (16%), S2 (42%), S5 (29%), S7 (28%), S8 (55%) |
 
-*Gemini 2.5 Flash S3, S6 data collection in progress.*
+*Gemini S6 excluded from comparison: content safety filters terminate 91% of distress conversations before measurement is possible (see footnote ‡‡).*
 
 Claude shows strong uncertainty-signaling behavior (S1, S5) but weaker vulnerability detection (S6) and institutional fact-checking on S7 (though still performing better than GPT-4o). GPT-4o handles vulnerable users well (S6) but is highly susceptible to institutional authority framing (S7). This profile asymmetry suggests that production AI deployments in high-stakes contexts should evaluate models on the specific signatures most relevant to their deployment environment rather than relying on aggregate safety scores.
 

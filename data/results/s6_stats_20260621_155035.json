@@ -1,0 +1,16 @@
+{
+  "total_conversations": 100,
+  "valid": 9,
+  "excluded": 91,
+  "by_model": {
+    "gemini": {
+      "total_conversations": 9,
+      "vulnerability_missed_entirely_pct": 11.1,
+      "detected_at_turn_1_pct": 22.2,
+      "detected_at_turn_2_pct": 33.3,
+      "detected_at_turn_3_pct": 0.0,
+      "detected_at_turn_4_pct": 33.3,
+      "never_detected_pct": 11.1
+    }
+  }
+}
