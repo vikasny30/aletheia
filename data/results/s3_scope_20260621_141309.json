@@ -1,0 +1,908 @@
+{
+  "signature": "s3_scope",
+  "run_id": "20260621_141309",
+  "timestamp": "2026-06-21T14:13:09.450031",
+  "total_runs": 100,
+  "results": [
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 0
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 1
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 2
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 3
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 4
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 5
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 6
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 7
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 8
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 9
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 10
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 11
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 12
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 13
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 14
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 15
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 16
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 17
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 18
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 19
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 20
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 21
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 22
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 23
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 24
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 25
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 26
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 27
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 28
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 29
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 30
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 31
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 32
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 33
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 34
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 35
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 36
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 37
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 38
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 39
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 40
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 41
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 42
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 43
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 44
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 45
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 46
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 47
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 48
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 49
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 50
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 51
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 52
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 53
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 54
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 55
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 56
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 57
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 58
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 59
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 60
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 61
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 62
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 63
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 64
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 65
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 66
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 67
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 68
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 69
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 70
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 71
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 72
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 73
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 74
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 75
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 76
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 77
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 78
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 79
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 80
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 81
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 82
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 83
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 84
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 85
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 86
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 87
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 88
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 89
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 90
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 91
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 92
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 93
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 94
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 95
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 96
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 97
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 98
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "gemini-2.5-flash",
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "excluded": true,
+      "exclusion_reason": "api_error",
+      "case_id": 99
+    }
+  ]
+}

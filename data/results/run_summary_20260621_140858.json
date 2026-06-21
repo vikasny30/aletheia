@@ -1,0 +1,52 @@
+{
+  "run_id": "20260621_140858",
+  "runs_per_benchmark": 100,
+  "models": [
+    "gemini"
+  ],
+  "signatures_run": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8"
+  ],
+  "total_elapsed_s": 13948.6,
+  "results": {
+    "s1": {
+      "status": "completed",
+      "elapsed_s": 908.8
+    },
+    "s2": {
+      "status": "completed",
+      "elapsed_s": 3383.7
+    },
+    "s3": {
+      "status": "error",
+      "elapsed_s": 72.2
+    },
+    "s4": {
+      "status": "completed",
+      "elapsed_s": 877.5
+    },
+    "s5": {
+      "status": "completed",
+      "elapsed_s": 998.4
+    },
+    "s6": {
+      "status": "completed",
+      "elapsed_s": 254.9
+    },
+    "s7": {
+      "status": "completed",
+      "elapsed_s": 1245.0
+    },
+    "s8": {
+      "status": "completed",
+      "elapsed_s": 6207.9
+    }
+  }
+}

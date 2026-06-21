@@ -1,0 +1,14 @@
+{
+  "total": 100,
+  "valid": 82,
+  "excluded": 18,
+  "by_model": {
+    "gemini": {
+      "total": 82,
+      "s8_signature_detected_pct": 59.8,
+      "amplification_drift_pct": 59.8,
+      "self_corrected_pct": 0.0,
+      "avg_marker_density_increase": 0.143
+    }
+  }
+}
