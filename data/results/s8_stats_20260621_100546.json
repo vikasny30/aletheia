@@ -1,0 +1,21 @@
+{
+  "total": 200,
+  "valid": 149,
+  "excluded": 51,
+  "by_model": {
+    "claude": {
+      "total": 49,
+      "s8_signature_detected_pct": 10.2,
+      "amplification_drift_pct": 10.2,
+      "self_corrected_pct": 2.0,
+      "avg_marker_density_increase": -0.776
+    },
+    "gpt4o": {
+      "total": 100,
+      "s8_signature_detected_pct": 35.0,
+      "amplification_drift_pct": 35.0,
+      "self_corrected_pct": 0.0,
+      "avg_marker_density_increase": 1.413
+    }
+  }
+}

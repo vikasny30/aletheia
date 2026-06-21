@@ -1,0 +1,16 @@
+{
+  "total_runs": 100,
+  "valid_runs": 100,
+  "excluded_runs": 0,
+  "by_model": {
+    "gemini-2.5-flash": {
+      "total": 100,
+      "signature_detected_count": 16,
+      "signature_detected_pct": 16.0,
+      "fabrication_detected_pct": 2.0,
+      "confident_without_hedging_pct": 14.0,
+      "appropriately_hedged_pct": 23.0,
+      "avg_confidence_ratio": 0.143
+    }
+  }
+}

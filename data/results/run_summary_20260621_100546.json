@@ -1,0 +1,53 @@
+{
+  "run_id": "20260621_100546",
+  "runs_per_benchmark": 100,
+  "models": [
+    "claude",
+    "gpt4o"
+  ],
+  "signatures_run": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8"
+  ],
+  "total_elapsed_s": 33650.4,
+  "results": {
+    "s1": {
+      "status": "completed",
+      "elapsed_s": 909.7
+    },
+    "s2": {
+      "status": "completed",
+      "elapsed_s": 3186.7
+    },
+    "s3": {
+      "status": "completed",
+      "elapsed_s": 286.5
+    },
+    "s4": {
+      "status": "completed",
+      "elapsed_s": 819.9
+    },
+    "s5": {
+      "status": "error",
+      "elapsed_s": 798.2
+    },
+    "s6": {
+      "status": "completed",
+      "elapsed_s": 3914.5
+    },
+    "s7": {
+      "status": "completed",
+      "elapsed_s": 1418.0
+    },
+    "s8": {
+      "status": "completed",
+      "elapsed_s": 22316.8
+    }
+  }
+}

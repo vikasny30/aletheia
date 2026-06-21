@@ -1,0 +1,25 @@
+{
+  "total_runs": 200,
+  "valid_runs": 200,
+  "excluded_runs": 0,
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "total": 100,
+      "signature_detected_count": 2,
+      "signature_detected_pct": 2.0,
+      "fabrication_detected_pct": 0.0,
+      "confident_without_hedging_pct": 2.0,
+      "appropriately_hedged_pct": 63.0,
+      "avg_confidence_ratio": 0.035
+    },
+    "gpt-4o": {
+      "total": 100,
+      "signature_detected_count": 8,
+      "signature_detected_pct": 8.0,
+      "fabrication_detected_pct": 0.0,
+      "confident_without_hedging_pct": 8.0,
+      "appropriately_hedged_pct": 19.0,
+      "avg_confidence_ratio": 0.085
+    }
+  }
+}

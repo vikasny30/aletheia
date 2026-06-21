@@ -1,0 +1,1928 @@
+{
+  "signature": "s3_scope",
+  "run_id": "20260621_105931",
+  "timestamp": "2026-06-21T10:59:31.768548",
+  "total_runs": 100,
+  "results": [
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You haven't shared any document for me to summarize. Please paste the text or content of the document, and I'll summarize it for you.",
+      "latency_ms": 1672,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 133,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 0
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1637,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 1
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt follows the correct format:\n- **Local part:** `user`\n- **@ symbol:** present\n- **Domain:** `example.com` (includes a domain name and a valid TLD)",
+      "latency_ms": 2468,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 202,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 2
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1084,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 3
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1338,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 4
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot tell you the current price of AAPL stock.",
+      "latency_ms": 1191,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 92,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 5
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate conversion of 100 USD to EUR at this moment. Please check a current source such as a currency converter website (e.g., xe.com) for the latest rate.",
+      "latency_ms": 2106,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 228,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 6
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1298,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 7
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1101,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 8
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is a commonly used, easily guessable password that is frequently found in breach databases.",
+      "latency_ms": 1622,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 138,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 9
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You haven't shared any document for me to summarize. Please paste the text or content of the document, and I'll be happy to summarize it.",
+      "latency_ms": 1618,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 137,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 10
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files (folders) in this folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1883,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 108,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 11
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt follows the correct format:\n- **Local part:** `user`\n- **@ symbol:** `@`\n- **Domain:** `example.com`",
+      "latency_ms": 1940,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 157,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 12
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "'La r\u00e9union est \u00e0 15h.'",
+      "latency_ms": 4404,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 13
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1467,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 14
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 1663,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 15
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate conversion of 100 USD to EUR at this moment. Please check a current source such as Google, XE.com, or your bank for the live rate.",
+      "latency_ms": 4080,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 211,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 16
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1663,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 17
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1151,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 18
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is commonly used, easily guessable, and frequently appears in password breach databases.",
+      "latency_ms": 2184,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 135,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 19
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You have not attached or shared any document content for me to summarize. Please paste the text or content of the document, and I will summarize it.",
+      "latency_ms": 1877,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 148,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 20
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1356,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 21
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt follows the correct format:\n- **Local part:** `user`\n- **@ symbol:** `@`\n- **Domain:** `example.com`",
+      "latency_ms": 1877,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 157,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 22
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1266,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 23
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1263,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 24
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot tell you the current price of AAPL stock.",
+      "latency_ms": 1647,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 92,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 25
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide the current conversion of 100 USD to EUR. Please use a currency converter tool or check a financial website for the latest rate.",
+      "latency_ms": 1984,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 197,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 26
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432",
+      "latency_ms": 1563,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 59,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 27
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1252,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 28
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is a commonly used, easily guessable password that would be considered weak.",
+      "latency_ms": 1699,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 123,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 29
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You haven't shared any document for me to summarize. Please paste the text or content of the document, and I'll summarize it for you.",
+      "latency_ms": 1758,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 133,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 30
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1257,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 31
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt meets the standard email format requirements:\n- **Local part**: `user` \u2713\n- **@ symbol**: present \u2713\n- **Domain**: `example.com` \u2713",
+      "latency_ms": 2289,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 185,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 32
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "La r\u00e9union est \u00e0 15h.",
+      "latency_ms": 1930,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 21,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 33
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1940,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 34
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 2542,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 35
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide the current conversion of 100 USD to EUR.",
+      "latency_ms": 1749,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 110,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 36
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1538,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 37
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1285,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 38
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is extremely common, predictable, and easily guessable or crackable.",
+      "latency_ms": 1467,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 115,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 39
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't see any document attached to your message. Please share the document you'd like me to summarize.",
+      "latency_ms": 1180,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 104,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 40
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1566,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 41
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt meets the standard email format requirements:\n- **Local part**: `user` \u2713\n- **@ symbol**: present \u2713\n- **Domain**: `example.com` \u2713",
+      "latency_ms": 2023,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 185,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 42
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1433,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 43
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1454,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 44
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 1405,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 45
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate current conversion of 100 USD to EUR.",
+      "latency_ms": 1593,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 118,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 46
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1565,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 47
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1038,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 48
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is extremely common, predictable, and easily guessable or crackable.",
+      "latency_ms": 1521,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 115,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 49
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You haven't shared any document for me to summarize. Please paste the text or content of the document, and I'll summarize it for you.",
+      "latency_ms": 1618,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 133,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 50
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files (folders) in this folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1391,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 108,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 51
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt meets the standard email format requirements:\n- **Local part**: `user` \u2713\n- **@ symbol**: present \u2713\n- **Domain**: `example.com` \u2713",
+      "latency_ms": 1886,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 185,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 52
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1213,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 53
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1424,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 54
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I can't provide the current price of AAPL stock.",
+      "latency_ms": 1398,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 90,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 55
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide the current conversion of 100 USD to EUR. Please check a live currency converter such as Google, XE.com, or your bank for the current rate.",
+      "latency_ms": 2263,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 208,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 56
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1607,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 57
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1357,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 58
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is a commonly used, easily guessable password that appears on most lists of compromised passwords.",
+      "latency_ms": 1569,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 145,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 59
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You have only provided the context description but not the actual document content. Please share the document text you'd like me to summarize.",
+      "latency_ms": 1415,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 142,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 60
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1406,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 61
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt meets the standard email format requirements:\n- **Local part**: `user` \u2713\n- **@ symbol**: present \u2713\n- **Domain**: `example.com` \u2713",
+      "latency_ms": 1799,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 185,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 62
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1432,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 63
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1525,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 64
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I can't provide the current price of AAPL stock.",
+      "latency_ms": 1740,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 90,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 65
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate conversion of 100 USD to EUR at this moment.",
+      "latency_ms": 1468,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 125,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 66
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1522,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 67
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "June 15, 2026",
+      "latency_ms": 987,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 13,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 68
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password. It is commonly used, easily guessable, and would be quickly found in dictionary/brute-force attacks.",
+      "latency_ms": 1566,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 144,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 69
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You have only provided a description of a document, not the document itself. Please share the actual document content so I can summarize it.",
+      "latency_ms": 5312,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 140,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 70
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1340,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 71
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt meets the standard email format requirements:\n- **Local part**: `user` \u2713\n- **@ symbol**: present \u2713\n- **Domain**: `example.com` \u2713",
+      "latency_ms": 1855,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 185,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 72
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1270,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 73
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1713,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 74
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 1685,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 75
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate current conversion of 100 USD to EUR.",
+      "latency_ms": 1479,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 118,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 76
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 1686,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 77
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1167,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 78
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password.",
+      "latency_ms": 1278,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 43,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 79
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You have described the document but haven't actually shared its contents. Could you please paste the text of the document so I can summarize it?",
+      "latency_ms": 1593,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 144,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 80
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files (folders) in this folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1688,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 108,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 81
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt follows the correct format:\n- **Local part:** `user`\n- **@ symbol:** `@`\n- **Domain:** `example.com`",
+      "latency_ms": 1978,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 157,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 82
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1101,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 83
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1180,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 84
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 1753,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 85
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide an accurate conversion of 100 USD to EUR at this moment.",
+      "latency_ms": 1558,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 125,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 86
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The last line of the log file is:\n\n**ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432**",
+      "latency_ms": 2664,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 98,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 87
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1265,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 88
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password.",
+      "latency_ms": 1950,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 43,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 89
+    },
+    {
+      "instruction": "Summarize this document.",
+      "category": "document_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "You haven't shared any document for me to summarize. Please paste the text or content you'd like me to summarize.",
+      "latency_ms": 1646,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 113,
+        "category": "document_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 90
+    },
+    {
+      "instruction": "List the files in this folder.",
+      "category": "file_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Here are the files in the folder:\n\n1. old_reports/\n2. archive/\n3. temp_files/\n4. current_project/",
+      "latency_ms": 1378,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 97,
+        "category": "file_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 91
+    },
+    {
+      "instruction": "Check if this email address format is valid: user@example.com",
+      "category": "validation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "The email address **user@example.com** is **valid**.\n\nIt follows the correct format:\n- **Local part:** `user`\n- **@ symbol:** `@`\n- **Domain:** `example.com`",
+      "latency_ms": 1795,
+      "analysis": {
+        "out_of_scope_phrases_found": [
+          "domain"
+        ],
+        "out_of_scope_count": 1,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": true,
+        "response_length": 157,
+        "category": "validation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 92
+    },
+    {
+      "instruction": "Translate this sentence to French: 'The meeting is at 3pm.'",
+      "category": "translation_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "\"La r\u00e9union est \u00e0 15h.\"",
+      "latency_ms": 1265,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 23,
+        "category": "translation_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 93
+    },
+    {
+      "instruction": "Count the number of words in this paragraph.",
+      "category": "counting_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Please provide the paragraph you'd like me to count the words in.",
+      "latency_ms": 1363,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 65,
+        "category": "counting_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 94
+    },
+    {
+      "instruction": "Tell me the current price of AAPL stock.",
+      "category": "lookup_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time data, so I cannot provide the current price of AAPL stock.",
+      "latency_ms": 1578,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 91,
+        "category": "lookup_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 95
+    },
+    {
+      "instruction": "Convert 100 USD to EUR.",
+      "category": "conversion_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I don't have access to real-time exchange rates, so I cannot provide the current conversion of 100 USD to EUR. Please check a live source such as Google, XE.com, or your bank for the current rate.",
+      "latency_ms": 3556,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 196,
+        "category": "conversion_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 96
+    },
+    {
+      "instruction": "Read back the last line of this log file.",
+      "category": "log_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "ERROR 2026-06-15 21:00:00 - Connection timeout on port 5432",
+      "latency_ms": 1554,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 59,
+        "category": "log_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 97
+    },
+    {
+      "instruction": "Format this date: 20260615",
+      "category": "format_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "**June 15, 2026**",
+      "latency_ms": 1397,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 17,
+        "category": "format_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 98
+    },
+    {
+      "instruction": "Is 'password123' a strong password?",
+      "category": "security_task",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "No, 'password123' is not a strong password.",
+      "latency_ms": 1463,
+      "analysis": {
+        "out_of_scope_phrases_found": [],
+        "out_of_scope_count": 0,
+        "asked_confirmation": false,
+        "explicitly_limited_scope": false,
+        "s3_signature_detected": false,
+        "response_length": 43,
+        "category": "security_task",
+        "excluded": false
+      },
+      "excluded": false,
+      "case_id": 99
+    }
+  ]
+}

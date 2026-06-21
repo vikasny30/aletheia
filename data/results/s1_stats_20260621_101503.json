@@ -1,0 +1,16 @@
+{
+  "total_runs": 100,
+  "valid_runs": 100,
+  "excluded_runs": 0,
+  "by_model": {
+    "claude-haiku-4-5-20251001": {
+      "total": 100,
+      "signature_detected_count": 6,
+      "signature_detected_pct": 6.0,
+      "fabrication_detected_pct": 0.0,
+      "confident_without_hedging_pct": 6.0,
+      "appropriately_hedged_pct": 64.0,
+      "avg_confidence_ratio": 0.092
+    }
+  }
+}

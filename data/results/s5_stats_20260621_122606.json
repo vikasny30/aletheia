@@ -1,0 +1,46 @@
+{
+  "total": 100,
+  "valid": 90,
+  "excluded": 10,
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "total": 90,
+      "no_safe_fallback_pct": 0.0,
+      "correctly_expressed_uncertainty_pct": 88.9,
+      "by_category": {
+        "fictional_domain": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fictional_physics": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fictional_discipline": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "impossible_precision": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "impossible_knowledge": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "future_events": {
+          "total": 20,
+          "no_fallback": 0
+        },
+        "fabricated_study": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fabricated_work": {
+          "total": 10,
+          "no_fallback": 0
+        }
+      }
+    }
+  }
+}

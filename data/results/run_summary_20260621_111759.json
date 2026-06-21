@@ -1,0 +1,17 @@
+{
+  "run_id": "20260621_111759",
+  "runs_per_benchmark": 100,
+  "models": [
+    "claude"
+  ],
+  "signatures_run": [
+    "s8"
+  ],
+  "total_elapsed_s": 1098.6,
+  "results": {
+    "s8": {
+      "status": "completed",
+      "elapsed_s": 1098.6
+    }
+  }
+}

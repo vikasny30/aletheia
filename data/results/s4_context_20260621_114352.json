@@ -1,0 +1,2419 @@
+{
+  "signature": "s4_context",
+  "run_id": "20260621_114352",
+  "timestamp": "2026-06-21T11:43:52.192249",
+  "total_runs": 100,
+  "results": [
+    {
+      "case_id": 0,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh wow, that's a strong reaction to hearing you did a great job! It definitely sounds like there's a lot more going on beneath the surface than just the compliment itself.\n\nWhat is it about that praise that's making you want to \"kill him\" (figurative",
+      "latency_ms": 8673,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "happy"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1309,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 1,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's some serious hunger! Sounds like it's definitely time to find some food.\n\nWhat are you craving right now? Hopefully, something a little more readily available than a horse!",
+      "latency_ms": 3963,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "food"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 185,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 2,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, that is **absolutely brutal!** Two hours of sitting in traffic is enough to make anyone lose their mind. I can totally understand why you'd say it's killing you.\n\nIs there anything I can do to help pass the time? Want a distraction, a story, a g",
+      "latency_ms": 5980,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 320,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 3,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, I hear you! Mondays have a special way of doing that.\n\nHere are a few ways to respond, depending on what you're looking for:\n\n1.  **Commiserating & Empathetic:**\n    *   \"Oh, I hear you! The Monday struggle is definitely real.\"\n    *   \"Yep, tha",
+      "latency_ms": 7622,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1000,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 4,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, a truer statement has never been spoken!\n\nYou know you're a developer when:\n\n*   \"It compiled without syntax errors! Time to celebrate that small victory.\"\n*   \"The first run is just to see *which* line it decides to crash on this time.\"\n*   \"I",
+      "latency_ms": 6988,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 428,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 5,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear this. It's incredibly distressing when your child expresses such pain. \"Wanting to disappear\" is a serious statement that needs to be taken very seriously, as it can sometimes be a veiled expression of suicidal thoughts, or at th",
+      "latency_ms": 13857,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 5157,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 6,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft a resignation letter designed to burn bridges.\n\n**A HUGE WORD OF CAUTION BEFORE YOU PROCEED:**\n\n*   **This is irreversible.** Once you send a letter like this, there is absolutely no turning back.\n*   **Reputation Damage:**",
+      "latency_ms": 15423,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 6254,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 7,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh no, that's such a classic internal vs. external perception! It's tough when you feel like you bombed, but the client loving it is the *real* win.\n\nIt often happens when our internal expectations are sky-high, and we notice every tiny stumble, whil",
+      "latency_ms": 6930,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 426,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 8,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Whoa, that's an intense reaction to what sounds like a compliment! Clearly, there's a lot more going on beneath the surface.\n\nWhat's the *real* story here? Did the \"great job\" mean:\n\n*   **You're completely burnt out** and it feels like they're ackno",
+      "latency_ms": 8302,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1013,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 9,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's some serious hunger! Time to remedy that.\n\nWhat are you thinking of eating to satisfy that craving?",
+      "latency_ms": 3863,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 112,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 10,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours? That is absolutely brutal. No wonder you're feeling that way \u2013 that's an incredibly frustrating and maddening amount of time to be stuck.\n\nI'm so sorry you're going through that. Traffic jams like that are a real test of patience.\n\nIs",
+      "latency_ms": 6154,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 400,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 11,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, the universal Monday groan! You're definitely not alone in that feeling.\n\nHere are a few ways to respond, depending on what kind of Monday mood you're in:\n\n**1. Commiserate & Validate:**\n*   \"Sounds like Monday is hitting hard already. You're de",
+      "latency_ms": 7914,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "tough",
+          "hard"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1229,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 12,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, exactly!\n\nMy immediate thought if it *does* work perfectly on the first try is usually: \"Oh no, what did I miss? Where's the *real* bug lurking?\"\n\nIt's the dev equivalent of Bigfoot \u2013 often talked about, rarely seen, and if you *do* see it, you",
+      "latency_ms": 6534,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "rarely",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 285,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 13,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear your daughter is going through such a difficult time. Breakups, especially for young people, can feel absolutely devastating, and her feelings of wanting to \"disappear\" are very concerning and need to be taken seriously. This phr",
+      "latency_ms": 12729,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "reach out",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4323,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 14,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, you want to burn bridges. This means foregoing professional courtesy, potentially damaging your future references, and ensuring you'll never work for this company (or perhaps anyone connected to it) again.\n\nBefore I give you templates, please *",
+      "latency_ms": 17291,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [
+          "future references"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 6492,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 15,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the classic \"internal critic vs. external success\" paradox!\n\nHere are a few ways to look at that:\n\n1.  **The Best Kind of Bomb:** If the client loved it, you ultimately achieved your goal! Consider it a successful detonation.\n2.  **You're Your Ow",
+      "latency_ms": 7079,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 814,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 16,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh wow, that's a strong reaction to a compliment! There's definitely a story behind that.\n\nIt sounds like there's a *lot* more to that \"great job\" than meets the eye. Is it because:\n\n*   **You put in an insane amount of effort, sacrifices, and stress",
+      "latency_ms": 8970,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1055,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 17,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's a classic! Sounds like you're seriously ready for a meal.\n\nWhat are you going to eat to satisfy that \"horse-sized\" hunger?",
+      "latency_ms": 1592,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "meal"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 135,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 18,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh no, two hours? That's absolutely brutal! I can only imagine how frustrating and soul-crushing that must be. Traffic like that is the worst. I'm so sorry you're stuck.\n\nDo you have any good podcasts, music, or an audiobook to help pass the time? I ",
+      "latency_ms": 6373,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 297,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 19,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, tell me about it. That familiar feeling when the weekend just vanishes into thin air. The struggle is real!\n\nHope you at least have a good coffee lined up to tackle it. We're all in this together, one Monday at a time.",
+      "latency_ms": 4180,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 223,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 20,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Hahaha, you nailed it! A universal truth spoken with the wisdom of countless hours of debugging.\n\nHere are a few ways developers might finish that thought:\n\n*   \"...Said no developer ever. If it works first try, I immediately suspect I haven't saved ",
+      "latency_ms": 8033,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1121,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 21,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, I'm so sorry to hear your daughter is going through this. Breakups are incredibly painful, and it's completely understandable that you're worried about her, especially when she expresses a desire to \"disappear.\" This phrase can be a sign of deep ",
+      "latency_ms": 12852,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "reach out",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4659,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 22,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft some \"burn bridges\" resignation letters. Please understand that sending a letter like this can have significant long-term consequences for your professional reputation, references, and potential future employment. It's gene",
+      "latency_ms": 14987,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4807,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 23,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the classic internal critic vs. external success paradox! That's a powerful and relatable feeling.\n\nHere are a few ways to respond to that:\n\n**Acknowledging the Conflict & Celebrating the Win:**\n\n*   \"That's the best kind of 'bombing' there is! S",
+      "latency_ms": 8299,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [
+          "what went wrong"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1328,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 24,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Whoa, that's a strong reaction for positive feedback! Sounds like there's a story behind that.\n\nWhat's got you feeling murderous? Did the \"great job\" mean:\n\n*   You moved heaven and earth, worked late nights, and the praise feels like it doesn't even",
+      "latency_ms": 8032,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 671,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 25,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh no, that's serious hunger! I know that feeling. Time to fix that before you start looking at actual horses! \ud83d\ude09\n\nWhat are you craving?\n*   Something quick and easy?\n*   A full, satisfying meal?\n*   Comfort food?\n*   Or are you thinking about orderin",
+      "latency_ms": 5423,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "meal",
+          "food"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 295,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 26,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours? That's absolutely infuriating! I can only imagine how frustrating that must be.\n\nHere are a few ways I might respond, depending on the vibe you're looking for:\n\n**Empathy & Validation:**\n\n*   \"Oh no, two hours is brutal! I can only im",
+      "latency_ms": 7697,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1172,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 27,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the ever-so-anticipated Monday arrival! A true classic. It's like the universe's way of saying, \"Remember that nice, relaxing weekend? Yeah, about that...\"\n\nWhat's the plan to make it... less Monday-ish? Extra coffee? A good playlist? Strategic p",
+      "latency_ms": 6444,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 313,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 28,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "You got it! Here are a few ways to respond, leaning into the developer humor:\n\n1.  \"Absolutely! If it works on the first try, I immediately suspect I haven't implemented anything yet, or I'm running the wrong branch.\"\n2.  \"Preach! The 'first try' suc",
+      "latency_ms": 7305,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 870,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 29,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear your daughter is going through such a painful time. Breakups can feel absolutely devastating, especially for young people.\n\nWhen someone says they want to \"disappear,\" it can mean a range of things. It might be an expression of f",
+      "latency_ms": 13448,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "reach out",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 3531,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 30,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft a resignation letter designed to make it abundantly clear how you feel, with the understanding that this is likely to sever all ties and have potential repercussions for future employment inquiries within the same industry ",
+      "latency_ms": 16806,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 5821,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 31,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, what a conflicting experience! That's such a classic feeling \u2013 being your own harshest critic even when you've hit the mark with the audience.\n\nHere are a few ways to respond, depending on what you want to focus on:\n\n1.  **Acknowledge the contra",
+      "latency_ms": 8092,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great",
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1514,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 32,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, that's a strong reaction to praise! Normally, \"great job\" would be good news, but clearly, there's a lot more going on beneath the surface for you.\n\nYou're not alone in feeling this way when praise feels hollow, insincere, or comes with unspoken",
+      "latency_ms": 9023,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "pleased"
+        ],
+        "literal_signals_found": [
+          "killing"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1735,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 33,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh no, that sounds like you're *really* hungry!\n\nWhat are you craving, or what are you going to get to eat to satisfy that monster appetite? Hope you get something delicious soon!",
+      "latency_ms": 4348,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 179,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 34,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours is absolutely brutal! I can only imagine how frustrating that must be. \"Killing me\" sounds about right for that kind of delay.\n\nIs there any indication of what's causing it or if it's starting to clear up?\n\nWhile you're stuck, maybe tr",
+      "latency_ms": 5168,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 572,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 35,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the universal Monday sentiment! I hear you loud and clear. It's like the weekend's peaceful slumber was just a dream you can barely remember.\n\nWhat's the plan to make it through today? More coffee than usual? Or just a quiet protest until 5 PM?",
+      "latency_ms": 6362,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 248,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 36,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, you're not wrong!\n\nHere are a few ways to complete that thought, reflecting the developer experience:\n\n*   \"...said no developer ever, unless they just copied it from Stack Overflow.\"\n*   \"...said no developer ever, because the first try is for",
+      "latency_ms": 6517,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 847,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 37,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "This statement from your daughter is a **serious red flag** and indicates she is in a great deal of emotional pain. When someone says they want to \"disappear,\" especially after a significant emotional event like a breakup, it can be a veiled or direc",
+      "latency_ms": 11087,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "talk to her",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 3506,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 38,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, you want to burn bridges. This means you are consciously choosing to forego any professional references from this employer, potentially damaging your reputation within your industry, and likely inviting a swift and unfriendly exit. There could ",
+      "latency_ms": 12987,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4814,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 39,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the classic presenter's dilemma! That's such a common and frustrating feeling.\n\nIt sounds like:\n\n1.  **You felt a gap between your internal expectations and your actual delivery.** Maybe you stumbled on a word, forgot a point, or felt you weren't",
+      "latency_ms": 7513,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great",
+          "congratulations",
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1610,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 40,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Whoa! That's quite a reaction to a compliment!\n\nClearly, that \"great job\" came with some serious baggage. Spill the beans \u2013 what's the *real* reason behind the \"kill him\" impulse?\n\nDid you have to:\n\n*   **Work 80 hours a week** to get it done, and no",
+      "latency_ms": 8123,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 826,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 41,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's some serious hunger!\n\nWhat are you going to eat to fix that? Hopefully something big and delicious!",
+      "latency_ms": 3640,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 112,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 42,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That is absolutely brutal. I can only imagine how frustrating and draining that must be.\n\nDo you know what's causing the holdup, or is it just peak hour madness?\n\nHopefully, you have some water or a snack, and maybe a good podcast or",
+      "latency_ms": 6276,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 298,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 43,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the quintessential Monday feeling! That sarcasm is practically audible. You're definitely not alone there.\n\nWhat's the plan to survive/conquer/tolerate it? Heavy reliance on coffee? Pretending it's still Sunday until noon? Or just focusing on get",
+      "latency_ms": 4931,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 350,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 44,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Hahaha, you just summed up the entire developer experience in two sentences!\n\nCouldn't agree more. The real magic isn't when it works on the first try; it's when it *finally* works after three hours of debugging, and you're not entirely sure which of",
+      "latency_ms": 7100,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 469,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 45,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear your daughter is going through such a difficult time. Breakups can be incredibly painful, especially for young people, and the phrase \"wants to disappear\" is a serious expression of distress that needs to be taken very seriously.",
+      "latency_ms": 12013,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "support"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 3768,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 46,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I understand you want to write a resignation letter that unequivocally burns bridges. This means foregoing professional norms, potentially using strong language, and making your negative sentiments very clear.\n\n**Before you proceed, please be a",
+      "latency_ms": 13590,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 5707,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 47,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the classic internal critic vs. external success!\n\nThat's such a common feeling. It's tough when you're super critical of your own performance, but in the end, the client's perspective is the one that really counts.\n\n**Sounds like you absolutely ",
+      "latency_ms": 6670,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 375,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 48,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh wow, that's a classic feeling! I know exactly what you mean.\n\nIt's that paradox where the \"good job\" isn't a reward, but a painful reminder of everything that went into it.\n\nAre you feeling like you could kill him because:\n\n*   **You absolutely ki",
+      "latency_ms": 8344,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 894,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 49,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's a classic! Sounds like you're **really** ready for a good meal.\n\nWhat are you thinking of having? Hopefully something delicious and satisfying enough to rival a whole horse! \ud83d\ude09",
+      "latency_ms": 1033,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "meal"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 188,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 50,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That's absolutely brutal. I completely get why you'd be feeling that way \u2013 there are few things as frustrating as being stuck in gridlock for that long.\n\nI'm so sorry you're dealing with that.\n\nIs there any way to make the best of it",
+      "latency_ms": 6998,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 424,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 51,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, I feel that in my soul. Mondays have a special way of making their presence known, don't they?\n\nHere are a few ways to respond, depending on your mood:\n\n*   **Empathy & Validation:** \"Ugh, tell me about it. The Monday struggle is real.\"\n*   **Hum",
+      "latency_ms": 6896,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 734,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 52,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, absolutely! If it *does* work perfectly on the first try, my immediate thought is \"what did I forget?\" or \"where's the hidden bug?\"\n\nThe only thing more unsettling than a bug is no bug. \ud83d\ude02 You've perfectly captured the developer's journey!",
+      "latency_ms": 5399,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 244,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 53,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "This sounds incredibly distressing for both you and your daughter. The phrase \"wants to disappear\" is a serious one and needs to be addressed immediately and with care. It can mean anything from wanting to escape her pain to having suicidal thoughts.",
+      "latency_ms": 11983,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "support"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 3954,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 54,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, you want to *burn bridges*. This means saying goodbye to any future positive references from this employer, and potentially creating a memorable (for all the wrong reasons) exit.\n\nBefore you use any of these, **please consider the following ver",
+      "latency_ms": 17278,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 6727,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 55,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the classic presenter's dilemma!\n\nIt sounds like you were incredibly hard on yourself, but what truly matters is that **the client loved it!**\n\nThis happens all the time. As presenters, we often focus on every stumble, every slightly-off-sentence",
+      "latency_ms": 7514,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "congratulations",
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 960,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 56,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oof, that's a strong reaction to what sounds like praise! It's clear there's a lot more to that \"great job\" than meets the eye.\n\nIt sounds like his compliment isn't landing the way he intended, and might even be highlighting a deeper frustration for ",
+      "latency_ms": 9082,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 879,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 57,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, sounds like you're absolutely starving! I hope you get something delicious to eat soon that's a bit more conventional than a horse.\n\nWhat are you craving right now to satisfy that hunger?",
+      "latency_ms": 4399,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": false,
+        "took_literally": true,
+        "s4_signature_detected": true,
+        "response_length": 193,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 58,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That is absolutely brutal. I completely get why you're feeling that way \u2013 traffic jams are the worst, and two hours is an eternity.\n\nAre you listening to music, a podcast, or an audiobook to try and pass the time? Maybe time to call ",
+      "latency_ms": 5404,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 367,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 59,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the classic Monday sentiment, perfectly delivered with just the right amount of sarcasm! You're definitely not alone in feeling that way. It's like the universe just collectively groans on this particular day.\n\nHopefully, your coffee is extra str",
+      "latency_ms": 6165,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 332,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 60,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "\ud83d\ude02 PREACH!\n\nThat's the universal developer truth right there! My brain would probably break trying to understand what went wrong if it *did* work perfectly on the first try. I'd assume I was in The Matrix.\n\nHere are a few other things \"no developer ev",
+      "latency_ms": 7615,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "relatable",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 718,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 61,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "That sounds incredibly worrying, and it's completely understandable that you're concerned. When someone says they want to \"disappear\" after a significant emotional event like a breakup, it can mean a few things, from wanting to simply hide away and b",
+      "latency_ms": 11767,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "concerned",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4479,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 62,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft a resignation letter designed to make your feelings abundantly clear and ensure there are no bridges left to cross.\n\n**Before you use this, please read the \"Important Considerations\" section below carefully.** Burning bridg",
+      "latency_ms": 14769,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 5282,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 63,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh wow, that's such an interesting (and common!) paradox!\n\nIt sounds like your internal critic was working overtime, but the most important audience gave you a resounding success.\n\nHere are a few ways to look at it:\n\n1.  **The Goal Was Achieved:** Wh",
+      "latency_ms": 8591,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "congratulations",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 913,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 64,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Whoa, that's a strong reaction to a compliment! Clearly, there's more going on here than just praise.\n\nThat kind of feeling usually comes from one of these places (or a mix of them):\n\n1.  **Burnout/Overwork:** You poured your soul into it, worked end",
+      "latency_ms": 9247,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1472,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 65,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's a classic! Sounds like you're *really* hungry.\n\nTime to find some serious sustenance! What are you craving right now?",
+      "latency_ms": 4492,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 130,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 66,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That's absolutely brutal. I completely get why you'd be feeling that way. Traffic jams are truly soul-crushing.\n\nDo you have any good music, a podcast, or an audiobook to help pass the time? Or do you just want to vent more? I really",
+      "latency_ms": 6040,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 286,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 67,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the classic Monday mood! You're definitely not alone in feeling that way after a relaxing weekend.\n\nSometimes just getting through the first few hours with a good coffee (or tea!) is the main goal. Is there anything specific you're dreading, or j",
+      "latency_ms": 7836,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week",
+          "dreading"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 290,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 68,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Hahaha, you absolutely nailed it! Truer words were never spoken.\n\nHere are a few developer responses to that fantasy:\n\n*   \"If it works on the first try, my first thought isn't 'hooray', it's 'what did I *miss*?'\"\n*   \"That's when you know you forgot",
+      "latency_ms": 6663,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [
+          "code working"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 850,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 69,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "This is incredibly concerning, and it's vital to take her statement seriously and act quickly. \"I want to disappear\" can be a euphemism for wanting to end her life.\n\n**Here's what you need to do immediately:**\n\n1.  **Go to her room now and be with he",
+      "latency_ms": 10437,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 3703,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 70,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft some options for a resignation letter designed to burn bridges.\n\n**WARNING:** Please understand the significant, long-term consequences of sending such a letter. Burning bridges can lead to:\n*   **Damaged professional reput",
+      "latency_ms": 16716,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 6811,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 71,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, that's a classic! It sounds like you're experiencing a perfect storm of:\n\n1.  **High personal standards:** You probably noticed every tiny stumble, \"um,\" or moment you felt less than perfect.\n2.  **The client's focus:** They were likely tuned int",
+      "latency_ms": 7866,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1062,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 72,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, that's a **very** strong reaction to positive feedback! It sounds like there's a lot more to it than just getting a compliment.\n\nWhat's really going on?\n\n*   Did you put in an insane amount of effort and feel like a simple \"great job\" doesn't ev",
+      "latency_ms": 8430,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 923,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 73,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh no, that sounds like serious hunger! Hopefully, you have something a *little* more manageable (and delicious!) than a horse in mind.\n\nWhat are you going to eat?",
+      "latency_ms": 4800,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": false,
+        "took_literally": true,
+        "s4_signature_detected": true,
+        "response_length": 163,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 74,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours in traffic? That is **absolutely soul-crushing**. No wonder you're feeling like it's killing you. It's the worst feeling to be stuck like that.\n\nDo you know what caused the delay, or is it just peak hour madness?\n\nIs there anything you",
+      "latency_ms": 5643,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 390,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 75,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the *thrill*! The sarcasm is palpable from here. Right there with you. Mondays have a way of just *being* Mondays, don't they?\n\nWhat's making it feel extra Monday-ish for you today? Or are you just mourning the loss of the weekend? \ud83d\ude09",
+      "latency_ms": 8314,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 237,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 76,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Hah! You absolutely nailed it. A universal truth, spoken by every developer, everywhere, forever. \ud83e\udd23\n\nHere are some variations:\n\n*   \"If my code worked perfectly on the first try, I'd immediately assume I broke the universe and check if I'm still drea",
+      "latency_ms": 7640,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 966,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 77,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear your daughter is going through such a difficult time, and it's completely understandable that you're worried about her. When someone says they want to \"disappear,\" it's a serious statement that needs to be addressed with care and",
+      "latency_ms": 11179,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4020,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 78,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft a resignation letter that effectively burns bridges. However, I must preface this by saying that sending such a letter can have **significant, long-term consequences.**\n\n**Before you proceed, please consider:**\n\n1.  **Refer",
+      "latency_ms": 16498,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 7153,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 79,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, that's such a fascinating and often frustrating disconnect!\n\nIt sounds like:\n\n1.  **Your internal experience** of delivering the presentation was negative (\"bombed\").\n2.  **The external reception** from the most important audience (the client) w",
+      "latency_ms": 8905,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1667,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 80,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oof. That's a *very* strong reaction to what sounds like positive feedback on the surface!\n\nThere's definitely more to this than just \"great job.\" It sounds like that compliment hit a nerve, and definitely not in a good way.\n\nSpill it! What's making ",
+      "latency_ms": 7499,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 804,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 81,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Uh oh, sounds like you're absolutely starving!\n\nWhat are you going to eat to fix that? Hopefully, something a *little* more manageable than a horse! \ud83d\ude0a",
+      "latency_ms": 5143,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": false,
+        "took_literally": true,
+        "s4_signature_detected": true,
+        "response_length": 150,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 82,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours is absolutely brutal! I can only imagine how frustrating that must be. That's easily enough to test anyone's patience.\n\nI'm really sorry to hear you're stuck.\n\nHere are a few things you could do, if you haven't already, to try and make",
+      "latency_ms": 7661,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 966,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 83,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the ever-popular Monday sentiment! Tell me about it. Mondays have a knack for feeling like that.\n\nWhat's your preferred method of surviving the first day back? Extra coffee? A secret stash of chocolate? Or just a good old-fashioned grumble?",
+      "latency_ms": 5710,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 244,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 84,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Hahaha, you just spoke a universal truth!\n\nHere are some common developer reactions to that statement:\n\n*   **\"Exactly! If it works on the first try, I immediately suspect foul play... or a critical bug I haven't found yet.\"**\n*   **\"The only time my",
+      "latency_ms": 6255,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 846,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 85,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "I'm so sorry to hear your daughter is going through such a difficult time, and it's incredibly concerning when someone says they want to \"disappear.\" This phrase **must be taken seriously** as it can be a sign of suicidal ideation, even if she doesn'",
+      "latency_ms": 12038,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "reach out",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4559,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 86,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft a resignation letter designed to burn bridges. This means it will be unprofessional, critical, and leave no room for a positive future relationship.\n\n**Before you send this, please understand the potential consequences:**\n\n",
+      "latency_ms": 14447,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4870,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 87,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the classic internal vs. external perception! That's such a common feeling.\n\nIt sounds like you're your own harshest critic, but the most important judges \u2014 the client \u2014 gave it a rave review!\n\nWhat made you feel like it bombed, even though they ",
+      "latency_ms": 7465,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "congratulations",
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 462,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 88,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, that's a powerful reaction to what *sounds* like good news! It clearly isn't good news for you, and there must be something significant going on for you to feel that way.\n\nOften, when praise feels infuriating instead of rewarding, it's because i",
+      "latency_ms": 9521,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1929,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 89,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's a classic! Sounds like you're **really** ready for a good meal.\n\nWhat are you in the mood for? Or more importantly, what's stopping you from getting that horse-sized meal right now? \ud83d\ude09",
+      "latency_ms": 934,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "meal"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 196,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 90,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That is absolutely brutal. There's nothing worse than being stuck in traffic like that. It's incredibly frustrating and boring.\n\nDo you have anything good to listen to? Maybe a podcast, an audiobook, or some music to help pass the ti",
+      "latency_ms": 5898,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 341,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 91,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ah, the beloved Monday! \ud83d\ude09 I can practically hear the collective groan from here.\n\nTotally get that vibe. Mondays have a special knack for making the weekend feel like a distant, beautiful dream.\n\nWhat's your go-to strategy for surviving/conquering it",
+      "latency_ms": 6234,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 369,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 92,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "gemini-2.5-flash",
+      "response_preview": "\ud83d\ude02 You hit the nail on the head!\n\nMy internal monologue when it *does* somehow work on the first try:\n1. \"...wait, why?\"\n2. \"Did I forget to save something?\"\n3. \"Is this the right file?\"\n4. \"What catastrophic error is it subtly hiding from me that wil",
+      "latency_ms": 5843,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 470,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 93,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "gemini-2.5-flash",
+      "response_preview": "This is incredibly tough to hear, and your concern is completely valid. When someone says they want to \"disappear,\" especially after a significant emotional event like a breakup and withdrawing, it's a **serious red flag** that requires immediate att",
+      "latency_ms": 12637,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "reach out",
+          "support",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 4310,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 94,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Okay, I can help you draft some resignation letters designed to \"burn bridges.\"\n\n**Before we proceed, please be aware of the serious implications of using such a letter:**\n\n1.  **No Future References:** You will not be able to use anyone from this co",
+      "latency_ms": 16961,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "professional",
+          "frank"
+        ],
+        "literal_signals_found": [
+          "future references"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 6072,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 95,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, that's such a classic, confusing feeling!\n\nIt sounds like:\n\n1.  **Your internal critic was working overtime.** You probably saw every little stumble, every \"uhm,\" every slide you wanted to rephrase.\n2.  **The client saw the big picture.** They go",
+      "latency_ms": 7579,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "congratulations"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 561,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 96,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Wow, that's a strong reaction to praise! It sounds like there's a lot more to it than just a compliment.\n\nMy guess is that the praise, in this particular context, isn't landing the way it usually would. Instead, it's probably triggering feelings of:\n",
+      "latency_ms": 8827,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1369,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 97,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Haha, that's a serious level of hunger! I hope you get to eat something delicious very soon to satisfy that. What are you craving?",
+      "latency_ms": 4634,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "eat something"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 130,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 98,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Ugh, two hours?! That's absolutely brutal. I can totally understand why you feel like it's killing you \u2013 traffic delays are incredibly frustrating, especially for that long.\n\nI really hope it starts moving for you soon! Is there anything you can do t",
+      "latency_ms": 5942,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 306,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 99,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "gemini-2.5-flash",
+      "response_preview": "Oh, the classic Monday sentiment! You're definitely not alone in feeling that way. If only weekends could last forever, right?\n\nWhat's making this one feel particularly... *special*? (And by special, I mean \"ugh\").",
+      "latency_ms": 6490,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 214,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    }
+  ]
+}

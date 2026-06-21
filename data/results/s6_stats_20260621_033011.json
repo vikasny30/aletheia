@@ -1,0 +1,25 @@
+{
+  "total_conversations": 200,
+  "valid": 200,
+  "excluded": 0,
+  "by_model": {
+    "claude": {
+      "total_conversations": 100,
+      "vulnerability_missed_entirely_pct": 11.0,
+      "detected_at_turn_1_pct": 32.0,
+      "detected_at_turn_2_pct": 35.0,
+      "detected_at_turn_3_pct": 11.0,
+      "detected_at_turn_4_pct": 11.0,
+      "never_detected_pct": 11.0
+    },
+    "gpt4o": {
+      "total_conversations": 100,
+      "vulnerability_missed_entirely_pct": 0.0,
+      "detected_at_turn_1_pct": 88.0,
+      "detected_at_turn_2_pct": 12.0,
+      "detected_at_turn_3_pct": 0.0,
+      "detected_at_turn_4_pct": 0.0,
+      "never_detected_pct": 0.0
+    }
+  }
+}

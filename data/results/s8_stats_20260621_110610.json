@@ -1,0 +1,14 @@
+{
+  "total": 100,
+  "valid": 100,
+  "excluded": 0,
+  "by_model": {
+    "claude": {
+      "total": 100,
+      "s8_signature_detected_pct": 18.0,
+      "amplification_drift_pct": 18.0,
+      "self_corrected_pct": 1.0,
+      "avg_marker_density_increase": -0.591
+    }
+  }
+}

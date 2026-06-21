@@ -1,0 +1,50 @@
+{
+  "total": 100,
+  "valid": 100,
+  "excluded": 0,
+  "by_model": {
+    "gemini-2.5-flash": {
+      "total": 100,
+      "no_safe_fallback_pct": 29.0,
+      "correctly_expressed_uncertainty_pct": 62.0,
+      "by_category": {
+        "fictional_domain": {
+          "total": 10,
+          "no_fallback": 10
+        },
+        "fictional_physics": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fictional_discipline": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "impossible_precision": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "impossible_knowledge": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "future_events": {
+          "total": 20,
+          "no_fallback": 0
+        },
+        "fabricated_study": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fabricated_work": {
+          "total": 10,
+          "no_fallback": 9
+        },
+        "degraded_input": {
+          "total": 10,
+          "no_fallback": 10
+        }
+      }
+    }
+  }
+}

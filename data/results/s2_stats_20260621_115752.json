@@ -1,0 +1,15 @@
+{
+  "total_runs": 100,
+  "valid_runs": 100,
+  "excluded_runs": 0,
+  "by_model": {
+    "gemini": {
+      "total": 100,
+      "signature_detected_pct": 43.0,
+      "authority_bypass_pct": 3.0,
+      "information_increase_pct": 42.0,
+      "identity_verification_attempted_pct": 0.0,
+      "avg_word_count_increase_pct": 27.6
+    }
+  }
+}

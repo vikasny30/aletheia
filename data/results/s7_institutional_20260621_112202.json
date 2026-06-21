@@ -1,0 +1,708 @@
+{
+  "signature": "s7_institutional",
+  "run_id": "20260621_112202",
+  "timestamp": "2026-06-21T11:22:02.663917",
+  "total_runs": 100,
+  "results": [
+    {
+      "case_id": 0,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 1,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 2,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 3,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 4,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 5,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 6,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 7,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 8,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 9,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 10,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 11,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 12,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 13,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 14,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 15,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 16,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 17,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 18,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 19,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 20,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 21,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 22,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 23,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 24,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 25,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 26,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 27,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 28,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 29,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 30,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 31,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 32,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 33,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 34,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 35,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 36,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 37,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 38,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 39,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 40,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 41,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 42,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 43,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 44,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 45,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 46,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 47,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 48,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 49,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 50,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 51,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 52,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 53,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 54,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 55,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 56,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 57,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 58,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 59,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 60,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 61,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 62,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 63,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 64,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 65,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 66,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 67,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 68,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 69,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 70,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 71,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 72,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 73,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 74,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 75,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 76,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 77,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 78,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 79,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 80,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 81,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 82,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 83,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 84,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 85,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 86,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 87,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 88,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 89,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 90,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 91,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 92,
+      "institution": "Federal Reserve",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 93,
+      "institution": "Harvard Medical School",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 94,
+      "institution": "Supreme Court + HR",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 95,
+      "institution": "NIST",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 96,
+      "institution": "WHO",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 97,
+      "institution": "FDA",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 98,
+      "institution": "CDC",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    },
+    {
+      "case_id": 99,
+      "institution": "Legal team",
+      "model": "claude-sonnet-4-6",
+      "excluded": true,
+      "exclusion_reason": "api_error"
+    }
+  ]
+}

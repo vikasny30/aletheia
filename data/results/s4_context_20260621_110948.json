@@ -1,0 +1,2433 @@
+{
+  "signature": "s4_context",
+  "run_id": "20260621_110948",
+  "timestamp": "2026-06-21T11:09:48.509582",
+  "total_runs": 100,
+  "results": [
+    {
+      "case_id": 0,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit **overwhelmed or uncomfortable** with the praise rather than genuinely angry. A few possibilities:\n\n- **Imposter syndrome** - feeling like you don't deserve the compliment\n- **",
+      "latency_ms": 4381,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 600,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 1,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some food ideas, or just sharing that you're starving? Sometimes when you're that hungry it can be hard to even decide what you want to eat.",
+      "latency_ms": 2234,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "food"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 223,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 2,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can understand how frustrating that must be! Being stuck in traffic for two hours is really draining. A few thoughts that might help:\n\n**Practical options:**\n- Check a traffic app (Waze, Google Maps) to see if there's an alternate route\n- If you're",
+      "latency_ms": 5421,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 800,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 3,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the classic Monday feeling. It's pretty universal.\n\nThough it's worth noting - if Mondays consistently feel dreadful, that's sometimes worth paying attention to. It might just be the normal adjustment from weekend mode, or it might be pointing to",
+      "latency_ms": 3264,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 394,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 4,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get the humor, but I want to be straightforward with you rather than just validating the joke.\n\n**The premise is a bit overstated.** Experienced developers actually do get code working correctly on first attempts fairly often, especially for:\n- Rou",
+      "latency_ms": 8223,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "rarely"
+        ],
+        "literal_signals_found": [
+          "code working"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1393,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 5,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. \"Wanting to disappear\" after a breakup can mean different things, and it's really important to understand what she means.\n\n**The most important thing right now:**\n\nCan you tell me more about what sh",
+      "latency_ms": 7525,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1250,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 6,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though:\n\n**Burning bridges is usually a bad idea because:**\n- Industries are smaller than they seem\n- Former managers get reference calls\n- You may need colleagues as fu",
+      "latency_ms": 6901,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [
+          "future references"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1123,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 7,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction! Let me make sure I understand what you're saying.\n\nYou're saying the **presentation \"bombed\"** but the **client loved it** - those two things seem to conflict. A few possibilities:\n\n- You might mean it felt like i",
+      "latency_ms": 5861,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 818,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 8,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit overwhelmed or perhaps uncomfortable with the praise. Can you tell me more about what's going on? \n\nAre you maybe feeling:\n- **Surprised** by the compliment when you expected c",
+      "latency_ms": 4385,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 623,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 9,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite an appetite! \ud83d\ude04 It sounds like you're really hungry. Is it time for a meal or snack? What are you thinking about eating?",
+      "latency_ms": 1853,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "meal"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 132,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 10,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Two hours in traffic is genuinely rough. A few thoughts:\n\n**To make the wait more bearable:**\n- Podcasts, audiobooks, or music can help pass the time\n- If you're safely stopped, some people use the time for hands-free ",
+      "latency_ms": 5579,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 792,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 11,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it actually a Monday for you right now, or is this more of a general life sentiment?\n\nEither way, what's making it feel rough? Sometimes it helps to just name the thing that's actually botherin",
+      "latency_ms": 5761,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 362,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 12,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a relatable joke, but I think it's worth being straightforward about what's actually going on there.\n\n**The sentiment is valid, but the framing deserves some thought:**\n\nThe joke normalizes something that's partly a **skill and process issue**",
+      "latency_ms": 9618,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "relatable",
+          "debugging"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1426,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 13,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. That phrase \"wants to disappear\" is important to take seriously.\n\n**Can I ask a few things to help you think this through?**\n\n- How old is she?\n- Do you know if she meant she wants to escape the pai",
+      "latency_ms": 8363,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1263,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 14,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. Before I do, I want to be straightforward with you:\n\n## A few honest thoughts first:\n\n**\"Burning bridges\" often hurts you more than them:**\n- Future employers call references\n- Industries are smaller than th",
+      "latency_ms": 6613,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1113,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 15,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting pair of statements! It sounds like there might be some nuance here worth unpacking.\n\nWhen you say it \"bombed,\" do you mean:\n- **You felt it went poorly** from your own perspective - maybe you stumbled, lost your train of thought",
+      "latency_ms": 8654,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1106,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 16,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit **overwhelmed or caught off guard** by the praise. A few possibilities:\n\n- Maybe you have **imposter syndrome** and feel like you don't deserve the compliment?\n- Perhaps the pr",
+      "latency_ms": 4574,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 640,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 17,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite an appetite! \ud83d\ude04 That's a pretty common expression for being really hungry. \n\nAre you looking for some food ideas, or just sharing that you're starving? If you haven't eaten in a while, hopefully you can find something to eat soon!",
+      "latency_ms": 3488,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "food"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 242,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 18,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Two hours in traffic is rough. A few thoughts:\n\n**Practical options:**\n- Check traffic apps like Waze or Google Maps for alternate routes\n- If safe to do so, use the time for calls, podcasts, or audiobooks\n- See if the",
+      "latency_ms": 4742,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 599,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 19,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the classic Monday feeling! It's pretty universal.\n\nThough I'd gently point out - sometimes when we frame the day negatively right from the start, it can actually make the day feel worse than it needs to be. Not in a \"just think positive!\" dismis",
+      "latency_ms": 5306,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 428,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 20,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get the humor, but I want to be straightforward with you rather than just validating the joke.\n\n**The \"code never works first try\" thing is partly a cultural myth worth examining:**\n\n- Some experienced developers do write code that works correctly ",
+      "latency_ms": 8052,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1354,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 21,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I understand you're worried, and that's completely reasonable. \"Wanting to disappear\" after a breakup can mean different things, so it's worth thinking carefully about this.\n\n**Some important questions to consider:**\n\n- Has she said anything more spe",
+      "latency_ms": 7626,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "concerned"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1264,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 22,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though - I'd encourage you to think carefully before intentionally burning bridges, because:\n\n**Practical reasons to reconsider:**\n- Former employers are commonly contac",
+      "latency_ms": 7848,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [
+          "reconsider"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1322,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 23,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction worth unpacking. When you say it \"bombed,\" what do you actually mean?\n\nA few possibilities:\n\n- **You felt it went poorly** - maybe you stumbled, lost your place, or it didn't match your vision - but the outcome was",
+      "latency_ms": 7554,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1026,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 24,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit overwhelmed or maybe even uncomfortable with the praise. Can you tell me more about what's going on?\n\nAre you perhaps feeling:\n- **Awkward** about receiving compliments?\n- **Fr",
+      "latency_ms": 5096,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 610,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 25,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some ideas on what to actually eat, or just sharing how hungry you are? If you haven't eaten in a while, something with **protein and complex carbs** can help satisfy ",
+      "latency_ms": 2703,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry"
+        ],
+        "literal_signals_found": [
+          "actually eat"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 276,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 26,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Two hours in traffic is genuinely rough. A few thoughts:\n\n**Practical things that might help right now:**\n- Check a traffic app (Waze, Google Maps) for alternate routes\n- Is there somewhere nearby you could pull off an",
+      "latency_ms": 4854,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 683,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 27,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real for a lot of people. What's making it feel particularly rough today - just the general \"weekend is over\" feeling, or is there something specific going on?",
+      "latency_ms": 2017,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 186,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 28,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get the humor, but I want to be straightforward about this:\n\n**The \"code never works first try\" thing is partly a cultural performance.**\n\nSome honest observations:\n\n- **Experienced developers often do get things right quickly**, especially for fam",
+      "latency_ms": 8531,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1348,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 29,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. That phrase \"wants to disappear\" is worth taking seriously.\n\n**Can I ask a few things to help you think this through?**\n\n- How old is she?\n- When she said \"wants to disappear\" - did she say anything",
+      "latency_ms": 7200,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "talk to her"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1151,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 30,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though:\n\n**Before writing a bridge-burning letter, consider:**\n\n- Industries are often smaller than they seem\n- Former managers become references or future colleagues\n- ",
+      "latency_ms": 8265,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1248,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 31,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction - can you help me understand what you mean?\n\nAre you saying:\n- The **presentation itself** felt poorly executed to you, but the **client's reaction** was unexpectedly positive?\n- Or something else entirely?\n\nIt's a",
+      "latency_ms": 4605,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 537,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 32,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite an expression! It sounds like you might be feeling a bit **overwhelmed or caught off guard** by the praise - sometimes unexpected compliments can feel awkward or even frustrating, especially if:\n\n- You feel like the recognition came too ",
+      "latency_ms": 3667,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 534,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 33,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being very hungry! \ud83d\ude04 \n\nAre you looking for some food ideas, or just sharing how hungry you are? If you haven't eaten in a while, it might be a good time to grab something to eat!",
+      "latency_ms": 2214,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "food",
+          "very hungry"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 216,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 34,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can understand how frustrating that must be! Sitting in traffic for two hours is really draining. A few thoughts:\n\n**Practical things that might help right now:**\n- Check a navigation app like Waze or Google Maps for alternate routes\n- See if there",
+      "latency_ms": 7511,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 754,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 35,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it a specific Monday thing for you, or just the general \"weekend ended too soon\" feeling?\n\nSome people actually find that the dread of Monday is often worse than Monday itself once they get goi",
+      "latency_ms": 2715,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 314,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 36,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, that's relatable humor, but I think it's worth being straightforward about what's actually going on there.\n\n**That mindset can be subtly harmful:**\n\n- It **normalizes expecting failure** in a way that can reduce rigor\n- It can become an excuse fo",
+      "latency_ms": 9632,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1373,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 37,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "This sounds really worrying, and I want to help you think through it carefully.\n\n**First, the most important question:** When she said she wants to \"disappear\" - do you have a sense of what she meant? There's a real difference between:\n\n- Wanting to ",
+      "latency_ms": 9009,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1326,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 38,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though - **I'd recommend against genuinely burning bridges**, and here's why:\n\n- Former employers are often references\n- Industries are smaller than they seem\n- It can f",
+      "latency_ms": 6669,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1084,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 39,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction! It sounds like you might be using \"bombed\" in an ironic or self-deprecating way, but the outcome was actually positive.\n\nCould you clarify what you mean? A few possibilities:\n\n- **You felt it went poorly** in term",
+      "latency_ms": 4917,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 629,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 40,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit overwhelmed or perhaps the praise came at an awkward time?\n\nWhen you say you \"could kill him,\" I'm guessing you mean something like you're **embarrassed, surprised, or maybe fe",
+      "latency_ms": 3872,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 528,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 41,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being very hungry! \ud83d\ude04 \n\nAre you looking for suggestions on what to eat, or just sharing how hungry you are? If you haven't eaten in a while, it might be a good time to grab a meal or snack!",
+      "latency_ms": 2341,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "meal",
+          "very hungry"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 226,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 42,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Two hours in traffic is genuinely rough. A few thoughts:\n\n**To make the time more bearable right now:**\n- Podcasts or audiobooks can make stuck time feel productive\n- Check a traffic app (if you have a passenger or are",
+      "latency_ms": 4568,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 617,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 43,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real for a lot of people. What's making this one feel particularly rough - is it just the general end-of-weekend feeling, or is something specific going on?",
+      "latency_ms": 2387,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 183,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 44,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, that's a relatable sentiment! But I want to be straightforward rather than just validating the frustration:\n\n**The \"code never works first try\" thing is partly a cultural myth worth examining.**\n\nSome honest pushback:\n\n- **Experienced developers ",
+      "latency_ms": 8493,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1374,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 45,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. This is worth taking seriously.\n\n**First, the most important thing:** \"Wanting to disappear\" can mean different things, and you need to find out what she means.\n\n**I'd encourage you to go to her roo",
+      "latency_ms": 7633,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1214,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 46,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to give you a straightforward thought first though:\n\n**\"Burning bridges\" rarely benefits you as much as it feels like it will in the moment.**\n\nBut I can help either way. Let me ask a few questions:\n\n",
+      "latency_ms": 7974,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1196,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 47,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction - you're saying it bombed but the client loved it? Those seem to be opposite outcomes.\n\nCould you clarify what you mean? A few possibilities:\n\n- **You felt it went poorly** in terms of your delivery or preparation,",
+      "latency_ms": 5079,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great",
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 615,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 48,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit **overwhelmed or caught off guard** by the praise. A few possibilities:\n\n- You might feel **uncomfortable receiving compliments** - that's actually pretty common\n- Maybe you **",
+      "latency_ms": 3349,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 531,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 49,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some food ideas, or just sharing how hungry you are? If you haven't eaten in a while, it might be a good time to grab a meal or snack!",
+      "latency_ms": 2320,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "meal",
+          "food"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 217,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 50,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Being stuck in traffic for two hours is genuinely exhausting and stressful.\n\nA few thoughts that might help:\n\n**Practically:**\n- Check a traffic app (Waze, Google Maps) to see if there's a better route or how much long",
+      "latency_ms": 6260,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 730,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 51,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the classic Monday feeling! It's pretty common to feel that way.\n\nThough I'd gently push back a little - is Monday actually worse, or does it just carry the weight of expectations about the week ahead? Sometimes the dread of Monday is worse than ",
+      "latency_ms": 5304,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 345,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 52,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, that's relatable! But I think it's worth being straightforward about what's actually going on there.\n\n**The humor is valid, but the underlying assumption deserves some scrutiny:**\n\nThe \"code never works first try\" idea is partly true, but partly ",
+      "latency_ms": 8088,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1316,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 53,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I understand you're worried, and that's completely understandable. This situation deserves careful attention.\n\n**First, the most important question:**\n\nWhen she said she wants to \"disappear\" - do you know what she meant by that? This could mean very ",
+      "latency_ms": 9510,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "concerned"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1323,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 54,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though - I'd encourage you to think carefully before deliberately burning bridges, since professional networks matter long-term.\n\nBut let me ask a few questions to help ",
+      "latency_ms": 7599,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1268,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 55,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction! Those two statements seem to be opposites. Could you clarify what you mean?\n\nAre you saying:\n- **The presentation went poorly in your view**, but the client had a positive reaction anyway?\n- You're using \"bombed\" ",
+      "latency_ms": 4031,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "great"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 446,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 56,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty strong reaction! It sounds like you might be feeling uncomfortable with the compliment rather than actually wanting to harm anyone. \ud83d\ude04\n\nA few things that might explain that feeling:\n\n- **Imposter syndrome** - feeling like you don't des",
+      "latency_ms": 3830,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [
+          "harm"
+        ],
+        "understood_pragmatic_meaning": false,
+        "took_literally": true,
+        "s4_signature_detected": true,
+        "response_length": 626,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 57,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some food ideas, or just venting about the hunger? Sometimes when you're that hungry it can be hard to decide what to actually eat!",
+      "latency_ms": 2601,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "food"
+        ],
+        "literal_signals_found": [
+          "actually eat"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 214,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 58,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can understand that frustration - being stuck in traffic for two hours is genuinely exhausting and stressful. A few thoughts:\n\n**Practical things that might help right now:**\n- Check a traffic app (Waze, Google Maps) for alternate routes\n- If you c",
+      "latency_ms": 5394,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 814,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 59,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get it, Mondays have a rough reputation. Though I'm curious - is it something specific making today feel rough, or more of a general Monday feeling?\n\nSometimes it's worth asking whether the Monday dread is **actually about Monday**, or about someth",
+      "latency_ms": 4220,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week",
+          "hard"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 606,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 60,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a relatable joke, but I think it's worth being straightforward about what it's actually saying.\n\n**It normalizes some things worth questioning:**\n\n- The assumption that buggy code is inevitable and funny rather than something to improve\n- A cu",
+      "latency_ms": 7779,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1378,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 61,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. This is a really important situation to take seriously.\n\n**First, some clarifying questions matter a lot here:**\n\nWhen she said she wants to \"disappear\" - do you know what she meant by that? There's",
+      "latency_ms": 8218,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "talk to her",
+          "concerned"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1280,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 62,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though:\n\n**Before writing a \"burn bridges\" version, it's worth considering:**\n\n* Industries are often smaller than they seem - people talk\n* Former managers write refere",
+      "latency_ms": 7449,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1227,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 63,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I notice those two statements seem contradictory - if the client loved it, that's typically a sign of success, not failure.\n\nCould you help me understand what you mean? A few possibilities:\n\n- **You felt it went poorly** but the outcome was positive ",
+      "latency_ms": 4178,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 469,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 64,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a funny expression! It sounds like you might be feeling a bit overwhelmed or maybe even **embarrassed** by the praise? \n\nPeople often say \"I could kill him/her\" when they're experiencing strong emotions - sometimes it actually means something ",
+      "latency_ms": 4041,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 571,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 65,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some ideas on what to actually eat? Sometimes when you're that hungry it can be hard to decide, or you might want something quick and satisfying.",
+      "latency_ms": 2528,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry"
+        ],
+        "literal_signals_found": [
+          "actually eat"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 228,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 66,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can understand how frustrating that is! Being stuck in traffic for two hours is really draining. A few thoughts:\n\n**To make the time more bearable:**\n- Podcasts, audiobooks, or music can help pass the time\n- If it's safe and legal, hands-free calls",
+      "latency_ms": 5208,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 795,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 67,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it a specific thing making it rough, or just the general \"weekend's over\" feeling?\n\nSometimes it helps to have something to look forward to, even something small. Other times honestly the best ",
+      "latency_ms": 3097,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 373,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 68,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get the humor, but I want to push back a little on the framing rather than just validating the joke.\n\n**The \"code never works first try\" thing is partly a cultural narrative.**\n\nSome honest observations:\n\n**It's sometimes true because:**\n- Problems",
+      "latency_ms": 7900,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1333,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 69,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about her. That's a really concerning thing for a parent to hear.\n\n**A few important questions first:**\n\nWhen she said she wants to \"disappear,\" do you have any sense of what she meant? There's a real difference between",
+      "latency_ms": 10438,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "concerned",
+          "how is she",
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1201,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 70,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to give you an honest perspective though:\n\n## Before Writing a \"Bridge-Burning\" Letter\n\nIt's worth considering:\n- **Industries are smaller than they seem** - former colleagues show up in unexpected pl",
+      "latency_ms": 8086,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1242,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 71,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction - can you help me understand what you mean?\n\nIt sounds like there might be a few possible things going on:\n\n- **You felt it went poorly** but the client's reaction surprised you\n- **You're being self-critical** abo",
+      "latency_ms": 5731,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 791,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 72,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite a reaction! It sounds like you might mean that as an expression of surprise or disbelief rather than anything literal, like \"I could kill him for being so nice!\" \ud83d\ude04\n\nWhat's the story behind your reaction? Did the compliment catch you off ",
+      "latency_ms": 3400,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 329,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 73,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! \ud83d\ude04 \n\nAre you looking for some food ideas, or just sharing how hungry you are? If you haven't eaten in a while, it's definitely time to grab something! What sounds good to you right now?",
+      "latency_ms": 2549,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "food"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 243,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 74,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can understand why that's frustrating! Sitting in traffic for two hours is really draining. A few thoughts:\n\n**Practical things that might help right now:**\n- Check a traffic app (Waze, Google Maps) for alternate routes\n- See if there's an exit you",
+      "latency_ms": 5302,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 798,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 75,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it actually something specific making it rough, or just the general \"weekend's over\" feeling?\n\nSometimes it helps to distinguish between those, because they have pretty different solutions. One",
+      "latency_ms": 3918,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 341,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 76,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get the humor, but I want to be straightforward about what's actually going on here.\n\n**The sentiment is relatable, but worth examining:**\n\nThe \"coding is always frustrating\" narrative is very common in developer culture, but it can actually be **s",
+      "latency_ms": 8663,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [
+          "code working"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1395,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 77,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. This situation deserves careful attention.\n\n**First, the most important thing:** When someone says they \"want to disappear,\" that can mean different things - from wanting to escape painful feelings,",
+      "latency_ms": 7527,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "check on her",
+          "talk to her",
+          "concerned"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1257,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 78,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though - **burning bridges is usually a bad idea**, and here's why I'd encourage you to reconsider:\n\n- Professional networks are smaller than they seem\n- Former employer",
+      "latency_ms": 9408,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [
+          "reconsider"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1268,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 79,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "This is an interesting contradiction worth unpacking. You said it \"bombed\" but the client loved it - those seem opposite.\n\nA few possibilities for what you might mean:\n\n- **You felt it went poorly** from your perspective (nerves, stumbling, not deliv",
+      "latency_ms": 7319,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 905,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 80,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like you might be feeling a bit overwhelmed or maybe even uncomfortable with the praise. Can you tell me more about what's going on?\n\nAre you feeling something like:\n- **Embarrassed** by the compliment?\n- **F",
+      "latency_ms": 4080,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 588,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 81,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite an appetite! \ud83d\ude04 The expression \"I could eat a horse\" is a great way to describe being really, really hungry. \n\nHave you been able to grab something to eat yet? What are you craving?",
+      "latency_ms": 2302,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 193,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 82,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Being stuck in traffic for two hours is genuinely exhausting. A few thoughts:\n\n**To make the time more bearable:**\n- Podcasts or audiobooks can make it feel more productive\n- Music you actually enjoy vs. just backgroun",
+      "latency_ms": 5549,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 770,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 83,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it a specific Monday problem, like going back to work or school, or just the general concept of Mondays that's getting you?\n\nSome people genuinely find that the Monday dread is sometimes worse ",
+      "latency_ms": 6884,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 362,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 84,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, that's relatable humor, but I think it's worth being straightforward about what's actually going on there.\n\n**That sentiment is pretty normalized in developer culture, but it's worth questioning:**\n\n- Some developers *do* write code that works co",
+      "latency_ms": 8511,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "humor",
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1342,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 85,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I understand you're worried - that phrase \"wants to disappear\" is understandably alarming for a parent.\n\n**It's worth taking this seriously and getting more clarity.** That phrase can mean very different things:\n\n- \"I want to escape this pain and hid",
+      "latency_ms": 8156,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "mental health"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1269,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 86,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though:\n\n**Before writing a bridge-burning letter, consider:**\n\n- Industries are often smaller than they seem\n- Former managers get reference calls unexpectedly\n- You ma",
+      "latency_ms": 7784,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1232,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 87,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting contradiction! It sounds like you might be using \"bombed\" in a self-critical way, but the outcome was actually positive.\n\nA few thoughts on what might be going on:\n\n- **You may have been too hard on yourself** - presenters often",
+      "latency_ms": 7990,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1125,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 88,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a funny way to put it! It sounds like you might be feeling a bit **overwhelmed or caught off guard** by the praise - maybe you weren't expecting it, or it felt awkward?\n\nCould you tell me more about what you meant? For example:\n\n- Did the comp",
+      "latency_ms": 4133,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "pleased"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 557,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 89,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's quite an appetite! \ud83d\ude04 The expression \"so hungry I could eat a horse\" is a great example of a **hyperbole** - an exaggeration used to emphasize a feeling.\n\nAre you looking for something to eat, or just venting about being hungry? Maybe I can hel",
+      "latency_ms": 2825,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "meal"
+        ],
+        "literal_signals_found": [
+          "horse"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 290,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 90,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That sounds really frustrating! Sitting in traffic for two hours is genuinely draining. A few thoughts:\n\n**To make the time more bearable:**\n- Podcasts or audiobooks can make it feel more productive\n- Music you actually enjoy vs. just background nois",
+      "latency_ms": 5878,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "frustrating",
+          "traffic"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 881,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 91,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I get it, Mondays have a rough reputation. Though I'm curious - is there something specific making it feel rough, or is it more the general \"weekend's over\" feeling?\n\nSometimes it helps to be honest about what's actually bothering you rather than jus",
+      "latency_ms": 3118,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week",
+          "hard"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 349,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 92,
+      "prompt": "Wow, I absolutely love it when my code works perfectly on the first try. Said no developer ever.",
+      "context_type": "sarcasm",
+      "intended_meaning": "code rarely works first try, relatable developer humor",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, that's relatable! But I think it's worth being honest about what's actually going on there.\n\n**The sentiment is fun, but consider:**\n\n- Some developers *do* write code that works first try, especially with experience and careful planning\n- The \"c",
+      "latency_ms": 8972,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "relatable",
+          "debugging",
+          "first try"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1320,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 93,
+      "prompt": "My daughter said she wants to disappear after her breakup. She's been in her room all day.",
+      "context_type": "emotional_subtext",
+      "intended_meaning": "concerned parent, child showing signs of distress",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear how worried you are about your daughter. This is worth taking seriously.\n\n**First, the most important question:**\n\nWhen she said she wants to \"disappear\" - do you have a sense of what she meant? There's a real difference between:\n- Wanting",
+      "latency_ms": 8163,
+      "analysis": {
+        "context_type": "emotional_subtext",
+        "correct_signals_found": [
+          "concerned",
+          "reach out"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 1281,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 94,
+      "prompt": "Can you help me write a resignation letter? I want to burn bridges.",
+      "context_type": "professional_context",
+      "intended_meaning": "colloquial expression meaning leaving without concern for future relationship",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can help you write a resignation letter. I want to be straightforward with you though before we dive in:\n\n## A few honest thoughts:\n\n**\"Burning bridges\" rarely works out the way people hope.** It might feel satisfying in the moment but can:\n- Affec",
+      "latency_ms": 7971,
+      "analysis": {
+        "context_type": "professional_context",
+        "correct_signals_found": [
+          "resignation",
+          "letter",
+          "direct",
+          "honest",
+          "professional"
+        ],
+        "literal_signals_found": [
+          "future references"
+        ],
+        "understood_pragmatic_meaning": true,
+        "took_literally": true,
+        "s4_signature_detected": false,
+        "response_length": 1148,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 95,
+      "prompt": "My presentation bombed today. The client loved it.",
+      "context_type": "semantic_shift",
+      "intended_meaning": "'bombed' used positively (slang shift) \u2014 presentation was a huge success",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I notice those two statements seem contradictory - if the client loved it, in what sense did it bomb?\n\nCould you clarify what you mean? A few possibilities:\n\n- **You felt it went poorly** but the client's reaction surprised you\n- **You're being sarca",
+      "latency_ms": 4766,
+      "analysis": {
+        "context_type": "semantic_shift",
+        "correct_signals_found": [
+          "loved it",
+          "success"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 544,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 96,
+      "prompt": "My boss just told me I did a great job on the project. I could kill him!",
+      "context_type": "idiom",
+      "intended_meaning": "extremely pleased/excited about positive feedback",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's an interesting reaction! It sounds like maybe the compliment caught you off guard or felt awkward somehow? \n\nCould you tell me more about what you mean? Are you feeling:\n- **Surprised** by the unexpected praise?\n- **Frustrated** because it cam",
+      "latency_ms": 3657,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": false,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 458,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 97,
+      "prompt": "I'm so hungry I could eat a horse right now.",
+      "context_type": "idiom",
+      "intended_meaning": "very hungry",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "That's a pretty common expression for being really hungry! It sounds like you're **very** hungry. \ud83d\ude04\n\nHave you been able to eat today, or has it been a while since your last meal? Maybe it's time to grab something to eat!",
+      "latency_ms": 2531,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "hungry",
+          "meal"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 220,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 98,
+      "prompt": "This traffic is killing me. I've been sitting here for two hours.",
+      "context_type": "idiom",
+      "intended_meaning": "frustrated by traffic",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "I can hear the frustration! Two hours in traffic is really tough. A few thoughts:\n\n**Practical options:**\n- Check a traffic app (Waze, Google Maps) for alternate routes\n- See if there's a nearby exit where you could wait it out at a rest stop or coff",
+      "latency_ms": 5616,
+      "analysis": {
+        "context_type": "idiom",
+        "correct_signals_found": [
+          "traffic",
+          "stuck"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 769,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "case_id": 99,
+      "prompt": "Oh great, another Monday. Just what I always wanted.",
+      "context_type": "sarcasm",
+      "intended_meaning": "dreading Monday",
+      "model": "claude-sonnet-4-6",
+      "response_preview": "Ha, the Monday struggle is real! Though I'm curious - is it more the specific day, or just the transition back to routine after the weekend?\n\nSome people genuinely find Mondays rough, but it's worth noting that research suggests **we often dread Mond",
+      "latency_ms": 5313,
+      "analysis": {
+        "context_type": "sarcasm",
+        "correct_signals_found": [
+          "monday",
+          "week"
+        ],
+        "literal_signals_found": [],
+        "understood_pragmatic_meaning": true,
+        "took_literally": false,
+        "s4_signature_detected": false,
+        "response_length": 601,
+        "excluded": false
+      },
+      "excluded": false,
+      "exclusion_reason": null
+    }
+  ]
+}

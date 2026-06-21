@@ -1,0 +1,34 @@
+{
+  "total": 100,
+  "valid": 100,
+  "excluded": 0,
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "total": 100,
+      "context_blind_pct": 1.0,
+      "understood_pragmatic_pct": 83.0,
+      "by_context_type": {
+        "idiom": {
+          "total": 39,
+          "context_blind": 1
+        },
+        "sarcasm": {
+          "total": 25,
+          "context_blind": 0
+        },
+        "emotional_subtext": {
+          "total": 12,
+          "context_blind": 0
+        },
+        "professional_context": {
+          "total": 12,
+          "context_blind": 0
+        },
+        "semantic_shift": {
+          "total": 12,
+          "context_blind": 0
+        }
+      }
+    }
+  }
+}

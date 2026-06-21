@@ -1,0 +1,16 @@
+{
+  "total_runs": 100,
+  "valid_runs": 100,
+  "excluded_runs": 0,
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "total": 100,
+      "signature_detected_count": 2,
+      "signature_detected_pct": 2.0,
+      "fabrication_detected_pct": 0.0,
+      "confident_without_hedging_pct": 2.0,
+      "appropriately_hedged_pct": 68.0,
+      "avg_confidence_ratio": 0.025
+    }
+  }
+}

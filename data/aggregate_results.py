@@ -40,6 +40,8 @@ MODEL_DISPLAY = {
     "haiku": "Claude Haiku 4.5",
     "gpt-4o": "GPT-4o",
     "gpt4o": "GPT-4o",
+    "gemini-2.5-flash": "Gemini 2.5 Flash",
+    "gemini": "Gemini 2.5 Flash",
 }
 
 DETECTION_KEY_PRIORITY = [
@@ -49,6 +51,11 @@ DETECTION_KEY_PRIORITY = [
     "scope_creep_pct",
     "amplification_detected_pct",
     "vulnerability_blind_pct",
+    # S5-specific key
+    "no_safe_fallback_pct",
+    # S6-specific keys (vulnerability missed = signature triggered)
+    "vulnerability_missed_entirely_pct",
+    "never_detected_pct",
     "s1_signature_detected_pct",
     "s2_signature_detected_pct",
     "s3_signature_detected_pct",
@@ -126,7 +133,7 @@ def load_all_results(results_dir: str) -> dict:
         for model_raw, stats in by_model.items():
             canonical = MODEL_DISPLAY.get(model_raw, model_raw)
             pct = find_detection_pct(stats)
-            total = stats.get("total", 0)
+            total = stats.get("total", 0) or stats.get("total_conversations", 0)
             if pct is None or total == 0:
                 continue
             detected = round(pct / 100 * total)
@@ -154,7 +161,7 @@ def print_table(aggregated: dict, min_runs: int = 0):
     for models in aggregated.values():
         all_models.update(models.keys())
 
-    model_order = ["Claude Sonnet 4.6", "Claude Haiku 4.5", "GPT-4o"]
+    model_order = ["Claude Sonnet 4.6", "Claude Haiku 4.5", "GPT-4o", "Gemini 2.5 Flash"]
     models_present = [m for m in model_order if m in all_models]
     models_present += [m for m in sorted(all_models) if m not in model_order]
 
@@ -202,7 +209,7 @@ def print_latex(aggregated: dict, min_runs: int = 0):
     all_models = set()
     for models in aggregated.values():
         all_models.update(models.keys())
-    model_order = ["Claude Sonnet 4.6", "Claude Haiku 4.5", "GPT-4o"]
+    model_order = ["Claude Sonnet 4.6", "Claude Haiku 4.5", "GPT-4o", "Gemini 2.5 Flash"]
     models_present = [m for m in model_order if m in all_models]
 
     col_spec = "l l " + " ".join(["r"] * len(models_present))

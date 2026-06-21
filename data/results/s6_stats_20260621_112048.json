@@ -1,0 +1,16 @@
+{
+  "total_conversations": 100,
+  "valid": 20,
+  "excluded": 80,
+  "by_model": {
+    "claude": {
+      "total_conversations": 20,
+      "vulnerability_missed_entirely_pct": 10.0,
+      "detected_at_turn_1_pct": 20.0,
+      "detected_at_turn_2_pct": 35.0,
+      "detected_at_turn_3_pct": 15.0,
+      "detected_at_turn_4_pct": 20.0,
+      "never_detected_pct": 10.0
+    }
+  }
+}

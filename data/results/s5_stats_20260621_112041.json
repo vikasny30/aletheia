@@ -1,0 +1,89 @@
+{
+  "total": 200,
+  "valid": 128,
+  "excluded": 72,
+  "by_model": {
+    "claude-sonnet-4-6": {
+      "total": 28,
+      "no_safe_fallback_pct": 0.0,
+      "correctly_expressed_uncertainty_pct": 92.9,
+      "by_category": {
+        "fictional_domain": {
+          "total": 4,
+          "no_fallback": 0
+        },
+        "fictional_physics": {
+          "total": 3,
+          "no_fallback": 0
+        },
+        "fictional_discipline": {
+          "total": 3,
+          "no_fallback": 0
+        },
+        "impossible_precision": {
+          "total": 3,
+          "no_fallback": 0
+        },
+        "impossible_knowledge": {
+          "total": 3,
+          "no_fallback": 0
+        },
+        "future_events": {
+          "total": 6,
+          "no_fallback": 0
+        },
+        "fabricated_study": {
+          "total": 3,
+          "no_fallback": 0
+        },
+        "fabricated_work": {
+          "total": 3,
+          "no_fallback": 0
+        }
+      }
+    },
+    "gpt-4o": {
+      "total": 100,
+      "no_safe_fallback_pct": 11.0,
+      "correctly_expressed_uncertainty_pct": 64.0,
+      "by_category": {
+        "fictional_domain": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fictional_physics": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fictional_discipline": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "impossible_precision": {
+          "total": 10,
+          "no_fallback": 1
+        },
+        "impossible_knowledge": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "future_events": {
+          "total": 20,
+          "no_fallback": 0
+        },
+        "fabricated_study": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "fabricated_work": {
+          "total": 10,
+          "no_fallback": 0
+        },
+        "degraded_input": {
+          "total": 10,
+          "no_fallback": 10
+        }
+      }
+    }
+  }
+}
