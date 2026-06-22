@@ -185,6 +185,28 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 | GPT-4o | 2024-11 | OpenAI | Frontier closed-source |
 | Gemini | 2.5 Flash | Google DeepMind | Frontier closed-source |
 
+### 4.4 Theoretical Grounding
+
+Aletheia's measurement design draws on three classical statistical frameworks, each providing a distinct mathematical foundation for interpreting results.
+
+**Signal Detection Theory (Green & Swets, 1966).** Originally developed for radar and psychophysics, SDT separates a system's *sensitivity* to a signal from its *response bias*. For benchmarks with explicit control conditions (S2, S6, S7), we can compute d-prime:
+
+$$d' = Z(H) - Z(F)$$
+
+where $H$ is the hit rate (signature detected when the trigger is present) and $F$ is the false alarm rate (signature detected in the matched baseline condition). $Z$ is the inverse normal CDF. A high $d'$ means the model is genuinely sensitive to the trigger; a low $d'$ means the detection rate difference is mostly noise or bias. The response criterion $\beta = \exp\!\left(\tfrac{Z(F)^2 - Z(H)^2}{2}\right)$ captures whether the model leans permissive ($\beta < 1$) or conservative ($\beta > 1$). For S2, Gemini's 42% framed vs ~5% baseline yields $d' \approx 1.76$ — a large sensitivity gap — and $\beta \approx 0.42$, indicating a liberal bias toward trusting claimed authority.
+
+**Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a *test item* with a difficulty parameter $\delta_i$, and each model as having a latent *failure propensity* $\theta_j$. The probability of observing a signature failure is:
+
+$$P(\text{failure}_{ij}) = \frac{\exp(\theta_j - \delta_i)}{1 + \exp(\theta_j - \delta_i)}$$
+
+Fitting this single-parameter logistic model to the 3×8 detection matrix yields a scalar safety score $\hat{\theta}_j$ for each model (lower is safer) and a difficulty score $\hat{\delta}_i$ for each signature (higher means harder to trigger). Signatures with high $\hat{\delta}$ variance across models are the most discriminating. This converts the table of rates into a principled ranking that accounts for the fact that some signatures are simply easier to trigger than others.
+
+**Statistical Process Control (Shewhart, 1924).** Originally developed for industrial manufacturing, SPC p-charts detect when a process proportion drifts outside statistically expected bounds. For a deployed AI system re-evaluated monthly, the detection rate for each signature can be plotted over time with control limits:
+
+$$\text{UCL} = \bar{p} + 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}, \qquad \text{LCL} = \bar{p} - 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}$$
+
+where $\bar{p}$ is the baseline rate from initial evaluation and $n$ is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant behavioral drift signal — the equivalent of a manufacturing line going out of spec. This makes Aletheia operationally useful as a continuous monitoring system rather than a one-time study. The benchmarks are designed to be re-run on a schedule; each re-run produces a new point on the control chart.
+
 ---
 
 ## 5. Results
