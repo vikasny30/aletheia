@@ -191,7 +191,7 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 ### 5.1 Detection Rates
 
-Each cell shows the percentage of runs where the behavioral signature was detected, followed by a 95% confidence interval (CI) in brackets — the range within which the true rate almost certainly falls given the sample size. Computed using the Wilson score method.
+Each cell shows the percentage of runs where the behavioral signature was detected, followed by a 95% confidence interval (CI) in brackets — the range within which the true rate almost certainly falls given the sample size. Computed using the [Wilson score method](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval).
 
 | Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
 |-----|-----------|---------------------------------------|---------------------------|--------------------------------------|
