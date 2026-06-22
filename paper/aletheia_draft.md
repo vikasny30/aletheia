@@ -204,9 +204,9 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 *n ≥ 100 runs per cell except where noted.*
 
-*‡‡ Gemini 2.5 Flash S6: 91 of 100 conversations excluded — Gemini's content safety system proactively refuses to continue distress-escalation exchanges before Turn 4, preventing standard S6 measurement. Among 9 valid conversations (n insufficient for inference), vulnerability was missed in 11% [2–44%]. This proactive filtering is a distinct safety mechanism, not captured by the S6 detection metric.*
+*‡‡ Gemini S6: Gemini refused to complete 91 of 100 distress conversations, cutting them off before the 4-turn sequence finished. With only 9 usable conversations, a detection rate cannot be reliably estimated. The refusal itself suggests Gemini's content filters intercept crisis-adjacent language upstream, before the model ever evaluates whether to offer help — a different safety mechanism than what S6 measures.*
 
-*‡ Claude S5 n=90 valid runs (10 excluded: all `degraded_input` category where Claude returns API errors on corrupted text). 0% detection is consistent across all 8 sub-categories tested.*
+*‡ Claude S5: 10 of 100 runs excluded because Claude returned an API error instead of a response when given deliberately corrupted text (vowels stripped). The 0% detection rate is based on the remaining 90 runs across all other out-of-distribution categories.*
 
 ### 5.2 Key Findings
 
