@@ -189,23 +189,30 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 
 Aletheia's measurement design draws on three classical statistical frameworks, each providing a distinct mathematical foundation for interpreting results.
 
-**Signal Detection Theory (Green & Swets, 1966).** Originally developed for radar and psychophysics, SDT separates a system's *sensitivity* to a signal from its *response bias*. For benchmarks with explicit control conditions (S2, S6, S7), we can compute d-prime:
+**Signal Detection Theory (Green & Swets, 1966).** Originally developed for radar and psychophysics, SDT separates a system's *sensitivity* to a signal from its *response bias*. For benchmarks with explicit control conditions (S2, S6, S7), we compute d-prime:
 
-$$d' = Z(H) - Z(F)$$
+```
+d' = Z(H) - Z(F)
+```
 
-where $H$ is the hit rate (signature detected when the trigger is present), $F$ is the false alarm rate (signature detected in the matched baseline condition), and $Z$ is the inverse normal CDF. A high $d'$ means the model is genuinely sensitive to the trigger. The response criterion $\beta = \exp\!\left(\tfrac{Z(F)^2 - Z(H)^2}{2}\right)$ captures whether the model leans permissive ($\beta < 1$) or conservative ($\beta > 1$). Applied to our results: for S2, Gemini's 42% framed rate vs 6% Claude baseline yields $d' = 1.35$ and $\beta = 3.28$ — high sensitivity to authority framing with a strong conservative-to-permissive shift when identity is claimed. For S7, GPT-4o's 45% amplification rate vs 10% Claude baseline yields $d' = 1.16$ and $\beta = 2.26$, confirming it is both more sensitive to institutional framing and more likely to reproduce false premises when an authority is cited.
+H is the hit rate (signature detected when the trigger is present), F is the false alarm rate (signature detected in the baseline condition with no trigger), and Z is the inverse normal function. A high d' means the model is genuinely sensitive to the trigger rather than responding randomly. The response criterion beta = exp((Z(F)^2 - Z(H)^2) / 2) captures whether the model leans permissive (beta < 1) or conservative (beta > 1). Applied to our results: S2 Gemini's 42% framed rate vs 6% Claude baseline gives d' = 1.35 and beta = 3.28, indicating high sensitivity to authority framing. S7 GPT-4o's 45% amplification rate vs 10% Claude baseline gives d' = 1.16 and beta = 2.26, confirming it is more likely to reproduce false premises when an authority is cited.
 
-**Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a *test item* with a difficulty parameter $\delta_i$, and each model as having a latent *failure propensity* $\theta_j$. The probability of observing a signature failure is:
+**Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a test item with a difficulty parameter (delta) and each model as having a latent failure propensity (theta). The probability of a failure is:
 
-$$P(\text{failure}_{ij}) = \frac{\exp(\theta_j - \delta_i)}{1 + \exp(\theta_j - \delta_i)}$$
+```
+P(failure) = exp(theta - delta) / (1 + exp(theta - delta))
+```
 
-Fitting this single-parameter logistic model to the 3×8 detection matrix yields a scalar safety score $\hat{\theta}_j$ for each model (lower is safer) and a difficulty score $\hat{\delta}_i$ for each signature (higher means harder to trigger). Applied to our results (excluding zero rates and the Gemini S6 exclusion): $\hat{\theta}_\text{Claude} = -2.48$, $\hat{\theta}_\text{GPT-4o} = -1.66$, $\hat{\theta}_\text{Gemini} = -1.25$. Claude sits furthest from the failure boundary; Gemini closest. The logit scale makes the gaps interpretable: a one-unit difference in $\theta$ corresponds to roughly a 2.7× change in odds of triggering a failure signature.
+Fitting this to the 3x8 detection matrix yields a single safety score per model (lower theta = safer) and a difficulty score per signature (higher delta = harder to trigger). Applied to our results: theta(Claude) = -2.48, theta(GPT-4o) = -1.66, theta(Gemini) = -1.25. Claude sits furthest from the failure boundary; Gemini is closest. A one-unit difference in theta corresponds to roughly a 2.7x change in the odds of triggering a failure signature.
 
-**Statistical Process Control (Shewhart, 1924).** Originally developed for industrial manufacturing, SPC p-charts detect when a process proportion drifts outside statistically expected bounds. For a deployed AI system re-evaluated monthly, the detection rate for each signature can be plotted over time with control limits:
+**Statistical Process Control (Shewhart, 1924).** Originally developed for manufacturing quality control, SPC p-charts detect when a process drifts outside statistically expected bounds. For a deployed AI system re-evaluated monthly, the detection rate for each signature is plotted over time against control limits:
 
-$$\text{UCL} = \bar{p} + 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}, \qquad \text{LCL} = \bar{p} - 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}$$
+```
+UCL = p + 3 * sqrt(p * (1-p) / n)
+LCL = p - 3 * sqrt(p * (1-p) / n)
+```
 
-where $\bar{p}$ is the baseline rate from initial evaluation and $n$ is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant behavioral drift signal. Applied to our results: S8 Gemini has a baseline of $\bar{p} = 0.55$ with $n = 100$, giving $\text{UCL} = 69.9\%$ and $\text{LCL} = 40.1\%$. If a future monthly re-run finds an S8 rate above 69.9%, that is a statistically significant increase in amplification behavior — not random noise. The benchmarks are designed to be re-run on a schedule; each re-run produces a new point on the control chart, turning a one-time study into a live behavioral monitoring system.
+p is the baseline rate from initial evaluation and n is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant drift signal. Applied to our results: S8 Gemini baseline p = 0.55 with n = 100 gives UCL = 69.9% and LCL = 40.1%. Any future monthly re-run finding an S8 rate above 69.9% is a statistically significant increase in amplification behavior, not random noise. Each scheduled re-run produces a new point on the control chart, turning a one-time study into a live behavioral monitoring system.
 
 ---
 
@@ -213,7 +220,7 @@ where $\bar{p}$ is the baseline rate from initial evaluation and $n$ is the numb
 
 ### 5.1 Detection Rates
 
-Each cell shows the percentage of runs where the behavioral signature was detected, followed by a 95% confidence interval (CI) in brackets — the range within which the true rate almost certainly falls given the sample size. Computed using the [Wilson score method](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval).
+Each cell shows the percentage of runs where the behavioral signature was detected, followed by a 95% confidence interval (CI) in brackets (the range within which the true rate almost certainly falls given the sample size). Computed using the [Wilson score method](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval).
 
 | Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
 |-----|-----------|---------------------------------------|---------------------------|--------------------------------------|
@@ -228,7 +235,7 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 
 *n ≥ 100 runs per cell except where noted.*
 
-*‡‡ Gemini S6: Gemini refused to complete 91 of 100 distress conversations, cutting them off before the 4-turn sequence finished. With only 9 usable conversations, a detection rate cannot be reliably estimated. The refusal itself suggests Gemini's content filters intercept crisis-adjacent language upstream, before the model ever evaluates whether to offer help — a different safety mechanism than what S6 measures.*
+*‡‡ Gemini S6: Gemini refused to complete 91 of 100 distress conversations, cutting them off before the 4-turn sequence finished. With only 9 usable conversations, a detection rate cannot be reliably estimated. The refusal itself suggests Gemini's content filters intercept crisis-adjacent language upstream, before the model ever evaluates whether to offer help. This is a different safety mechanism than what S6 measures.*
 
 *‡ Claude S5: 10 of 100 runs excluded because Claude returned an API error instead of a response when given deliberately corrupted text (vowels stripped). The 0% detection rate is based on the remaining 90 runs across all other out-of-distribution categories.*
 
@@ -238,7 +245,7 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 
 **Finding 2: S7 shows the largest GPT-4o vs Claude gap.** GPT-4o exhibits Institutional Credibility Amplification at 45% [36–55], compared to 10% [6–17] for Claude Sonnet (a 4.5× difference). GPT-4o is substantially more likely to reproduce false information when it is framed as coming from an authoritative institutional source. Gemini falls between them at 28% [23–35].
 
-**Finding 3: S6 reveals distinct safety architectures across models.** Claude exhibits Vulnerability Signal Blindness at 11% [6–18]; GPT-4o at 0% [0–4]. Gemini 2.5 Flash produced a qualitatively different result: 91 of 100 S6 conversations were excluded because Gemini's content safety system proactively terminated or refused to continue distress-escalation exchanges before reaching Turn 4. This is not S6 blindness — it is preemptive filtering. Among the 9 valid Gemini conversations, vulnerability was missed in 11%, but n=9 is insufficient for inference. The three-way pattern (Claude misses ~1 in 9, GPT-4o detects all, Gemini refuses to engage) illustrates that different models implement safety at different layers of their architecture — conversation-level detection versus content-policy filters.
+**Finding 3: S6 reveals distinct safety architectures across models.** Claude exhibits Vulnerability Signal Blindness at 11% [6–18]; GPT-4o at 0% [0–4]. Gemini 2.5 Flash produced a qualitatively different result: 91 of 100 S6 conversations were excluded because Gemini's content safety system proactively terminated or refused to continue distress-escalation exchanges before reaching Turn 4. This is not S6 blindness; it is preemptive filtering. Among the 9 valid Gemini conversations, vulnerability was missed in 11%, but n=9 is insufficient for inference. The three-way pattern (Claude misses ~1 in 9, GPT-4o detects all, Gemini refuses to engage) illustrates that different models implement safety at different layers of their architecture: conversation-level detection versus content-policy filters.
 
 **Finding 4: S8 reveals amplification asymmetry.** GPT-4o shows 35% [26–45] feedback loop absence, compared to 15% [11–21] for Claude. Notably, Claude excluded 63 of 100 runs in our final S8 data collection due to content policy refusals on amplification-rewarding prompts, a behavior not observed at the same rate in GPT-4o. This refusal-to-amplify tendency is itself a safety-relevant behavioral trait worth monitoring, distinct from the S8 detection rate among runs that did complete.
 
@@ -246,7 +253,7 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 
 **Finding 6: S1 shows Gemini fabricating most.** On the hallucination benchmark, Gemini 2.5 Flash detected the S1 signature at 16% [10–24], compared to 8% [4–14] for GPT-4o and 2% [1–5] for Claude. Claude expressed appropriate uncertainty in 68% of S1 runs; Gemini did so less consistently.
 
-**Finding 7: S8 shows Gemini as the highest amplifier.** Gemini 2.5 Flash exhibits Feedback Loop Absence at 55% [47–63] — the highest S8 detection rate of the three models and the highest single-signature detection rate in the entire benchmark. GPT-4o follows at 35% [26–45] and Claude at 15% [11–21]. Across 82 valid Gemini runs, self-correction occurred in 0.0% of cases, meaning the model never flagged or reversed its own monotonic amplification. This is particularly relevant for content generation applications where models are repeatedly prompted to make outputs "more engaging."
+**Finding 7: S8 shows Gemini as the highest amplifier.** Gemini 2.5 Flash exhibits Feedback Loop Absence at 55% [47–63], the highest S8 detection rate of the three models and the highest single-signature detection rate in the entire benchmark. GPT-4o follows at 35% [26–45] and Claude at 15% [11–21]. Across 82 valid Gemini runs, self-correction occurred in 0.0% of cases, meaning the model never flagged or reversed its own monotonic amplification. This is particularly relevant for content generation applications where models are repeatedly prompted to make outputs "more engaging."
 
 **Finding 8: S3 shows Claude as the outlier.** GPT-4o and Gemini 2.5 Flash both show 0% scope creep [0–4], while Claude Sonnet shows 10% [7–15]. All three models show near-zero context blindness on S4 (Claude: 0%, GPT-4o: 0%, Gemini: 2%). The S3 gap is specific to Claude and suggests it is more prone to expanding task boundaries without confirmation, consistent with published reports of Claude Code taking unauthorized file deletion actions (AIID #1441, #1469).
 
