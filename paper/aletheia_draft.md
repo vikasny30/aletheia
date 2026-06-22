@@ -195,7 +195,10 @@ Aletheia's measurement design draws on three classical statistical frameworks, e
 d' = Z(H) - Z(F)
 ```
 
-H is the hit rate (signature detected when the trigger is present), F is the false alarm rate (signature detected in the baseline condition with no trigger), and Z is the inverse normal function. A high d' means the model is genuinely sensitive to the trigger rather than responding randomly. The response criterion beta = exp((Z(F)^2 - Z(H)^2) / 2) captures whether the model leans permissive (beta < 1) or conservative (beta > 1). Applied to our results: S2 Gemini's 42% framed rate vs 6% Claude baseline gives d' = 1.35 and beta = 3.28, indicating high sensitivity to authority framing. S7 GPT-4o's 45% amplification rate vs 10% Claude baseline gives d' = 1.16 and beta = 2.26, confirming it is more likely to reproduce false premises when an authority is cited.
+H is the hit rate (signature detected when the trigger is present), F is the false alarm rate (signature detected in the baseline condition with no trigger), and Z is the inverse normal function. A high d' means the model is genuinely sensitive to the trigger rather than responding randomly. The response criterion beta = exp((Z(F)^2 - Z(H)^2) / 2) captures whether the model leans permissive (beta < 1) or conservative (beta > 1). Applied to our results:
+
+- **S2 (Credibility Surface Exploitation):** Gemini hit rate 42% vs Claude baseline 6% gives d' = 1.35 and beta = 3.28, indicating strong sensitivity to authority framing with a permissive response bias.
+- **S7 (Institutional Credibility Amplification):** GPT-4o hit rate 45% vs Claude baseline 10% gives d' = 1.16 and beta = 2.26, confirming GPT-4o is substantially more likely to reproduce false premises when an authority is cited.
 
 **Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a test item with a difficulty parameter (delta) and each model as having a latent failure propensity (theta). The probability of a failure is:
 
@@ -203,7 +206,13 @@ H is the hit rate (signature detected when the trigger is present), F is the fal
 P(failure) = exp(theta - delta) / (1 + exp(theta - delta))
 ```
 
-Fitting this to the 3x8 detection matrix yields a single safety score per model (lower theta = safer) and a difficulty score per signature (higher delta = harder to trigger). Applied to our results: theta(Claude) = -2.48, theta(GPT-4o) = -1.66, theta(Gemini) = -1.25. Claude sits furthest from the failure boundary; Gemini is closest. A one-unit difference in theta corresponds to roughly a 2.7x change in the odds of triggering a failure signature.
+Fitting this to the 3x8 detection matrix yields a single safety score per model (lower theta = safer) and a difficulty score per signature (higher delta = harder to trigger). Applied to our results:
+
+- **Claude Sonnet 4.6:** theta = -2.48 (furthest from the failure boundary, safest overall)
+- **GPT-4o:** theta = -1.66 (moderate failure propensity)
+- **Gemini 2.5 Flash:** theta = -1.25 (closest to the failure boundary, highest overall failure rate)
+
+A one-unit difference in theta corresponds to roughly a 2.7x change in the odds of triggering a failure signature.
 
 **Statistical Process Control (Shewhart, 1924).** Originally developed for manufacturing quality control, SPC p-charts detect when a process drifts outside statistically expected bounds. For a deployed AI system re-evaluated monthly, the detection rate for each signature is plotted over time against control limits:
 
@@ -212,7 +221,13 @@ UCL = p + 3 * sqrt(p * (1-p) / n)
 LCL = p - 3 * sqrt(p * (1-p) / n)
 ```
 
-p is the baseline rate from initial evaluation and n is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant drift signal. Applied to our results: S8 Gemini baseline p = 0.55 with n = 100 gives UCL = 69.9% and LCL = 40.1%. Any future monthly re-run finding an S8 rate above 69.9% is a statistically significant increase in amplification behavior, not random noise. Each scheduled re-run produces a new point on the control chart, turning a one-time study into a live behavioral monitoring system.
+p is the baseline rate from initial evaluation and n is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant drift signal. Applied to our S8 Gemini baseline (p = 0.55, n = 100):
+
+- **Center line:** 55% (current measured rate)
+- **Upper Control Limit (UCL):** 69.9% — any future re-run above this is a statistically significant increase in amplification behavior
+- **Lower Control Limit (LCL):** 40.1% — any re-run below this signals the model has meaningfully improved
+
+ Each scheduled re-run produces a new point on the control chart, turning a one-time study into a live behavioral monitoring system.
 
 ---
 
