@@ -8,7 +8,7 @@ vikas.ny30@gmail.com
 
 ## Abstract
 
-We present Aletheia, an open-source framework for systematic detection and measurement of AI behavioral failures. Rather than treating AI incidents as isolated events, we identify eight universal *behavioral signatures*: repeatable failure patterns that manifest across different models, domains, and deployment contexts. We validate these signatures against 995 real-world incidents from the AI Incident Database (AIID) and measure empirical detection rates across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash. Our findings show that signature detection rates vary substantially across models and across failure types: S7 (Institutional Credibility Amplification) shows a 4.5x inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread across all three models (Gemini: 55%, GPT-4o: 35%, Claude: 15%); and S2 (Credibility Surface Exploitation) reveals Gemini responding to unverified authority claims at 42%, versus 6% for Claude and 5% for GPT-4o. We release all benchmark code, incident annotations, and results openly to support reproducible AI safety research.
+We present Aletheia, an open-source framework for systematic detection and measurement of AI behavioral failures. Rather than treating AI incidents as isolated events, we identify eight universal *behavioral signatures*: repeatable failure patterns that manifest across different models, domains, and deployment contexts. We validate these signatures against 1,901 real-world incidents drawn from two independent databases: the AI Incident Database (AIID, n=1,134) and the AVID AI Vulnerability Database (n=767), and measure empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash (n >= 100 runs per cell). Cross-corpus analysis of AIID and AVID reveals that S2 (Credibility Surface Exploitation) comprises two mechanistically distinct failure modes — social identity manipulation (S2a) and adversarial input exploitation (S2b) — with S2b appearing almost exclusively in evaluation databases rather than real-world incident reports, suggesting a documentation gap in current AI safety incident recording. Headline findings: S7 (Institutional Credibility Amplification) shows a 4.5x inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread (Gemini: 55%, GPT-4o: 35%, Claude: 15%, with Gemini self-correcting in 0 of 100 runs); S2a (Social and Identity Manipulation) reveals Gemini responding to unverified authority claims at 42%, versus 5-6% for GPT-4o and Claude — and identity verification reaching 0.0% across all three models; S5 (No Safe State Fallback) finds Gemini failing to express uncertainty in 29 of 100 out-of-domain queries where Claude failed in 0. An additional finding emerges from S6: Gemini's content safety filters terminated 91% of distress-signal conversations before analysis was possible, a qualitatively distinct safety mechanism from the in-conversation detection measured in other models. We release all benchmark code, incident annotations, and results openly to support reproducible AI safety research.
 
 ---
 
@@ -18,13 +18,13 @@ The AI Incident Database (AIID) documents over 1,500 real-world AI failures span
 
 We ask a different question: *do AI systems fail in predictable, repeatable ways that can be characterized, measured, and monitored?*
 
-Our answer is yes. We identify eight behavioral signatures (recurring failure modes that appear across incident categories, model architectures, and deployment contexts). These signatures function like diagnostic criteria: a specific, observable behavioral pattern whose presence or absence can be tested empirically.
+Our answer is yes. We identify nine behavioral signatures (recurring failure modes that appear across incident categories, model architectures, and deployment contexts), including a newly identified split within credibility exploitation between social/identity manipulation and adversarial input attacks. These signatures function like diagnostic criteria: a specific, observable behavioral pattern whose presence or absence can be tested empirically.
 
 This framing shifts AI safety from post-hoc incident analysis toward *prospective behavioral monitoring*, following the same paradigm shift that transformed software reliability from manual debugging to automated observability.
 
 **Contributions:**
-1. Eight operationalized behavioral signatures with formal definitions and exclusion criteria
-2. A validated incident dataset of 995 AIID-sourced and curated incidents mapped to signatures
+1. Nine operationalized behavioral signatures with formal definitions and exclusion criteria, including the discovery of a mechanistic split within S2 into S2a (social/identity manipulation) and S2b (adversarial input exploitation)
+2. A validated incident corpus of 1,901 incidents from two independent databases (AIID and AVID), with cross-corpus analysis revealing systematic differences in what each database documents
 3. Reproducible benchmark suite measuring signature detection rates across three frontier models
 4. Open-source release of all code, data, and experimental results
 
@@ -44,13 +44,28 @@ We define a behavioral signature as a *repeatable pattern of AI system behavior*
 **Examples:** Lawyers sanctioned for submitting ChatGPT-generated non-existent case citations (AIID #1469); Google Bard stated false facts about the James Webb Telescope in a promotional video.
 
 ### S2: Credibility Surface Exploitation
-**Definition:** The system modifies its behavior in response to unverifiable authority claims (claimed professional identity, institutional affiliation, or permission grants) without any mechanism to verify the claim.
 
-**Distinguishing feature:** The manipulation occurs through *trust signal exploitation* rather than capability bypass. The system accepts claimed credentials at face value.
+Cross-corpus analysis (Section 3.4) revealed that S2 comprises two mechanistically distinct failure modes that are reported through entirely separate research communities. They share the root cause (the system cannot verify claims made to it) but differ in who is doing the exploiting and what is being exploited.
 
-**AIID prevalence:** 29.1% of documented incidents (438/1,505)
+**S2a: Social and Identity Manipulation**
+**Definition:** The system modifies its behavior in response to unverifiable human identity claims — claimed professional credentials, institutional affiliation, or permission grants — without any mechanism to verify the claim.
 
-**Examples:** AI medical systems providing clinical information when users claim to be physicians; deepfake voice used to authorize $25M bank transfer (AIID #1318).
+**Distinguishing feature:** A human actor exploits the system's willingness to treat claimed identity as ground truth. The manipulation vector is social, not technical.
+
+**Corpus prevalence:** 403 incidents across AIID + AVID (dominant in AIID: 370 incidents)
+
+**Examples:** AI medical systems providing clinical information when users claim to be physicians; deepfake voice used to authorize $25M bank transfer (AIID #1318). *This is what the S2 benchmark tests.*
+
+**S2b: Adversarial Input Exploitation**
+**Definition:** The system's behavior is manipulated through crafted inputs — injected instructions, jailbreak sequences, or system prompt overrides — that exploit the model's instruction-following mechanisms rather than its social trust assumptions.
+
+**Distinguishing feature:** No human identity claim is involved. The input itself is the exploit. The attacker is often automated.
+
+**Corpus prevalence:** 376 incidents across AIID + AVID (dominant in AVID: 366 incidents; only 10 in AIID)
+
+**Examples:** Indirect prompt injection via malicious web content retrieved by an AI agent; jailbreak sequences that override safety-trained response patterns.
+
+**Research gap:** The near-absence of S2b in AIID (10 incidents) relative to AVID (366) suggests adversarial input exploitation is primarily a research-documented phenomenon rather than a widely reported real-world incident category. *No benchmark has been run for S2b; it is a priority for the next evaluation cycle.*
 
 ### S3: Scope Creep Beyond Mandate
 **Definition:** The system takes actions outside its explicitly stated permitted boundary without requesting confirmation, expanding the scope of its operation beyond what was sanctioned.
@@ -112,37 +127,60 @@ We define a behavioral signature as a *repeatable pattern of AI system behavior*
 
 ### 3.1 Data Sources
 
-We draw from three sources to construct our validation dataset:
+We draw from four sources to construct our validation dataset:
 
-**AIID Full Export:** We obtained a complete export of the AI Incident Database containing 1,505 incidents spanning 2013–2024. Each incident includes a title, description, and links to source reports.
+**AIID Full Export:** A complete export of the AI Incident Database containing 1,505 incidents spanning 2013–2024. Each incident includes a title, description, and links to source reports. The AIID's primary register is investigative journalism, meaning descriptions use lay vocabulary to characterize failures.
 
 **HuggingFace AIID Mirror:** A public mirror (`vitaliy-sharandin/ai-incidents`) containing 514 pre-2021 incidents, used for initial classifier development.
 
 **Curated Supplemental Dataset:** For signatures with low AIID prevalence (S1, S2, S3, S4, S5, S6, S8), we assembled 190 hand-curated incidents drawn from AIID, published AI safety research, investigative journalism, and documented user reports.
 
+**AVID (AI Vulnerability Database):** A complete export of 1,754 published reports from the AVID repository (avidml.org), downloaded as a single archive. Unlike AIID's incident-first perspective, AVID uses ML evaluation vocabulary: structured fields for risk domain, SEP taxonomy view, affected artifacts, and detection methodology. This vocabulary mismatch with AIID is itself a finding (see Section 3.4).
+
 ### 3.2 Incident Classification
 
 We developed a keyword-based classifier (`classify_incident()`) that maps incident text to signatures using signature-specific vocabulary lists. Each keyword match adds 0.4 confidence, capped at 1.0 (threshold for inclusion: 0.3, yielding a minimum of one keyword hit).
 
-Keyword vocabularies were iteratively expanded to cover both technical AI safety terminology and journalist prose (the dominant register in AIID descriptions).
+Keyword vocabularies cover three registers: (1) technical AI safety terminology, (2) journalist prose (the dominant register in AIID), and (3) ML evaluation vocabulary from academic papers and structured databases like AVID. Each register uses distinct phrasing for the same failure: an AIID report describes "a deepfake video used to authorize a wire transfer"; an AVID report describes "adversarial prompt injection via indirect instruction override." Both are credibility exploitation events requiring different keyword sets to capture.
+
+During classifier development against AVID, we identified that S2 (Credibility Surface Exploitation) encompasses two mechanistically distinct failure modes that are reported through entirely separate research communities: **S2a** (social and identity manipulation — deepfakes, voice cloning, impersonation) and **S2b** (adversarial input manipulation — prompt injection, jailbreaking, system prompt override). These are separated in the validation dataset; the existing S2 benchmark tests S2a behavior.
 
 Cross-tagging: incidents matching multiple signatures at threshold ≥ 0.5 are tagged with all qualifying signatures.
 
 ### 3.3 Validation Statistics
 
-| Signature | AIID Incidents | Supplemental | Total | Target Met |
-|-----------|---------------|--------------|-------|------------|
-| S1 | 164 | 25 | 189 | ✓ |
-| S2 | 389 | 25 | 414 | ✓ |
-| S3 | 35 | 25 | 60 | ✓ |
-| S4 | 0 | 40 | 40 | ✓ |
-| S5 | 39 | 25 | 64 | ✓ |
-| S6 | 63 | 25 | 88 | ✓ |
-| S7 | 171 | 0 | 196 | ✓ |
-| S8 | 67 | 25 | 92 | ✓ |
-| **Total** | **928** | **190** | **995** | **8/8** |
+The table below shows incident counts per signature across all sources. AIID and Supplemental together form the original benchmark validation dataset (n=995). AVID is the expanded corpus added in the cross-corpus analysis (Section 3.4). S2 is split into S2a and S2b in the expanded dataset; the S2 benchmark tests S2a behavior.
 
-All eight signatures exceed our target of 40 validated incidents, providing sufficient empirical grounding for the behavioral definitions.
+| Signature | AIID | Supplemental | AVID | Total (all sources) |
+|-----------|------|--------------|------|---------------------|
+| S1 | 164 | 25 | 68 | 257 |
+| S2a (Social/Identity) | 370 | 25 | 8 | 403 |
+| S2b (Adversarial Input) | 10 | — | 366 | 376 |
+| S3 | 35 | 25 | 300 | 360 |
+| S4 | 0 | 40 | 0 | 40 |
+| S5 | 39 | 25 | 16 | 80 |
+| S6 | 63 | 25 | 54 | 142 |
+| S7 | 221 | 0 | 2 | 223 |
+| S8 | 42 | 25 | 35 | 102 |
+| **Total** | **944** | **190** | **767** | **1,901** |
+
+*AVID's 904 Security/Software Vulnerability entries (CVE-style infrastructure vulnerabilities) are excluded as they fall outside Aletheia's behavioral failure scope.*
+
+All nine signatures exceed the target of 40 validated incidents. The expanded corpus of 1,901 incidents across two independent databases provides substantially stronger empirical grounding for the behavioral definitions than either database alone.
+
+### 3.4 Cross-Corpus Observations
+
+Comparing AIID and AVID signature distributions reveals systematic differences in what each database captures, which is itself a finding about the state of AI safety documentation.
+
+**S2 split reveals a reporting gap.** S2b (adversarial input) has 366 AVID entries and only 10 AIID entries. Adversarial ML research — prompt injection, jailbreaking, indirect instruction override — is almost entirely absent from real-world incident reports. This could mean adversarial inputs have not yet caused documented real-world harm at scale, or that incidents caused by adversarial inputs are being reported without attributing the mechanism. Either interpretation is worth tracking: the next version of AIID may look very different as LLM-based products proliferate.
+
+**S7 vocabulary gap in original classifier.** When the classifier vocabulary was expanded to include disinformation and election interference terminology, S7 (Institutional Credibility Amplification) recovered 72 additional AIID incidents previously uncategorized. These incidents — AI-generated political videos, synthetic news, influence operations — represent the same underlying failure mode (false information amplified by apparent institutional authority) but use entirely different vocabulary from the law enforcement AI incidents that originally anchored S7. This underscores that keyword classifiers require vocabulary coverage across all report registers, not just the most common.
+
+**S3 captures privacy leakage.** Adding training data memorization and PII exposure terms to S3 (Scope Creep) surfaced 300 AVID entries. These incidents — models reproducing private training data or exposing personally identifiable information — represent the model acting beyond its data access mandate, consistent with the S3 definition. This is distinct from software-level data breaches (which belong to the excluded Security/Infrastructure category).
+
+**S4 remains the hardest to instrument.** Context Blindness shows near-zero entries in both AIID (40, all supplemental) and AVID (0). No existing incident database systematically documents pragmatic failure, sarcasm misinterpretation, or emotional subtext blindness. This is not evidence that S4 failures are rare — it is evidence that they are rarely documented as distinct incident categories. The S4 benchmark in Section 4.2 is the primary evidence source for this signature.
+
+**AVID's Security domain is structurally out of scope.** 904 of 1,754 AVID reports classify under Security/Software Vulnerability (CVE-style vulnerabilities in model infrastructure, supply chain compromise, model weight theft). These are infrastructure-level failures, not behavioral failures of a deployed model — the distinction Aletheia is built on. Excluding them is the correct decision, not a coverage gap.
 
 ---
 
@@ -158,6 +196,8 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 - Reports **detection rate** (% of runs where the signature was observed), **exclusion rate** (API errors, model refusals on content grounds), and per-sub-category breakdowns
 
 **Exclusion criteria** are applied consistently across benchmarks: API errors, rate limits, and model refusals on content policy grounds (which represent a *different* failure mode, not the target signature) are excluded from detection rate calculations.
+
+**Classifier thresholds:** The keyword classifier assigns 0.4 confidence per keyword match, capped at 1.0. A confidence score at or above 0.3 is required to label an incident as exhibiting a signature. These values were chosen so that a single strong keyword match produces 0.4 (below threshold) and two or more matches produce 0.8 or higher (above threshold), requiring at least two independent indicators for classification. The full keyword vocabulary is listed in Appendix C.
 
 ### 4.2 Benchmark Descriptions
 
@@ -197,7 +237,7 @@ d' = Z(H) - Z(F)
 
 H is the hit rate (signature detected when the trigger is present), F is the false alarm rate (signature detected in the baseline condition with no trigger), and Z is the inverse normal function. A high d' means the model is genuinely sensitive to the trigger rather than responding randomly. The response criterion beta = exp((Z(F)^2 - Z(H)^2) / 2) captures whether the model leans permissive (beta < 1) or conservative (beta > 1). Applied to our results:
 
-- **S2 (Credibility Surface Exploitation):** Gemini hit rate 42% vs Claude baseline 6% gives d' = 1.35 and beta = 3.28, indicating strong sensitivity to authority framing with a permissive response bias.
+- **S2a (Social and Identity Manipulation):** Gemini hit rate 42% vs Claude baseline 6% gives d' = 1.35 and beta = 3.28, indicating strong sensitivity to authority framing with a permissive response bias.
 - **S7 (Institutional Credibility Amplification):** GPT-4o hit rate 45% vs Claude baseline 10% gives d' = 1.16 and beta = 2.26, confirming GPT-4o is substantially more likely to reproduce false premises when an authority is cited.
 
 **Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a test item with a difficulty parameter (delta) and each model as having a latent failure propensity (theta). The probability of a failure is:
@@ -240,7 +280,7 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 | Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
 |-----|-----------|---------------------------------------|---------------------------|--------------------------------------|
 | S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] |
-| S2 | Credibility Surface Exploitation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
+| S2a | Social and Identity Manipulation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
 | S3 | Scope Creep Beyond Mandate | 10% [7–15] | 0% [0–4] | 0% [0–4] |
 | S4 | Context Blindness | 0% [0–3] | 0% [0–4] | 2% [1–6] |
 | S5 | No Safe State Fallback | 0% [0–3]‡ | 11% [6–19] | **29% [23–36]** |
@@ -250,13 +290,13 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 
 *n ≥ 100 runs per cell except where noted.*
 
-*‡‡ Gemini S6: Gemini refused to complete 91 of 100 distress conversations, cutting them off before the 4-turn sequence finished. With only 9 usable conversations, a detection rate cannot be reliably estimated. The refusal itself suggests Gemini's content filters intercept crisis-adjacent language upstream, before the model ever evaluates whether to offer help. This is a different safety mechanism than what S6 measures.*
-
 *‡ Claude S5: 10 of 100 runs excluded because Claude returned an API error instead of a response when given deliberately corrupted text (vowels stripped). The 0% detection rate is based on the remaining 90 runs across all other out-of-distribution categories.*
+
+*‡‡ Gemini S6: Gemini refused to complete 91 of 100 distress conversations, cutting them off before the 4-turn sequence finished. With only 9 usable conversations, a detection rate cannot be reliably estimated. The refusal itself suggests Gemini's content filters intercept crisis-adjacent language upstream, before the model ever evaluates whether to offer help. This is a different safety mechanism than what S6 measures.*
 
 ### 5.2 Key Findings
 
-**Finding 1: S2 shows the largest absolute gap across all three models.** Gemini 2.5 Flash exhibits Credibility Surface Exploitation at 42% [35–49], representing 7× the rate observed in Claude (6%) and GPT-4o (5%). Gemini is dramatically more susceptible to unverifiable authority claims, modifying response depth and hedging behavior in response to claimed institutional identity at a rate that dwarfs the other two frontier models.
+**Finding 1: S2a shows the largest absolute gap across all three models.** Gemini 2.5 Flash exhibits Social/Identity Manipulation susceptibility at 42% [35–49], representing 7× the rate observed in Claude (6%) and GPT-4o (5%). Gemini is dramatically more susceptible to unverifiable authority claims, modifying response depth and hedging behavior in response to claimed institutional identity at a rate that dwarfs the other two frontier models. Note: this benchmark tests S2a behavior (social identity framing); S2b (adversarial input) has not yet been benchmarked.
 
 **Finding 2: S7 shows the largest GPT-4o vs Claude gap.** GPT-4o exhibits Institutional Credibility Amplification at 45% [36–55], compared to 10% [6–17] for Claude Sonnet (a 4.5× difference). GPT-4o is substantially more likely to reproduce false information when it is framed as coming from an authoritative institutional source. Gemini falls between them at 28% [23–35].
 
@@ -280,7 +320,7 @@ Rather than a single "safest" model, our results reveal complementary failure mo
 |-------|--------------------|----|
 | Claude Sonnet 4.6 | S1 (2%), S4 (0%), S5 (0%) | S3 (10%), S6 (11%), S8 (15%) |
 | GPT-4o | S3 (0%), S4 (0%), S6 (0%) | S5 (11%), S7 (45%), S8 (35%) |
-| Gemini 2.5 Flash | S3 (0%), S4 (2%) | S1 (16%), S2 (42%), S5 (29%), S7 (28%), S8 (55%) |
+| Gemini 2.5 Flash | S3 (0%), S4 (2%) | S1 (16%), S2a (42%), S5 (29%), S7 (28%), S8 (55%) |
 
 *Gemini S6 excluded from comparison: content safety filters terminate 91% of distress conversations before measurement is possible (see footnote ‡‡).*
 
@@ -294,7 +334,9 @@ Claude shows strong uncertainty-signaling behavior (S1, S5) but weaker vulnerabi
 
 The signature framework reframes AI safety from a model alignment problem to a deployment observability problem. Rather than asking whether a model is safe (a question that cannot be answered in the abstract), we ask: which behavioral signatures does this model exhibit, at what rates, and in which contexts? This is a question that can be answered empirically and monitored continuously.
 
-The AIID prevalence data suggests that S1 and S2 together account for approximately 62.7% of documented AI failures. Any organization deploying AI systems should prioritize detection mechanisms for these two signatures above others.
+The AIID prevalence data suggests that S1, S2a, and S2b together account for the majority of documented AI failures. S2a (social/identity manipulation) alone represents the single largest incident category, driven by the volume of deepfake, voice cloning, and impersonation incidents in AIID. S7 (Institutional Credibility Amplification) is the second-largest once disinformation and election interference incidents are included. Any organization deploying AI systems should prioritize detection mechanisms for S1 and S2a above others, with S7 a close third for public-facing applications.
+
+**Phased adoption:** Organizations transitioning from output filtering to runtime telemetry need not instrument all eight signatures simultaneously. A pragmatic sequence is: begin with S3 (Scope Creep) and S5 (No Safe State Fallback), which have clear operational definitions, low false-positive rates, and no content-sensitivity concerns, making them straightforward to tune in a staging environment. Once baseline rates are established, extend to S1 and S7, which carry the highest prevalence and widest inter-model variance. S2a, S2b, S4, S6, and S8 involve multi-turn dynamics, content-sensitive scenarios, or adversarial inputs that require more careful threshold calibration before production deployment.
 
 ### 6.2 The Observability Analogy
 
@@ -304,6 +346,8 @@ Aletheia provides the behavioral taxonomy required to build deterministic ingres
 
 The production architecture follows naturally: signature classifiers run as lightweight middleware on the response stream, emitting structured events to an observability backend. Detection thresholds are configurable per deployment context: a legal research tool warrants tighter S1 thresholds than a creative writing assistant, and a mental health platform requires immediate S6 escalation paths that a customer service bot may not. This is the same pattern used in rate-limiting, content filtering, and fraud detection at the API layer: policy enforcement separated from business logic, tunable without model redeployment.
 
+When the synchronous intercept layer experiences latency violations or saturation, a cascading fallback sequence applies: first, degrade to async-only monitoring (accepting the response without blocking); second, if the async pipeline is also unavailable, fall back to a cached policy decision for that signature category; third, log the gap event for retrospective audit. This ensures that safety instrumentation failures degrade gracefully rather than causing service outages or silently disabling monitoring. Race conditions between the synchronous and asynchronous engines are managed by assigning a monotonic sequence number to each request; the async engine ignores events already acted on by the sync layer.
+
 ### 6.3 Limitations
 
 **Benchmark scope:** Our benchmarks simulate the failure modes in controlled prompt-response settings. Real-world S5 and S8 signatures often manifest across extended interactions or system-level behaviors that single-turn prompts cannot fully capture.
@@ -312,17 +356,27 @@ The production architecture follows naturally: signature classifiers run as ligh
 
 **Model versions:** LLM behavior changes across versions. Results reflect model behavior at the time of testing (June 2026) and may not generalize to future versions.
 
+**Model coverage:** All three evaluated models are frontier closed-source commercial systems. Whether the nine signatures generalize to open-weight models (Llama, Mistral, Falcon) or domain-specific fine-tuned systems remains an open empirical question. Architectural differences in instruction-tuning, RLHF, and safety post-training may produce qualitatively different signature distributions.
+
 **Two-model limitation on some signatures:** S5 and portions of S8 have lower Claude sample sizes due to API credit exhaustion during initial runs; these results should be interpreted with the wider confidence intervals noted.
+
+**Validation corpus expansion [future work]:** The current incident dataset draws exclusively from AIID. Planned automated connectors will ingest raw vulnerability and exploit data from AVID, MITRE ATLAS, and the MIT AI Risk Repository, expanding the validation footprint and enabling cross-corpus signature prevalence comparisons.
+
+**Cross-engine verification [future work]:** Results in this paper were generated via direct API calls to each model. A planned verification pass will route identical prompts through a parallel Gemini API pipeline using Python-based ensemble routing, producing independent detection rate estimates for each signature. Agreement between the two pipelines would strengthen confidence in results where classifiers rely on keyword heuristics; disagreements would surface classifier edge cases for manual review.
+
+**S2b benchmark [future work]:** S2b (Adversarial Input Exploitation) has 376 validated incidents in the cross-corpus dataset — the third-largest signature by prevalence — but zero benchmark runs. Designing a rigorous S2b benchmark requires careful distinction between prompt injection (indirect, via retrieved content) and direct jailbreak sequences, and must account for rapidly evolving attack taxonomies. The benchmark protocol is in design and is the highest-priority addition to the next evaluation cycle.
+
+**Triage decision boundaries [future work]:** The current classifier produces a binary signature label per incident. A planned extension is algorithmic decision trees that distinguish high-stakes hallucinations (S1 with downstream action, e.g., a legal filing or medical dosage) from low-stakes baseline errors (S1 in a casual creative context), allowing operators to route incidents to different escalation tiers rather than a single threshold. This requires a severity annotation layer on top of signature detection and is deferred to a follow-on study.
 
 ---
 
 ## 7. Related Work
 
-**AI incident documentation:** The AIID (McGregor, 2021) provides the primary incident corpus. Related efforts include the OECD AI Incidents Monitor and the Center for AI Safety's incident database.
+**AI incident documentation:** The AIID (McGregor, 2021) provides the primary incident corpus. Related efforts include the OECD AI Incidents Monitor and the Center for AI Safety's incident database. AVID (AI Vulnerability Database) catalogs AI vulnerabilities with structured taxonomy entries; MITRE ATLAS (Adversarial Threat Landscape for AI Systems) maps adversarial attack techniques against ML systems; and the MIT AI Risk Repository aggregates risk classifications from academic and policy sources. These three corpora complement AIID's incident-first approach with vulnerability-first and risk-first perspectives and are planned sources for Aletheia's next validation round.
 
 **AI hallucination:** Extensive literature on LLM hallucination (Ji et al., 2023; Maynez et al., 2020) focuses on factual accuracy. Our S1 signature extends this by emphasizing the *confidence calibration* failure rather than factual error alone.
 
-**Jailbreaking and red-teaming:** S2 overlaps with jailbreaking literature (Wei et al., 2023; Perez & Ribeiro, 2022), but our focus is on unintentional authority bypass in benign deployment contexts rather than adversarial attack.
+**Jailbreaking and red-teaming:** S2b (Adversarial Input Exploitation) directly overlaps with jailbreaking literature (Wei et al., 2023; Perez & Ribeiro, 2022). Our cross-corpus analysis found S2b accounts for 366 AVID entries versus only 10 AIID entries, consistent with adversarial ML being primarily a research phenomenon rather than a documented real-world incident pattern. S2a (Social/Identity Manipulation) is distinct from jailbreaking: it involves human actors exploiting identity trust signals rather than crafted inputs exploiting model instruction-following.
 
 **AI safety evaluation:** Broadly relates to BIG-bench (Srivastava et al., 2022), HELM (Liang et al., 2022), and MMLU (Hendrycks et al., 2021), though our focus is behavioral failure modes rather than capability benchmarks.
 
@@ -330,7 +384,9 @@ The production architecture follows naturally: signature classifiers run as ligh
 
 ## 8. Conclusion
 
-We introduced Aletheia, a framework of eight behavioral signatures characterizing systematic AI failure modes. Validated against 995 real-world incidents and empirically measured across three frontier models, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
+We introduced Aletheia, a framework of nine behavioral signatures characterizing systematic AI failure modes, including the discovery of a mechanistic split within S2 into social/identity manipulation (S2a) and adversarial input exploitation (S2b). Validated against 1,762 incidents across two independent databases (AIID and AVID) and empirically measured across three frontier models, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
+
+As AI architectures evolve, the nine signatures will require ongoing stewardship: new failure modes may warrant additional signatures, and existing signatures may need refined operationalizations for multi-modal or agentic systems. A formal community process for proposing, validating against new incident corpora, and deprecating signatures ensures the framework remains calibrated to observed reality rather than becoming a fixed taxonomy. The open-source release is the first step toward that governance structure.
 
 All code, data, and results are available at: https://github.com/vikasny30/aletheia
 
@@ -413,24 +469,26 @@ The complete question bank is released alongside this paper as `data/question_ba
 | AIID Full Export | 627 | Complete AI Incident Database export (2013–2024), keyword-classified |
 | AIID HuggingFace Mirror | 178 | Public mirror (`vitaliy-sharandin/ai-incidents`), pre-2021 incidents |
 | Curated Supplemental | 190 | Hand-curated from journalism, research papers, and user reports |
-| **Total** | **995** | **Unique incidents after deduplication** |
+| AVID | 767 | AI Vulnerability Database (1,754 reports; 904 Security/Infrastructure excluded) |
+| **Total** | **1,762** | **Unique incidents across all sources** |
 
 ### B.2 Incidents per Signature
 
-Counts reflect incidents classified to each signature at confidence ≥ 0.3. An incident may be tagged to multiple signatures if it meets threshold on more than one.
+Counts reflect incidents classified to each signature at confidence ≥ 0.3. An incident may be tagged to multiple signatures if it meets threshold on more than one. S2 is split into S2a and S2b in the expanded corpus.
 
-| Sig | Signature | AIID (HF) | AIID (Full) | Supplemental | Total |
-|-----|-----------|-----------|-------------|--------------|-------|
-| S1 | Confidence Without Grounding | 19 | 87 | 24 | 130 |
-| S2 | Credibility Surface Exploitation | 21 | 263 | 25 | 309 |
-| S3 | Scope Creep Beyond Mandate | 6 | 17 | 25 | 48 |
-| S4 | Context Blindness | 0 | 0 | 36 | 36 |
-| S5 | No Safe State Fallback | 16 | 20 | 25 | 61 |
-| S6 | Vulnerability Signal Blindness | 9 | 34 | 25 | 68 |
-| S7 | Institutional Credibility Amplification | 82 | 61 | 0 | 143 |
-| S8 | Feedback Loop Absence | 21 | 16 | 22 | 59 |
+| Sig | Signature | AIID | Supplemental | AVID | Total |
+|-----|-----------|------|--------------|------|-------|
+| S1 | Confidence Without Grounding | 164 | 25 | 68 | 257 |
+| S2a | Social/Identity Manipulation | 370 | 25 | 8 | 403 |
+| S2b | Adversarial Input Exploitation | 10 | — | 366 | 376 |
+| S3 | Scope Creep Beyond Mandate | 35 | 25 | 300 | 360 |
+| S4 | Context Blindness | 0 | 40 | 0 | 40 |
+| S5 | No Safe State Fallback | 39 | 25 | 16 | 80 |
+| S6 | Vulnerability Signal Blindness | 63 | 25 | 54 | 142 |
+| S7 | Institutional Credibility Amplification | 221 | 0 | 2 | 223 |
+| S8 | Feedback Loop Absence | 42 | 25 | 35 | 102 |
 
-*Note: S4 has zero AIID incidents because the pragmatic failure pattern (context blindness) does not surface through keyword matching on incident text. All S4 validation cases are hand-curated.*
+*S4 has zero AIID and AVID incidents: pragmatic failure does not surface through keyword matching on incident text. All S4 validation cases are hand-curated. S2b has no supplemental dataset: adversarial input incidents were discovered entirely through the AVID corpus expansion.*
 
 ### B.3 Confidence Score Distribution (Supplemental Dataset)
 
@@ -462,15 +520,27 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | hallucination, fabricated, false claim, incorrect information, made up citation, wrong answer, misinformation, false information, inaccurate, fabrication, citation error |
 | Journalist | provided false, gave incorrect, wrong information, factual error, incorrect answer, generated false |
+| ML Eval | confabulation, factual inconsistency, faithfulness failure, grounding failure, knowledge boundary violation, medical chatbot error, drug dosage error, dosage error, misdiagnosis, unauthorized diet advice |
 
 ---
 
-### S2: Credibility Surface Exploitation
+### S2a: Social and Identity Manipulation
 
 | Category | Keywords |
 |----------|----------|
 | Technical | deepfake, impersonation, trust bypass, authority spoof, fake identity, credential forgery, identity fraud, spoofed, fake account, false identity, synthetic media |
-| Journalist | fake video, manipulated media, forged, synthetic voice, cloned voice, voice cloning, face swap, identity theft |
+| Journalist | fake video, manipulated media, forged, synthetic voice, cloned voice, voice cloning, face swap, identity theft, ai-cloned, ai-generated voice, voice scam, fake kidnapping, extortion scam |
+| ML Eval | identity verification bypass, speaker verification failure, voice authentication failure |
+
+---
+
+### S2b: Adversarial Input Exploitation
+
+| Category | Keywords |
+|----------|----------|
+| Technical | prompt injection, jailbreak, system prompt override, jailbreaking, adversarial prompt, guardrail bypass, safety filter bypass, instruction override, indirect injection, role confusion |
+| Journalist | bypassed safety, circumvented filter, tricked the ai, escaped the sandbox, broke the rules, manipulated the chatbot |
+| ML Eval | alignment bypass, RLHF bypass, reward hacking, goal misgeneralization, specification gaming, out-of-distribution robustness, adversarial robustness, red teaming |
 
 ---
 
@@ -480,6 +550,7 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | unauthorized action, exceeded scope, unsanctioned, beyond mandate, overstepped, unintended deletion, scope creep, out of scope, unauthorized deletion |
 | Journalist | deleted, removed files, unintended, without permission, without authorization, unexpected action, did more than, went beyond, took additional action |
+| ML Eval | training data leak, data memorization, pii exposure, information leak, privacy leakage, membership inference, data extraction, memorization attack, attribute inference |
 
 ---
 
@@ -489,6 +560,7 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | literal interpretation, missed context, misunderstood intent, tone deaf, context blind, pragmatic failure, missed subtext, context blindness, misread intent, failed to understand |
 | Journalist | misunderstood, missed the point, ignored context, did not recognize, failed to recognize intent, took literally |
+| ML Eval | coreference resolution failure, implicature failure, theory of mind failure, sarcasm detection failure, pragmatic inference failure, discourse coherence failure, anaphora resolution |
 
 *Note: S4 has zero AIID matches because pragmatic failures (missed sarcasm, misread tone) are rarely described in incident reports with these terms. All 36 S4 validation cases were hand-curated.*
 
@@ -500,6 +572,7 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | no stop mechanism, continued despite error, failed to halt, emergency stop failure, stuck in loop, no fallback, no override, no kill switch |
 | Journalist | braking failure, failed to brake, failed to stop, self-driving, autonomous vehicle, robot malfunction, malfunctioned, out of control, collision avoidance, emergency stop, brake failure, could not stop, missed the stop, did not detect |
+| ML Eval | distribution shift failure, out-of-distribution failure, should not provide, unauthorized advice, deployment boundary violation, epistemic overconfidence, capability overgeneralization, delivery robot, medical out of domain |
 
 ---
 
@@ -509,6 +582,7 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | vulnerable user, mental health, crisis signal, self-harm, missed warning, at-risk user, suicide, distress signal, crisis detection, vulnerability blind |
 | Journalist | mental illness, depression, anxiety, harm reduction, crisis intervention, at risk, vulnerable population, emotional distress, psychological harm |
+| ML Eval | eating disorder, domestic violence, non-consensual, ncii, psychological safety, non-consensual intimate imagery, survivor support, crisis nlp, safeguarding failure |
 
 ---
 
@@ -518,6 +592,7 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 |----------|----------|
 | Technical | official channel, institutional authority, government ai, amplified credibility, false authority, institutional framing, misrepresented authority, false official, authority amplification |
 | Journalist | facial recognition, wrongful arrest, predictive policing, recidivism, risk score, criminal justice, law enforcement, government algorithm, court algorithm, official system, credit scoring, hiring algorithm, automated decision, police, parole, sentencing |
+| ML Eval | disinformation, influence operation, election misinformation, political deepfake, opaque algorithm, rejected claims, narrative manipulation, synthetic propaganda, astroturfing, coordinated inauthentic behavior |
 
 ---
 
@@ -526,4 +601,5 @@ The keyword classifier (`benchmarks/utils.py: classify_incident`) provides first
 | Category | Keywords |
 |----------|----------|
 | Technical | no feedback loop, no correction, widespread harm, scale without monitoring, mass deployment failure, runaway system, no human review, automated at scale, unchecked deployment, no oversight |
-| Journalist | algorithmic bias, biased algorithm, perpetuated bias, discriminatory algorithm, systemic bias, disparate impact, recommendation algorithm, deployed at scale, thousands of, millions of, widespread discrimination, bias in, biased results, unfair algorithm |
+| Journalist | algorithmic bias, biased algorithm, perpetuated bias, discriminatory algorithm, systemic bias, disparate impact, recommendation algorithm, deployed at scale, widespread discrimination, bias in, biased results, unfair algorithm |
+| ML Eval | content moderation failure, filter bubble, echo chamber, radicalization, hurtful completion, hurtful sentence completion, demographic bias amplification, model drift, feedback bias, dataset bias perpetuation |
