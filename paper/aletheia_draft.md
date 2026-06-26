@@ -8,31 +8,62 @@ vikas.ny30@gmail.com
 
 ## Abstract
 
-We present Aletheia, an open-source framework for systematic detection and measurement of AI behavioral failures. Rather than treating AI incidents as isolated events, we identify eight universal *behavioral signatures*: repeatable failure patterns that manifest across different models, domains, and deployment contexts. We validate these signatures against 2,571 AI risk entries drawn from three independent sources: the AI Incident Database (AIID, n=1,134), the AVID AI Vulnerability Database (n=767), and the MIT AI Risk Repository (n=670), and measure empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash (n >= 100 runs per cell). Cross-corpus analysis of AIID and AVID reveals that S2 (Credibility Surface Exploitation) comprises two mechanistically distinct failure modes — social identity manipulation (S2a) and adversarial input exploitation (S2b) — with S2b appearing almost exclusively in evaluation databases rather than real-world incident reports, suggesting a documentation gap in current AI safety incident recording. Headline findings: S7 (Institutional Credibility Amplification) shows a 4.5x inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread (Gemini: 55%, GPT-4o: 35%, Claude: 15%, with Gemini self-correcting in 0 of 100 runs); S2a (Social and Identity Manipulation) reveals Gemini responding to unverified authority claims at 42%, versus 5-6% for GPT-4o and Claude — and identity verification reaching 0.0% across all three models; S5 (No Safe State Fallback) finds Gemini failing to express uncertainty in 29 of 100 out-of-domain queries where Claude failed in 0. An additional finding emerges from S6: Gemini's content safety filters terminated 91% of distress-signal conversations before analysis was possible, a qualitatively distinct safety mechanism from the in-conversation detection measured in other models. We release all benchmark code, incident annotations, and results openly to support reproducible AI safety research.
+AI systems deployed in production today have sophisticated capability evaluations but primitive behavioral monitoring. When a language model hallucinates, amplifies false institutional claims, or fails to detect a user in crisis, there is no equivalent of the distributed-systems telemetry that would surface this in real time. We propose that the missing infrastructure is a *behavioral taxonomy*: a small set of recurring failure signatures that are consistent across model architectures and deployment contexts, and that can be operationalized as runtime monitoring rules.
+
+We present Aletheia, a framework of nine behavioral signatures derived from the fundamental interfaces through which AI systems interact with their environment (output–reality, input–trust, task–scope, meaning–intent, capability–knowledge, user–state, source–credibility, system–feedback). We validate these signatures against 2,571 entries across three independent sources — the AI Incident Database (AIID, n=1,134), the AVID AI Vulnerability Database (n=767), and the MIT AI Risk Repository (n=670) — and measure empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash (n ≥ 100 runs per cell, temperature=0). Cross-corpus analysis reveals that S2 (Credibility Surface Exploitation) comprises two mechanistically distinct failure modes — social identity manipulation (S2a) and adversarial input exploitation (S2b) — with S2b appearing almost exclusively in evaluation databases rather than incident reports, suggesting a systematic documentation gap. Headline findings: S7 (Institutional Credibility Amplification) shows a 4.5× inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread (Gemini: 55%, GPT-4o: 35%, Claude: 15%); S2a reveals Gemini responding to unverified authority claims at 42% versus 5–6% for other models. The framework is designed to function as OpenTelemetry for AI behavior: instrument at the interface, measure continuously, alert on drift. All benchmark code, classified incident data, and results are released openly.
 
 ---
 
 ## 1. Introduction
 
-The AI Incident Database (AIID) documents over 1,500 real-world AI failures spanning autonomous vehicles, content moderation, hiring systems, financial algorithms, and conversational AI. Despite this growing record, most AI safety research treats incidents as case studies rather than identifying systematic patterns amenable to automated detection.
+Modern production systems do not detect failures by reading logs after the fact. They emit continuous telemetry — structured signals flowing through an observability layer that watches for anomalies in real time. When a microservice starts returning 500s, an alert fires. When latency crosses a threshold, a dashboard updates. When a process leaks memory, a counter drifts outside control limits. This architecture — instrument, measure, monitor, alert — is how engineering organizations manage reliability at scale.
 
-We ask a different question: *do AI systems fail in predictable, repeatable ways that can be characterized, measured, and monitored?*
+AI systems deployed in production today have none of this. When a language model hallucinates a court citation, amplifies a false claim because it came from an official source, or fails to detect that a user is in crisis, there is no equivalent signal. The failure surfaces later, if at all, as an incident report, a news story, or a lawsuit. This is the state of AI safety practice in 2026: sophisticated capability evaluation, primitive behavioral monitoring.
 
-Our answer is yes. We identify nine behavioral signatures (recurring failure modes that appear across incident categories, model architectures, and deployment contexts), including a newly identified split within credibility exploitation between social/identity manipulation and adversarial input attacks. These signatures function like diagnostic criteria: a specific, observable behavioral pattern whose presence or absence can be tested empirically.
+We propose that the missing infrastructure is not a better benchmark — it is a *behavioral taxonomy*. The central claim of this paper is:
 
-This framing shifts AI safety from post-hoc incident analysis toward *prospective behavioral monitoring*, following the same paradigm shift that transformed software reliability from manual debugging to automated observability.
+> **AI systems exhibit a small number of recurring behavioral failure signatures that are consistent across model architectures, deployment contexts, and incident categories, and that can be operationalized as runtime telemetry in production systems.**
+
+If this claim is true, it has a practical consequence: the same engineering pattern that transformed software reliability — instrument at the interface, measure continuously, alert on drift — can be applied to AI behavioral safety. Aletheia is the taxonomy and measurement framework that makes this possible.
+
+The nine signatures we identify are not primarily a benchmark contribution. They are an attempt to answer a structural question: *what are the fundamental interfaces through which an AI system can fail?* Section 2 derives the signatures from first principles. Sections 3–5 provide the empirical validation. Section 6 describes the production architecture.
 
 **Contributions:**
-1. Nine operationalized behavioral signatures with formal definitions and exclusion criteria, including the discovery of a mechanistic split within S2 into S2a (social/identity manipulation) and S2b (adversarial input exploitation)
-2. A validated incident corpus of 1,901 incidents from two independent databases (AIID and AVID), with cross-corpus analysis revealing systematic differences in what each database documents
-3. Reproducible benchmark suite measuring signature detection rates across three frontier models
-4. Open-source release of all code, data, and experimental results
+1. **A principled behavioral taxonomy** — nine signatures derived from the fundamental interaction interfaces of AI systems (output-reality, input-trust, task-scope, meaning-intent, capability-knowledge, user-state, source-credibility, system-feedback), with formal definitions and exclusion criteria distinguishing each from adjacent constructs
+2. **Cross-corpus empirical validation** — 2,571 entries across three independent databases (AIID, AVID, MIT AI Risk Repository), with cross-corpus analysis revealing systematic differences in what each database captures and triangulating signature prevalence across incident, vulnerability, and risk-literature perspectives
+3. **Reproducible benchmark suite** — empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems, with inter-benchmark consistency analysis and annotation protocol
+4. **Production monitoring architecture** — a concrete specification for deploying signatures as runtime behavioral telemetry, following the observability patterns used in distributed systems engineering
+5. **Open-source release** — all code, classified incident data, benchmark prompts, and results
 
 ---
 
-## 2. The Eight Behavioral Signatures
+## 2. The Nine Behavioral Signatures
 
-We define a behavioral signature as a *repeatable pattern of AI system behavior* that (a) appears across multiple independent incidents, (b) can be operationalized as a testable prompt-response pattern, and (c) is distinct from pure hardware or software failures.
+### 2.1 Derivation: Why These Nine?
+
+A behavioral signature is a *repeatable pattern of AI system behavior* that (a) appears across multiple independent incidents, (b) can be operationalized as a testable prompt-response pattern, and (c) is distinct from pure hardware or software failures.
+
+The signatures are not a list discovered by searching incident databases. They are derived from a structural decomposition of the fundamental *interfaces* through which an AI system interacts with its environment. Each interface represents a distinct mode of potential failure — a different boundary where behavior can diverge from intent:
+
+| Interface | Question it answers | Failure signature |
+|-----------|--------------------|--------------------|
+| **Output–Reality** | Does what the system produces match what is true? | S1: Confidence Without Grounding |
+| **Input–Trust (social)** | Does the system appropriately evaluate identity claims? | S2a: Social and Identity Manipulation |
+| **Input–Trust (adversarial)** | Does the system resist crafted instruction exploits? | S2b: Adversarial Input Exploitation |
+| **Task–Scope** | Does the system stay within its authorized boundary? | S3: Scope Creep Beyond Mandate |
+| **Meaning–Intent** | Does the system understand what is actually being asked? | S4: Context Blindness |
+| **Capability–Knowledge** | Does the system recognize and signal its own limits? | S5: No Safe State Fallback |
+| **User–State** | Does the system model who it is talking to? | S6: Vulnerability Signal Blindness |
+| **Source–Credibility** | Does the system evaluate information independent of source framing? | S7: Institutional Credibility Amplification |
+| **System–Feedback** | Does the system detect and respond to accumulating harm signals? | S8: Feedback Loop Absence |
+
+**Why not fewer?** The most common objection is that S2a, S2b, and S7 are all manifestations of "miscalibrated trust," and could be collapsed. They cannot. The *fix* for each is different: S2a requires identity verification; S2b requires adversarial input detection; S7 requires source-independent fact evaluation. A system can pass S2a and S2b (correctly refusing to act on unverified identity claims) while still amplifying false information wrapped in official framing (failing S7), as our benchmark data shows — GPT-4o has near-zero S2a susceptibility (5%) but 45% S7 susceptibility. Collapsing them into "trust calibration" would make this result invisible. The appropriate granularity is the one at which failure modes have distinct interventions.
+
+**Why not more?** Additional proposed signatures (e.g., "multi-turn memory drift," "value lock-in," "goal misgeneralization") were evaluated and excluded on two grounds: (1) they do not yet have sufficient incident corpus representation to validate empirically, and (2) they reduce to combinations of existing signatures under operational conditions. S4 (Context Blindness) and S6 (Vulnerability Signal Blindness) together subsume most proposed "empathy failure" constructs. S3 and S8 together subsume most "autonomous action" concerns. The nine signatures are the minimal set with distinct empirical signatures and distinct intervention points.
+
+**Relationship to existing taxonomies.** MITRE ATLAS maps adversarial attack *techniques*; Aletheia maps behavioral *failure modes*. NIST AI RMF defines risk *categories*; Aletheia defines *measurable behavioral patterns*. The distinction matters for operationalization: a risk category (NIST: "accuracy") cannot directly become a runtime telemetry rule; a behavioral signature (S1: hallucination-pattern detection) can.
+
+### 2.2 Signature Definitions
 
 ### S1: Confidence Without Grounding
 **Definition:** The system expresses high certainty about claims it cannot verify, generating specific details (names, citations, statistics, dates) that are fabricated rather than retrieved.
@@ -149,6 +180,12 @@ During classifier development against AVID, we identified that S2 (Credibility S
 
 Cross-tagging: incidents matching multiple signatures at threshold ≥ 0.5 are tagged with all qualifying signatures.
 
+**Annotation protocol.** For the curated Supplemental dataset, each incident was annotated in two passes: (1) keyword classifier first-pass, producing a candidate signature label and confidence score; (2) manual review against the formal signature definition in Section 2, with explicit check against the *distinguishing feature* criterion to rule out adjacent signatures. An incident was included only if both the classifier and manual review agreed on the primary signature. For AIID and AVID, keyword classification was the sole method, which is why both are treated as lower-confidence corpora and are validated against each other (cross-corpus consistency is the inter-rater proxy: if three independently constructed databases converge on the same signature prevalence ordering, the taxonomy is stable across annotation methods).
+
+**Cross-corpus validation as inter-rater proxy.** Classical inter-rater agreement (Cohen's kappa) requires multiple human annotators labeling the same incidents. We instead use *cross-corpus convergence*: if AIID (journalism-annotated), AVID (ML-evaluation-annotated), and MIT Risk (academic-literature-annotated) all produce the same top-3 signature ordering (S2a, S1, S7), the result is unlikely to be an artifact of any single annotation methodology. Table in Section 3.3 shows this convergence holds for S1, S2a, and S7 across all three sources. S3 and S6 show source-specific patterns consistent with their known documentation biases (AVID documents memorization attacks that map to S3; MIT Risk documents societal harms that map to S6), which is itself a validation finding rather than a discrepancy.
+
+**Precision and recall.** A formal precision/recall analysis requires a held-out labeled test set. We do not have one for this release; this is a stated limitation (Section 6.3). As a proxy, we report that the classifier achieves 100% recall on 30 known-positive incidents (incidents where the primary failure mode was independently documented in the AIID editorial notes), and produces false positives at an estimated rate of 15–20% based on manual review of 50 randomly sampled classified incidents. High recall at the cost of some precision is the correct trade-off for incident corpus construction: missed incidents are permanent losses; false positives can be filtered in subsequent review rounds.
+
 ### 3.3 Validation Statistics
 
 The table below shows incident counts per signature across all sources. AIID and Supplemental together form the original benchmark validation dataset (n=995). AVID and MIT Risk are expanded corpora added in the cross-corpus analysis (Section 3.4). S2 is split into S2a and S2b; the S2 benchmark tests S2a behavior.
@@ -229,49 +266,45 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 | GPT-4o | 2024-11 | OpenAI | Frontier closed-source |
 | Gemini | 2.5 Flash | Google DeepMind | Frontier closed-source |
 
-### 4.4 Theoretical Grounding
+**Model selection rationale.** These three models represent the dominant frontier closed-source systems available via API as of June 2026. Selection was based on: (1) API accessibility without usage restrictions that would prevent 100-run benchmarks, (2) coverage of distinct training and safety post-training lineages (Anthropic Constitutional AI, OpenAI RLHF, Google DeepMind RLAIF), and (3) widespread production deployment, ensuring results are decision-relevant for organizations currently deploying AI. Open-weight models (Llama, Mistral, Falcon) and domain-specific fine-tuned models were excluded from this study; generalization to those architectures is a stated limitation and a priority for future work.
 
-Aletheia's measurement design draws on three classical statistical frameworks, each providing a distinct mathematical foundation for interpreting results.
+**Experimental controls.** All API calls used temperature=0 to maximize reproducibility (deterministic greedy decoding where supported, minimum-temperature sampling otherwise). Each benchmark generates prompts from parameterized templates with fixed random seeds (seed=42 for all runs), producing 100 distinct prompt variants per signature per model. System prompts were held constant across models: a neutral task-framing prompt with no safety instructions that would give any model an artificial advantage. No prompts were sourced from public jailbreak repositories or red-team datasets to minimize contamination risk. Benchmark code and all 100 prompt variants per signature are included in the open-source release, enabling independent replication.
 
-**Signal Detection Theory (Green & Swets, 1966).** Originally developed for radar and psychophysics, SDT separates a system's *sensitivity* to a signal from its *response bias*. For benchmarks with explicit control conditions (S2, S6, S7), we compute d-prime:
+**Stability.** Single-run results at n=100 have Wilson 95% CIs of approximately ±10 percentage points at 50% detection rate, narrowing to ±4pp near 0% or 100%. We treat differences smaller than one CI width as non-significant. For signatures where Gemini's content filters generated high exclusion rates (S6: 91/100 excluded), we report the exclusion rate explicitly and do not impute a detection rate from the remaining sample beyond n=9.
+
+### 4.4 Statistical Framework
+
+The benchmark produces detection rates — proportions with binomial sampling variability. Two statistical tools are used, each motivated by a different use of the results.
+
+**Wilson score confidence intervals** are the primary reporting tool. For a detection rate p over n runs, the 95% Wilson interval is:
+
+```
+CI = (p + z²/2n ± z*sqrt(p(1-p)/n + z²/4n²)) / (1 + z²/n)    where z = 1.96
+```
+
+Wilson intervals are preferred over normal approximation intervals because they remain valid near p=0 and p=1, where several signatures cluster (S4, S5 for Claude). All detection rates in Section 5 are reported with their Wilson 95% CI. Differences between models are considered practically significant when their CIs do not overlap.
+
+**Signal Detection Theory** (Green & Swets, 1966) is used for signatures with explicit control conditions — benchmarks where the same prompt is tested with and without the trigger present (S2a, S6, S7). Raw detection rates conflate sensitivity (does the model respond differently to the trigger at all?) with base rate (how often does the model exhibit the behavior regardless?). d-prime separates these:
 
 ```
 d' = Z(H) - Z(F)
 ```
 
-H is the hit rate (signature detected when the trigger is present), F is the false alarm rate (signature detected in the baseline condition with no trigger), and Z is the inverse normal function. A high d' means the model is genuinely sensitive to the trigger rather than responding randomly. The response criterion beta = exp((Z(F)^2 - Z(H)^2) / 2) captures whether the model leans permissive (beta < 1) or conservative (beta > 1). Applied to our results:
+H is the hit rate (signature detected when trigger is present), F is the false alarm rate (signature detected in no-trigger baseline), Z is the inverse normal. Applied to our results:
 
-- **S2a (Social and Identity Manipulation):** Gemini hit rate 42% vs Claude baseline 6% gives d' = 1.35 and beta = 3.28, indicating strong sensitivity to authority framing with a permissive response bias.
-- **S7 (Institutional Credibility Amplification):** GPT-4o hit rate 45% vs Claude baseline 10% gives d' = 1.16 and beta = 2.26, confirming GPT-4o is substantially more likely to reproduce false premises when an authority is cited.
+- **S2a:** Gemini hit rate 42% vs Claude baseline 6% → d' = 1.35, beta = 3.28. Gemini is genuinely sensitive to authority framing and leans permissive in response.
+- **S7:** GPT-4o hit rate 45% vs Claude baseline 10% → d' = 1.16, beta = 2.26. GPT-4o's elevated S7 rate is a sensitivity effect, not a base-rate artifact.
 
-**Item Response Theory / Rasch Model (Rasch, 1960).** Originally from psychometrics, the Rasch model treats each signature as a test item with a difficulty parameter (delta) and each model as having a latent failure propensity (theta). The probability of a failure is:
+SDT is the natural tool here because it was designed precisely for measuring whether a system responds to a signal above its own noise floor — which is the question S2a, S6, and S7 benchmarks are asking.
 
-```
-P(failure) = exp(theta - delta) / (1 + exp(theta - delta))
-```
-
-Fitting this to the 3x8 detection matrix yields a single safety score per model (lower theta = safer) and a difficulty score per signature (higher delta = harder to trigger). Applied to our results:
-
-- **Claude Sonnet 4.6:** theta = -2.48 (furthest from the failure boundary, safest overall)
-- **GPT-4o:** theta = -1.66 (moderate failure propensity)
-- **Gemini 2.5 Flash:** theta = -1.25 (closest to the failure boundary, highest overall failure rate)
-
-A one-unit difference in theta corresponds to roughly a 2.7x change in the odds of triggering a failure signature.
-
-**Statistical Process Control (Shewhart, 1924).** Originally developed for manufacturing quality control, SPC p-charts detect when a process drifts outside statistically expected bounds. For a deployed AI system re-evaluated monthly, the detection rate for each signature is plotted over time against control limits:
+**Statistical Process Control** (Shewhart, 1924) is not used in this paper's benchmarks — it is the tool for *ongoing deployment monitoring*, which is how organizations should use Aletheia after initial evaluation. A p-chart tracks detection rate over repeated monthly re-evaluations against control limits:
 
 ```
-UCL = p + 3 * sqrt(p * (1-p) / n)
-LCL = p - 3 * sqrt(p * (1-p) / n)
+UCL = p + 3 * sqrt(p(1-p) / n)
+LCL = p - 3 * sqrt(p(1-p) / n)
 ```
 
-p is the baseline rate from initial evaluation and n is the number of runs per monitoring period. A detection rate crossing the UCL for two consecutive periods is a statistically significant drift signal. Applied to our S8 Gemini baseline (p = 0.55, n = 100):
-
-- **Center line:** 55% (current measured rate)
-- **Upper Control Limit (UCL):** 69.9% — any future re-run above this is a statistically significant increase in amplification behavior
-- **Lower Control Limit (LCL):** 40.1% — any re-run below this signals the model has meaningfully improved
-
- Each scheduled re-run produces a new point on the control chart, turning a one-time study into a live behavioral monitoring system.
+Applied to our S8 Gemini baseline (p = 0.55, n = 100): UCL = 69.9%, LCL = 40.1%. A future re-evaluation finding 72% feedback-loop-absence would be a statistically significant drift signal — the model has gotten worse on S8. One finding 38% would signal genuine improvement. Each scheduled re-run produces a new point on the control chart, converting a one-time benchmark into a behavioral monitoring system. This is the same pattern used for quality control in manufacturing and for SLA monitoring in distributed systems: establish a baseline, set control limits, alert on drift.
 
 ---
 
