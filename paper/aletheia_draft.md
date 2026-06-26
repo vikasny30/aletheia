@@ -8,7 +8,7 @@ vikas.ny30@gmail.com
 
 ## Abstract
 
-We present Aletheia, an open-source framework for systematic detection and measurement of AI behavioral failures. Rather than treating AI incidents as isolated events, we identify eight universal *behavioral signatures*: repeatable failure patterns that manifest across different models, domains, and deployment contexts. We validate these signatures against 1,901 real-world incidents drawn from two independent databases: the AI Incident Database (AIID, n=1,134) and the AVID AI Vulnerability Database (n=767), and measure empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash (n >= 100 runs per cell). Cross-corpus analysis of AIID and AVID reveals that S2 (Credibility Surface Exploitation) comprises two mechanistically distinct failure modes — social identity manipulation (S2a) and adversarial input exploitation (S2b) — with S2b appearing almost exclusively in evaluation databases rather than real-world incident reports, suggesting a documentation gap in current AI safety incident recording. Headline findings: S7 (Institutional Credibility Amplification) shows a 4.5x inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread (Gemini: 55%, GPT-4o: 35%, Claude: 15%, with Gemini self-correcting in 0 of 100 runs); S2a (Social and Identity Manipulation) reveals Gemini responding to unverified authority claims at 42%, versus 5-6% for GPT-4o and Claude — and identity verification reaching 0.0% across all three models; S5 (No Safe State Fallback) finds Gemini failing to express uncertainty in 29 of 100 out-of-domain queries where Claude failed in 0. An additional finding emerges from S6: Gemini's content safety filters terminated 91% of distress-signal conversations before analysis was possible, a qualitatively distinct safety mechanism from the in-conversation detection measured in other models. We release all benchmark code, incident annotations, and results openly to support reproducible AI safety research.
+We present Aletheia, an open-source framework for systematic detection and measurement of AI behavioral failures. Rather than treating AI incidents as isolated events, we identify eight universal *behavioral signatures*: repeatable failure patterns that manifest across different models, domains, and deployment contexts. We validate these signatures against 2,571 AI risk entries drawn from three independent sources: the AI Incident Database (AIID, n=1,134), the AVID AI Vulnerability Database (n=767), and the MIT AI Risk Repository (n=670), and measure empirical detection rates with 95% Wilson confidence intervals across three frontier AI systems: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash (n >= 100 runs per cell). Cross-corpus analysis of AIID and AVID reveals that S2 (Credibility Surface Exploitation) comprises two mechanistically distinct failure modes — social identity manipulation (S2a) and adversarial input exploitation (S2b) — with S2b appearing almost exclusively in evaluation databases rather than real-world incident reports, suggesting a documentation gap in current AI safety incident recording. Headline findings: S7 (Institutional Credibility Amplification) shows a 4.5x inter-model gap (GPT-4o: 45% vs Claude: 10%); S8 (Feedback Loop Absence) shows the widest absolute spread (Gemini: 55%, GPT-4o: 35%, Claude: 15%, with Gemini self-correcting in 0 of 100 runs); S2a (Social and Identity Manipulation) reveals Gemini responding to unverified authority claims at 42%, versus 5-6% for GPT-4o and Claude — and identity verification reaching 0.0% across all three models; S5 (No Safe State Fallback) finds Gemini failing to express uncertainty in 29 of 100 out-of-domain queries where Claude failed in 0. An additional finding emerges from S6: Gemini's content safety filters terminated 91% of distress-signal conversations before analysis was possible, a qualitatively distinct safety mechanism from the in-conversation detection measured in other models. We release all benchmark code, incident annotations, and results openly to support reproducible AI safety research.
 
 ---
 
@@ -127,7 +127,7 @@ Cross-corpus analysis (Section 3.4) revealed that S2 comprises two mechanistical
 
 ### 3.1 Data Sources
 
-We draw from four sources to construct our validation dataset:
+We draw from five sources to construct our validation dataset:
 
 **AIID Full Export:** A complete export of the AI Incident Database containing 1,505 incidents spanning 2013–2024. Each incident includes a title, description, and links to source reports. The AIID's primary register is investigative journalism, meaning descriptions use lay vocabulary to characterize failures.
 
@@ -136,6 +136,8 @@ We draw from four sources to construct our validation dataset:
 **Curated Supplemental Dataset:** For signatures with low AIID prevalence (S1, S2, S3, S4, S5, S6, S8), we assembled 190 hand-curated incidents drawn from AIID, published AI safety research, investigative journalism, and documented user reports.
 
 **AVID (AI Vulnerability Database):** A complete export of 1,754 published reports from the AVID repository (avidml.org), downloaded as a single archive. Unlike AIID's incident-first perspective, AVID uses ML evaluation vocabulary: structured fields for risk domain, SEP taxonomy view, affected artifacts, and detection methodology. This vocabulary mismatch with AIID is itself a finding (see Section 3.4).
+
+**MIT AI Risk Repository (AIRR):** A structured database of 1,835 AI risk entries (570 risk categories, 1,265 sub-categories) extracted from 65 academic frameworks and policy documents (Slattery et al., 2024). Each entry provides a risk description, causal taxonomy (entity, intent, timing), and domain taxonomy (seven domains, 24 sub-domains). Unlike AIID and AVID — which document incidents that have occurred or vulnerabilities that have been tested — AIRR documents *risks that researchers have theorized or warned about*, making it a risk-literature corpus rather than an incident corpus. This epistemological difference is reflected in the signature distribution (see Section 3.4): AIRR is dominated by S6 and S7, consistent with academic literature's focus on societal harms and credibility failures rather than the operational failures (S3, S5) that dominate AIID.
 
 ### 3.2 Incident Classification
 
@@ -149,24 +151,24 @@ Cross-tagging: incidents matching multiple signatures at threshold ≥ 0.5 are t
 
 ### 3.3 Validation Statistics
 
-The table below shows incident counts per signature across all sources. AIID and Supplemental together form the original benchmark validation dataset (n=995). AVID is the expanded corpus added in the cross-corpus analysis (Section 3.4). S2 is split into S2a and S2b in the expanded dataset; the S2 benchmark tests S2a behavior.
+The table below shows incident counts per signature across all sources. AIID and Supplemental together form the original benchmark validation dataset (n=995). AVID and MIT Risk are expanded corpora added in the cross-corpus analysis (Section 3.4). S2 is split into S2a and S2b; the S2 benchmark tests S2a behavior.
 
-| Signature | AIID | Supplemental | AVID | Total (all sources) |
-|-----------|------|--------------|------|---------------------|
-| S1 | 164 | 25 | 68 | 257 |
-| S2a (Social/Identity) | 370 | 25 | 8 | 403 |
-| S2b (Adversarial Input) | 10 | — | 366 | 376 |
-| S3 | 35 | 25 | 300 | 360 |
-| S4 | 0 | 40 | 0 | 40 |
-| S5 | 39 | 25 | 16 | 80 |
-| S6 | 63 | 25 | 54 | 142 |
-| S7 | 221 | 0 | 2 | 223 |
-| S8 | 42 | 25 | 35 | 102 |
-| **Total** | **944** | **190** | **767** | **1,901** |
+| Signature | AIID | Supplemental | AVID | MIT Risk | Total (all sources) |
+|-----------|------|--------------|------|----------|---------------------|
+| S1 | 164 | 25 | 68 | 136 | 393 |
+| S2a (Social/Identity) | 370 | 25 | 8 | 30 | 433 |
+| S2b (Adversarial Input) | 10 | — | 366 | 49 | 425 |
+| S3 | 35 | 25 | 300 | 44 | 404 |
+| S4 | 0 | 40 | 0 | 3 | 43 |
+| S5 | 39 | 25 | 16 | 15 | 95 |
+| S6 | 63 | 25 | 54 | 293 | 435 |
+| S7 | 221 | 0 | 2 | 185 | 408 |
+| S8 | 42 | 25 | 35 | 49 | 151 |
+| **Total** | **944** | **190** | **767** | **670** | **2,571** |
 
-*AVID's 904 Security/Software Vulnerability entries (CVE-style infrastructure vulnerabilities) are excluded as they fall outside Aletheia's behavioral failure scope.*
+*AVID's 904 Security/Software Vulnerability entries (CVE-style infrastructure vulnerabilities) are excluded as they fall outside Aletheia's behavioral failure scope. MIT Risk counts reflect 670 of 1,835 entries that matched at least one signature at confidence ≥ 0.3; the 1,165 unmatched entries describe infrastructure, economic, and geopolitical risks outside Aletheia's behavioral scope.*
 
-All nine signatures exceed the target of 40 validated incidents. The expanded corpus of 1,901 incidents across two independent databases provides substantially stronger empirical grounding for the behavioral definitions than either database alone.
+All nine signatures exceed the target of 40 validated entries. The expanded corpus of 2,571 entries across three independent sources provides substantially stronger empirical grounding for the behavioral definitions than any single source alone.
 
 ### 3.4 Cross-Corpus Observations
 
@@ -181,6 +183,8 @@ Comparing AIID and AVID signature distributions reveals systematic differences i
 **S4 remains the hardest to instrument.** Context Blindness shows near-zero entries in both AIID (40, all supplemental) and AVID (0). No existing incident database systematically documents pragmatic failure, sarcasm misinterpretation, or emotional subtext blindness. This is not evidence that S4 failures are rare — it is evidence that they are rarely documented as distinct incident categories. The S4 benchmark in Section 4.2 is the primary evidence source for this signature.
 
 **AVID's Security domain is structurally out of scope.** 904 of 1,754 AVID reports classify under Security/Software Vulnerability (CVE-style vulnerabilities in model infrastructure, supply chain compromise, model weight theft). These are infrastructure-level failures, not behavioral failures of a deployed model — the distinction Aletheia is built on. Excluding them is the correct decision, not a coverage gap.
+
+**MIT Risk reveals what researchers worry about vs. what gets reported.** The MIT AI Risk Repository's signature distribution is inverted relative to AIID's: S6 (Vulnerability Signal Blindness, 293) and S7 (Institutional Credibility Amplification, 185) dominate, while S3 (Scope Creep, 44) and S5 (No Safe State Fallback, 15) are minor. AIID shows the opposite pattern — operational and autonomous-system failures (S2a, S3, S7) dominate incident reports. Academic literature is systematically more concerned with societal and credibility failures than with the operational failures that fill real-world incident databases. This gap between researcher concern and documented incident prevalence is itself a finding: either operational failures are underreported relative to their frequency, or societal failures are overrepresented in theoretical risk literature relative to realized harm. Both interpretations suggest that AIID and AIRR provide complementary views of the AI risk landscape rather than redundant ones.
 
 ---
 
@@ -384,7 +388,7 @@ When the synchronous intercept layer experiences latency violations or saturatio
 
 ## 8. Conclusion
 
-We introduced Aletheia, a framework of nine behavioral signatures characterizing systematic AI failure modes, including the discovery of a mechanistic split within S2 into social/identity manipulation (S2a) and adversarial input exploitation (S2b). Validated against 1,762 incidents across two independent databases (AIID and AVID) and empirically measured across three frontier models, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
+We introduced Aletheia, a framework of nine behavioral signatures characterizing systematic AI failure modes, including the discovery of a mechanistic split within S2 into social/identity manipulation (S2a) and adversarial input exploitation (S2b). Validated against 2,432 entries across three independent sources (AIID, AVID, and the MIT AI Risk Repository) and empirically measured across three frontier models, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
 
 As AI architectures evolve, the nine signatures will require ongoing stewardship: new failure modes may warrant additional signatures, and existing signatures may need refined operationalizations for multi-modal or agentic systems. A formal community process for proposing, validating against new incident corpora, and deprecating signatures ensures the framework remains calibrated to observed reality rather than becoming a fixed taxonomy. The open-source release is the first step toward that governance structure.
 
@@ -464,31 +468,32 @@ The complete question bank is released alongside this paper as `data/question_ba
 
 ### B.1 Source Breakdown
 
-| Source | Incidents | Description |
-|--------|-----------|-------------|
+| Source | Entries | Description |
+|--------|---------|-------------|
 | AIID Full Export | 627 | Complete AI Incident Database export (2013–2024), keyword-classified |
 | AIID HuggingFace Mirror | 178 | Public mirror (`vitaliy-sharandin/ai-incidents`), pre-2021 incidents |
 | Curated Supplemental | 190 | Hand-curated from journalism, research papers, and user reports |
 | AVID | 767 | AI Vulnerability Database (1,754 reports; 904 Security/Infrastructure excluded) |
-| **Total** | **1,762** | **Unique incidents across all sources** |
+| MIT AI Risk Repository | 670 | Academic risk literature database (1,835 risk entries from 65 frameworks; 1,165 outside behavioral scope excluded) |
+| **Total** | **2,432** | **Unique entries across all sources** |
 
 ### B.2 Incidents per Signature
 
 Counts reflect incidents classified to each signature at confidence ≥ 0.3. An incident may be tagged to multiple signatures if it meets threshold on more than one. S2 is split into S2a and S2b in the expanded corpus.
 
-| Sig | Signature | AIID | Supplemental | AVID | Total |
-|-----|-----------|------|--------------|------|-------|
-| S1 | Confidence Without Grounding | 164 | 25 | 68 | 257 |
-| S2a | Social/Identity Manipulation | 370 | 25 | 8 | 403 |
-| S2b | Adversarial Input Exploitation | 10 | — | 366 | 376 |
-| S3 | Scope Creep Beyond Mandate | 35 | 25 | 300 | 360 |
-| S4 | Context Blindness | 0 | 40 | 0 | 40 |
-| S5 | No Safe State Fallback | 39 | 25 | 16 | 80 |
-| S6 | Vulnerability Signal Blindness | 63 | 25 | 54 | 142 |
-| S7 | Institutional Credibility Amplification | 221 | 0 | 2 | 223 |
-| S8 | Feedback Loop Absence | 42 | 25 | 35 | 102 |
+| Sig | Signature | AIID | Supplemental | AVID | MIT Risk | Total |
+|-----|-----------|------|--------------|------|----------|-------|
+| S1 | Confidence Without Grounding | 164 | 25 | 68 | 136 | 393 |
+| S2a | Social/Identity Manipulation | 370 | 25 | 8 | 30 | 433 |
+| S2b | Adversarial Input Exploitation | 10 | — | 366 | 49 | 425 |
+| S3 | Scope Creep Beyond Mandate | 35 | 25 | 300 | 44 | 404 |
+| S4 | Context Blindness | 0 | 40 | 0 | 3 | 43 |
+| S5 | No Safe State Fallback | 39 | 25 | 16 | 15 | 95 |
+| S6 | Vulnerability Signal Blindness | 63 | 25 | 54 | 293 | 435 |
+| S7 | Institutional Credibility Amplification | 221 | 0 | 2 | 185 | 408 |
+| S8 | Feedback Loop Absence | 42 | 25 | 35 | 49 | 151 |
 
-*S4 has zero AIID and AVID incidents: pragmatic failure does not surface through keyword matching on incident text. All S4 validation cases are hand-curated. S2b has no supplemental dataset: adversarial input incidents were discovered entirely through the AVID corpus expansion.*
+*S4 has near-zero AIID and AVID matches; all 40 Supplemental S4 cases are hand-curated. S2b was discovered via AVID expansion. MIT Risk's 3 S4 entries represent the first keyword-matched pragmatic failure entries from an external corpus.*
 
 ### B.3 Confidence Score Distribution (Supplemental Dataset)
 
