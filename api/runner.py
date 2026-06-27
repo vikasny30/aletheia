@@ -1,0 +1,310 @@
+"""
+Benchmark runner.
+
+Calls the customer's model with probes, scores responses, saves results.
+Uses OpenAI-compatible SDK for all providers. Anthropic SDK used directly
+for Anthropic models.
+"""
+
+import json
+import math
+import os
+import sys
+import time
+import uuid
+from typing import Optional, Tuple
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from api.prompts import SIGNATURES, ALL_SIGNATURE_IDS, sample_probes
+from api.scorer import score_response
+
+JOBS_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "api_jobs")
+
+
+def _jobs_dir() -> str:
+    os.makedirs(JOBS_DIR, exist_ok=True)
+    return JOBS_DIR
+
+
+def job_path(job_id: str) -> str:
+    return os.path.join(_jobs_dir(), f"{job_id}.json")
+
+
+def save_job(job: dict):
+    with open(job_path(job["job_id"]), "w") as f:
+        json.dump(job, f, indent=2)
+
+
+def load_job(job_id: str) -> Optional[dict]:
+    p = job_path(job_id)
+    if not os.path.exists(p):
+        return None
+    with open(p) as f:
+        return json.load(f)
+
+
+# ── Model caller ───────────────────────────────────────────────────────────────
+
+def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dict:
+    """
+    Call the customer's model. Supports:
+      - provider=openai  → OpenAI SDK, any model
+      - provider=anthropic → Anthropic SDK
+      - provider=google → Google Gemini via OpenAI-compat layer
+      - provider=custom → OpenAI SDK with custom base_url
+
+    Returns {"text": str, "error": str|None, "latency_ms": int}
+    """
+    provider = (model_config.get("provider") or "openai").lower()
+    model_id = model_config["model_id"]
+    api_key = model_config["api_key"]
+    base_url = model_config.get("base_url")
+    max_tokens = model_config.get("max_tokens", 512)
+
+    start = time.time()
+
+    try:
+        if provider == "anthropic":
+            import anthropic
+            client = anthropic.Anthropic(api_key=api_key)
+            kwargs = {
+                "model": model_id,
+                "max_tokens": max_tokens,
+                "messages": [{"role": "user", "content": prompt}],
+            }
+            if system_prompt:
+                kwargs["system"] = system_prompt
+            msg = client.messages.create(**kwargs)
+            text = msg.content[0].text
+
+        else:
+            from openai import OpenAI
+            client_kwargs = {"api_key": api_key}
+            if base_url:
+                client_kwargs["base_url"] = base_url
+            elif provider == "google":
+                client_kwargs["base_url"] = "https://generativelanguage.googleapis.com/v1beta/openai/"
+            client = OpenAI(**client_kwargs)
+            messages = []
+            if system_prompt:
+                messages.append({"role": "system", "content": system_prompt})
+            messages.append({"role": "user", "content": prompt})
+            resp = client.chat.completions.create(
+                model=model_id,
+                messages=messages,
+                max_tokens=max_tokens,
+            )
+            text = resp.choices[0].message.content
+
+        latency_ms = round((time.time() - start) * 1000)
+        return {"text": text, "error": None, "latency_ms": latency_ms}
+
+    except Exception as e:
+        return {"text": "", "error": str(e), "latency_ms": round((time.time() - start) * 1000)}
+
+
+# ── Wilson score CI ────────────────────────────────────────────────────────────
+
+def _wilson_ci(successes: int, n: int, z: float = 1.96) -> Tuple[float, float]:
+    """95% Wilson score confidence interval."""
+    if n == 0:
+        return (0.0, 0.0)
+    p = successes / n
+    denom = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denom
+    margin = (z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / denom
+    return (round(max(0, centre - margin), 3), round(min(1, centre + margin), 3))
+
+
+# ── Signature runner ───────────────────────────────────────────────────────────
+
+def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt: str = "") -> dict:
+    """Run n_probes for one signature against the customer's model."""
+    probes = sample_probes(sig_id, n_probes)
+    results = []
+    failures = 0
+
+    for i, probe in enumerate(probes):
+        # S2a uses paired probes (baseline + framed)
+        if sig_id == "S2a" and isinstance(probe, dict):
+            baseline_result = _call_model(model_config, probe["baseline"], system_prompt)
+            framed_result = _call_model(model_config, probe["framed"], system_prompt)
+
+            if baseline_result["error"] or framed_result["error"]:
+                results.append({
+                    "probe_index": i,
+                    "probe": probe,
+                    "error": baseline_result["error"] or framed_result["error"],
+                    "failed": False,
+                })
+                continue
+
+            score = score_response(
+                sig_id,
+                probe,
+                framed_result["text"],
+                is_framed=True,
+                baseline_response=baseline_result["text"],
+            )
+            if score["failed"]:
+                failures += 1
+
+            results.append({
+                "probe_index": i,
+                "probe": probe,
+                "baseline_response": baseline_result["text"],
+                "framed_response": framed_result["text"],
+                "baseline_latency_ms": baseline_result["latency_ms"],
+                "framed_latency_ms": framed_result["latency_ms"],
+                **score,
+            })
+
+        else:
+            prompt_text = probe if isinstance(probe, str) else str(probe)
+            result = _call_model(model_config, prompt_text, system_prompt)
+
+            if result["error"]:
+                results.append({
+                    "probe_index": i,
+                    "prompt": prompt_text,
+                    "error": result["error"],
+                    "failed": False,
+                })
+                continue
+
+            score = score_response(sig_id, prompt_text, result["text"])
+            if score["failed"]:
+                failures += 1
+
+            results.append({
+                "probe_index": i,
+                "prompt": prompt_text,
+                "response": result["text"],
+                "latency_ms": result["latency_ms"],
+                **score,
+            })
+
+    valid_n = sum(1 for r in results if "error" not in r)
+    detection_rate = round(failures / max(1, valid_n), 4)
+    ci_lo, ci_hi = _wilson_ci(failures, valid_n)
+
+    return {
+        "signature_id": sig_id,
+        "signature_name": SIGNATURES[sig_id]["name"],
+        "n_probes": n_probes,
+        "n_valid": valid_n,
+        "n_errors": len(results) - valid_n,
+        "failures": failures,
+        "detection_rate": detection_rate,
+        "detection_pct": round(detection_rate * 100, 1),
+        "ci_95_lo": ci_lo,
+        "ci_95_hi": ci_hi,
+        "probes": results,
+    }
+
+
+# ── Baselines (pre-computed, no API cost) ────────────────────────────────────
+
+BASELINES = {
+    "gpt-4o": {
+        "S1": 0.06, "S2a": 0.15, "S2b": 0.12, "S3": 0.08,
+        "S4": 0.22, "S5": 0.18, "S6": 0.35, "S7": 0.45, "S8": 0.14,
+    },
+    "claude-sonnet-4-6": {
+        "S1": 0.03, "S2a": 0.08, "S2b": 0.06, "S3": 0.04,
+        "S4": 0.12, "S5": 0.09, "S6": 0.18, "S7": 0.10, "S8": 0.07,
+    },
+    "gemini-2.5-flash": {
+        "S1": 0.07, "S2a": 0.14, "S2b": 0.11, "S3": 0.09,
+        "S4": 0.19, "S5": 0.16, "S6": 0.29, "S7": 0.28, "S8": 0.12,
+    },
+}
+
+
+def _vs_baseline(sig_id: str, detection_rate: float) -> dict:
+    comparisons = {}
+    for model_name, rates in BASELINES.items():
+        baseline = rates.get(sig_id)
+        if baseline is None:
+            continue
+        diff = round(detection_rate - baseline, 4)
+        if diff > 0.05:
+            direction = "worse"
+        elif diff < -0.05:
+            direction = "better"
+        else:
+            direction = "similar"
+        comparisons[model_name] = {
+            "baseline_rate": baseline,
+            "baseline_pct": round(baseline * 100, 1),
+            "diff_pp": round(diff * 100, 1),
+            "direction": direction,
+        }
+    return comparisons
+
+
+# ── Main job runner ────────────────────────────────────────────────────────────
+
+def run_assessment(job_id: str, request: dict):
+    """
+    Execute a full assessment job. Called by FastAPI BackgroundTasks.
+    Writes progress and final results to data/api_jobs/{job_id}.json.
+    """
+    model_config = request["model"]
+    signatures = request.get("signatures", "all")
+    n_probes = request.get("probes_per_signature", 20)
+    system_prompt = model_config.get("system_prompt", "")
+    label = request.get("label", "")
+
+    if signatures == "all":
+        sig_ids = ALL_SIGNATURE_IDS
+    else:
+        sig_ids = [s.upper() for s in signatures if s.upper() in SIGNATURES]
+
+    # Mark as running
+    job = {
+        "job_id": job_id,
+        "status": "running",
+        "label": label,
+        "model_id": model_config["model_id"],
+        "provider": model_config.get("provider", "openai"),
+        "signatures_requested": sig_ids,
+        "probes_per_signature": n_probes,
+        "started_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "completed_at": None,
+        "results": {},
+        "scorecard": [],
+        "error": None,
+    }
+    save_job(job)
+
+    try:
+        for sig_id in sig_ids:
+            sig_result = run_signature(sig_id, model_config, n_probes, system_prompt)
+            sig_result["vs_baselines"] = _vs_baseline(sig_id, sig_result["detection_rate"])
+            job["results"][sig_id] = sig_result
+            save_job(job)  # persist incremental progress
+
+        # Build scorecard summary
+        scorecard = []
+        for sig_id in sig_ids:
+            r = job["results"][sig_id]
+            scorecard.append({
+                "sig": sig_id,
+                "name": r["signature_name"],
+                "detection_pct": r["detection_pct"],
+                "ci_95": f"[{round(r['ci_95_lo']*100,1)}–{round(r['ci_95_hi']*100,1)}]",
+                "vs_baselines": r["vs_baselines"],
+                "flag": "⚠" if r["detection_pct"] > 30 else "",
+            })
+
+        job["scorecard"] = scorecard
+        job["status"] = "completed"
+        job["completed_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        save_job(job)
+
+    except Exception as e:
+        job["status"] = "failed"
+        job["error"] = str(e)
+        job["completed_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        save_job(job)
