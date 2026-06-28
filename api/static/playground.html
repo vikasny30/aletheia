@@ -131,20 +131,118 @@
       gap: 16px;
     }
 
-    .dev-docs-link {
-      font-size: 13px;
+    .nav-tab {
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text-muted);
       text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: 1px dashed var(--border-light);
-      transition: all 0.2s;
+      padding: 6px 14px;
+      border-radius: 16px;
+      transition: all 0.15s;
+    }
+    .nav-tab:hover {
+      background: var(--border-light);
+      color: var(--text-main);
+    }
+    .nav-tab.active {
+      background: var(--border-light);
+      color: var(--border-focus);
     }
 
-    .dev-docs-link:hover {
+    /* Modal Layout */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    
+    .modal-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 640px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      transform: translateY(24px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      max-height: 85vh;
+      margin: 20px;
+    }
+    
+    .modal-overlay.visible .modal-card {
+      transform: translateY(0);
+    }
+    
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-header h3 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
       color: var(--text-main);
-      border-color: var(--text-main);
+    }
+    
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    
+    .modal-close-btn:hover {
+      background: var(--bg-dark);
+      color: var(--text-main);
+    }
+    
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: var(--bg-dark);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
     }
 
     /* Playground Layout */
@@ -506,15 +604,44 @@
 <body>
 
   <header>
-    <div class="header-logo">
-      <div class="logo-mark">A</div>
-      <div class="logo-text">Aletheia</div>
+    <div style="display: flex; align-items: center; gap: 24px;">
+      <div class="header-logo" style="margin-bottom: 0;">
+        <div class="logo-mark">A</div>
+        <div class="logo-text">Aletheia</div>
+      </div>
+      
+      <!-- Top Navigation Tabs -->
+      <nav style="display: flex; gap: 4px;">
+        <a href="/playground" class="nav-tab active">Playground</a>
+        <a href="/docs" target="_blank" class="nav-tab">API Reference</a>
+      </nav>
     </div>
     
     <div class="header-actions">
-      <a href="/docs" target="_blank" class="dev-docs-link">Developer Docs (Swagger)</a>
+      <!-- Active API Key Indicator -->
+      <div style="font-size: 11px; padding: 6px 12px; background: var(--bg-dark); border: 1px solid var(--border-light); border-radius: 20px; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green);"></span>
+        <span>Key: <span id="active-key-indicator" style="opacity: 0.85;">aletheia_guest_...</span></span>
+      </div>
     </div>
   </header>
+
+  <!-- Edit Prompts Modal Overlay -->
+  <div id="prompts-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Edit Safety Prompts</h3>
+        <button class="modal-close-btn" onclick="closePromptsModal()">×</button>
+      </div>
+      <div class="modal-body" id="modal-prompts-container">
+        <!-- Prompts dynamically loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button class="primary-btn" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-light); width: auto; padding: 10px 20px; box-shadow: none;" onclick="closePromptsModal()">Cancel</button>
+        <button class="primary-btn" id="save-prompts-btn" style="width: auto; padding: 10px 24px;">Save Changes</button>
+      </div>
+    </div>
+  </div>
 
   <main class="playground-grid">
     <div>
@@ -859,9 +986,17 @@
       localStorage.setItem('aletheia_api_key', savedKey);
     }
 
-    // List of signatures
+    // Set guest key indicator value
+    const activeKeyIndicator = document.getElementById('active-key-indicator');
+    if (activeKeyIndicator) {
+      activeKeyIndicator.textContent = savedKey;
+    }
+
+    // List of signatures & prompts configuration store
     let availableSignatures = {};
     let selectedSignatures = new Set();
+    let customPromptsStore = {};
+    let activeEditingSigId = null;
 
     async function loadSignatures() {
       try {
@@ -876,36 +1011,13 @@
 
         Object.entries(data).forEach(([id, meta]) => {
           selectedSignatures.add(id); // default select all
+          
+          // Pre-populate custom prompts store with defaults
+          customPromptsStore[id] = meta.sample_probes || [];
 
           const card = document.createElement('div');
           card.className = 'sig-card selected';
           card.dataset.id = id;
-
-          let sampleList = '';
-          (meta.sample_probes || []).forEach((p, idx) => {
-            if (typeof p === 'string') {
-              sampleList += `
-                <div style="margin-bottom: 10px; text-align: left;">
-                  <label style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; display: block; font-weight: 700; letter-spacing: 0.3px;">Prompt ${idx + 1}</label>
-                  <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 54px; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 6px; padding: 8px; font-family: var(--font-body); font-size: 12px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p)}</textarea>
-                </div>
-              `;
-            } else if (p && typeof p === 'object') {
-              sampleList += `
-                <div style="margin-bottom: 10px; padding: 10px; border: 1.5px dashed var(--border-light); border-radius: 8px; background: var(--bg-dark); text-align: left;">
-                  <label style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; display: block; font-weight: 700; letter-spacing: 0.3px;">Prompt ${idx + 1} (Paired Credentials Check)</label>
-                  <div style="margin-bottom: 8px;">
-                    <span style="font-size: 10px; color: var(--text-muted); display:block; margin-bottom: 3px; font-weight: 600;">Baseline Prompt (Normal request):</span>
-                    <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="baseline" style="width: 100%; min-height: 44px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px; font-family: var(--font-body); font-size: 11.5px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.baseline || '')}</textarea>
-                  </div>
-                  <div>
-                    <span style="font-size: 10px; color: var(--text-muted); display:block; margin-bottom: 3px; font-weight: 600;">Framed Prompt (Claiming Authority/Credentials):</span>
-                    <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="framed" style="width: 100%; min-height: 44px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px; font-family: var(--font-body); font-size: 11.5px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.framed || '')}</textarea>
-                  </div>
-                </div>
-              `;
-            }
-          });
 
           card.innerHTML = `
             <div class="sig-header">
@@ -914,12 +1026,9 @@
             </div>
             <div class="sig-title">${meta.name}</div>
             <div class="sig-desc">${meta.description}</div>
-            <details style="margin-top: 12px; font-size: 12px; color: var(--text-muted);" onclick="event.stopPropagation();">
-              <summary style="cursor: pointer; outline: none; user-select: none; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--border-focus);">View & Edit Sample Prompts</summary>
-              <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
-                ${sampleList}
-              </div>
-            </details>
+            <button type="button" class="primary-btn" id="edit-btn-${id}" style="margin-top: 12px; width: 100%; font-size: 11px; padding: 8px 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: transparent; color: var(--border-focus); border: 1.5px solid var(--border-focus); box-shadow: none;" onclick="openPromptsModal('${id}', event)">
+              Configure Prompts
+            </button>
           `;
 
           card.addEventListener('click', () => {
@@ -939,6 +1048,98 @@
         console.error('Error fetching signatures:', err);
       }
     }
+
+    function openPromptsModal(sigId, event) {
+      if (event) {
+        event.stopPropagation(); // Avoid selecting card when configuring prompts
+      }
+      activeEditingSigId = sigId;
+      const sigMeta = availableSignatures[sigId] || { name: sigId };
+      document.getElementById('modal-title').textContent = `Edit Prompts — ${sigMeta.name}`;
+      
+      const container = document.getElementById('modal-prompts-container');
+      container.innerHTML = '';
+      
+      const prompts = customPromptsStore[sigId] || [];
+      prompts.forEach((p, idx) => {
+        if (typeof p === 'string') {
+          const item = document.createElement('div');
+          item.style.marginBottom = '20px';
+          item.innerHTML = `
+            <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; text-align: left; letter-spacing: 0.3px;">Prompt ${idx + 1}</label>
+            <textarea class="modal-prompt-input" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 80px; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; font-family: var(--font-body); font-size: 13px; resize: vertical; line-height: 1.5; outline: none; transition: border-color 0.2s; width: 95%; display: block;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p)}</textarea>
+          `;
+          container.appendChild(item);
+        } else if (p && typeof p === 'object') {
+          const item = document.createElement('div');
+          item.style.marginBottom = '20px';
+          item.style.padding = '16px';
+          item.style.border = '1px dashed var(--border-light)';
+          item.style.borderRadius = '8px';
+          item.style.background = 'var(--bg-dark)';
+          item.innerHTML = `
+            <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 12px; text-align: left; letter-spacing: 0.3px;">Prompt ${idx + 1} (Paired Credentials Check)</label>
+            <div style="margin-bottom: 12px; text-align: left;">
+              <span style="font-size: 11px; color: var(--text-muted); display:block; margin-bottom: 4px; font-weight: 600;">Baseline request (Normal query):</span>
+              <textarea class="modal-prompt-input" data-idx="${idx}" data-type="baseline" style="width: 100%; min-height: 60px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 6px; padding: 10px; font-family: var(--font-body); font-size: 12.5px; resize: vertical; line-height: 1.5; outline: none; transition: border-color 0.2s; width: 95%; display: block;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.baseline || '')}</textarea>
+            </div>
+            <div style="text-align: left;">
+              <span style="font-size: 11px; color: var(--text-muted); display:block; margin-bottom: 4px; font-weight: 600;">Framed request (Escalated authority context):</span>
+              <textarea class="modal-prompt-input" data-idx="${idx}" data-type="framed" style="width: 100%; min-height: 60px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 6px; padding: 10px; font-family: var(--font-body); font-size: 12.5px; resize: vertical; line-height: 1.5; outline: none; transition: border-color 0.2s; width: 95%; display: block;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.framed || '')}</textarea>
+            </div>
+          `;
+          container.appendChild(item);
+        }
+      });
+      
+      document.getElementById('prompts-modal').classList.add('visible');
+    }
+
+    function closePromptsModal() {
+      document.getElementById('prompts-modal').classList.remove('visible');
+      activeEditingSigId = null;
+    }
+
+    document.getElementById('save-prompts-btn').addEventListener('click', () => {
+      if (!activeEditingSigId) return;
+      
+      const sigId = activeEditingSigId;
+      const inputs = document.querySelectorAll('.modal-prompt-input');
+      const updatedPrompts = [];
+      
+      inputs.forEach(input => {
+        const idx = parseInt(input.dataset.idx);
+        const type = input.dataset.type;
+        const val = input.value.trim();
+        
+        if (!updatedPrompts[idx]) {
+          updatedPrompts[idx] = type === 'string' ? '' : {};
+        }
+        
+        if (type === 'string') {
+          updatedPrompts[idx] = val;
+        } else if (type === 'baseline') {
+          updatedPrompts[idx].baseline = val;
+        } else if (type === 'framed') {
+          updatedPrompts[idx].framed = val;
+        }
+      });
+      
+      customPromptsStore[sigId] = updatedPrompts.filter(p => {
+        if (typeof p === 'string') return p !== '';
+        if (typeof p === 'object') return p.baseline && p.framed;
+        return false;
+      });
+      
+      const btn = document.getElementById(`edit-btn-${sigId}`);
+      if (btn) {
+        btn.textContent = 'Configure Prompts (Customized)';
+        btn.style.color = '#137333';
+        btn.style.borderColor = '#137333';
+      }
+      
+      closePromptsModal();
+    });
 
     loadSignatures();
 
@@ -984,43 +1185,12 @@
       const modelId = modelInput.value.trim();
       const apiKey = apiKeyInput.value.trim();
       
-      // Gather edited custom prompts from textareas
+      // Gather custom prompts from preloaded store
       const customProbes = {};
-      const textareas = document.querySelectorAll('.sig-prompt-textarea');
-      
-      textareas.forEach(ta => {
-        const sigId = ta.dataset.sig;
-        if (!selectedSignatures.has(sigId)) return;
-        
-        const idx = parseInt(ta.dataset.idx);
-        const type = ta.dataset.type;
-        const val = ta.value.trim();
-        if (!val) return;
-        
-        if (!customProbes[sigId]) {
-          customProbes[sigId] = [];
+      selectedSignatures.forEach(sigId => {
+        if (customPromptsStore[sigId] && customPromptsStore[sigId].length > 0) {
+          customProbes[sigId] = customPromptsStore[sigId];
         }
-        
-        if (!customProbes[sigId][idx]) {
-          customProbes[sigId][idx] = type === 'string' ? '' : {};
-        }
-        
-        if (type === 'string') {
-          customProbes[sigId][idx] = val;
-        } else if (type === 'baseline') {
-          customProbes[sigId][idx].baseline = val;
-        } else if (type === 'framed') {
-          customProbes[sigId][idx].framed = val;
-        }
-      });
-      
-      // Clean up any empty items or incomplete objects
-      Object.keys(customProbes).forEach(sigId => {
-        customProbes[sigId] = customProbes[sigId].filter(p => {
-          if (typeof p === 'string') return p !== '';
-          if (typeof p === 'object') return p.baseline && p.framed;
-          return false;
-        });
       });
       
       logConsole(`Starting validation job for target: ${modelId} (${provider})`, 'info');
