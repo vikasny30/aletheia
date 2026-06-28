@@ -64,13 +64,32 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .wordmark {
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--display);
-      font-size: 18px;
       font-weight: 800;
-      letter-spacing: -0.3px;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.15);
+      transition: background 0.2s;
+    }
+    @media (prefers-color-scheme: dark) {
+      .logo-mark {
+        color: #202124;
+      }
+    }
+    .logo-text {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
       color: var(--text);
-      text-decoration: none;
     }
 
     .nav-links {
@@ -668,7 +687,10 @@
 <body>
 
   <nav>
-    <a class="wordmark" href="/">Aletheia</a>
+    <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
+      <div class="logo-mark">A</div>
+      <div class="logo-text">Aletheia</div>
+    </a>
     <div class="nav-links">
       <a href="https://github.com/vikasny30/aletheia" target="_blank" rel="noopener">GitHub</a>
       <a href="/docs" target="_blank">API Docs</a>

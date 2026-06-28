@@ -8,67 +8,37 @@
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
-    /* Google Material 3 Design Tokens - Light Theme Default */
     :root {
-      --bg-dark: #f8f9fa;
+      --bg-dark: #ffffff;
       --card-bg: #ffffff;
-      --border-light: #dadce0;
-      --border-focus: #1a73e8;
-      --text-main: #202124;
-      --text-muted: #5f6368;
-      
-      --logo-bg: #1a73e8;
+      --border-light: #e5e7eb;
+      --border-focus: #0a0a0a;
+      --text-main: #0a0a0a;
+      --text-muted: #4b5563;
+
+      --logo-bg: #0a0a0a;
       --logo-text: #ffffff;
-      
-      --btn-bg: #1a73e8;
+
+      --btn-bg: #0a0a0a;
       --btn-text: #ffffff;
-      --btn-hover: #1557b0;
-      
+      --btn-hover: #1f2937;
+
       --input-bg: #ffffff;
-      
-      --accent-green: #137333;
-      --accent-red: #c5221f;
-      --accent-amber: #b06000;
-      
-      --terminal-bg: #202124;
-      --terminal-text: #e8eaed;
-      --terminal-border: #3c4043;
-      
-      --font-display: 'Outfit', sans-serif;
+
+      --accent-green: #059669;
+      --accent-red: #dc2626;
+      --accent-amber: #d97706;
+
+      --terminal-bg: #0a0a0a;
+      --terminal-text: #e2e8f0;
+      --terminal-border: #1f2937;
+
+      --font-display: 'Syne', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    /* Google Material 3 Design Tokens - Auto Dark Theme Override */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-dark: #121212;
-        --card-bg: #1e1e1e;
-        --border-light: #3c4043;
-        --border-focus: #8ab4f8;
-        --text-main: #e8eaed;
-        --text-muted: #9aa0a6;
-        
-        --logo-bg: #8ab4f8;
-        --logo-text: #202124;
-        
-        --btn-bg: #8ab4f8;
-        --btn-text: #202124;
-        --btn-hover: #aecbfa;
-        
-        --input-bg: #121212;
-        
-        --accent-green: #81c995;
-        --accent-red: #f28b82;
-        --accent-amber: #fdd663;
-        
-        --terminal-bg: #0d0e12;
-        --terminal-text: #e8eaed;
-        --terminal-border: #202124;
-      }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,65 +58,60 @@
     /* Header Navigation */
     header {
       width: 100%;
-      max-width: 1200px;
-      padding: 24px;
+      padding: 20px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border-light);
+      background: var(--bg-dark);
     }
 
     .header-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 24px;
     }
 
     .logo-mark {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
-      background: var(--logo-bg);
+      background: var(--btn-bg);
+      color: var(--btn-text);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 18px;
-      color: var(--logo-text);
-      transition: all 0.3s ease;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.15);
     }
-
     .logo-text {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--text-main);
+      display: block;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
     }
 
     .nav-tab {
-      font-size: 13.5px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
       color: var(--text-muted);
       text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 16px;
-      transition: all 0.15s;
+      transition: color 0.15s;
     }
-    .nav-tab:hover {
-      background: var(--border-light);
-      color: var(--text-main);
-    }
+    .nav-tab:hover { color: var(--text-main); }
     .nav-tab.active {
-      background: var(--border-light);
-      color: var(--border-focus);
+      color: var(--text-main);
+      font-weight: 600;
     }
 
     /* Modal Layout */
@@ -267,7 +232,7 @@
       font-weight: 800;
       color: var(--text-main);
       margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
     }
 
     .section-desc {
@@ -604,25 +569,24 @@
 <body>
 
   <header>
-    <div style="display: flex; align-items: center; gap: 24px;">
-      <div class="header-logo" style="margin-bottom: 0;">
+    <div class="header-logo">
+      <a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
         <div class="logo-mark">A</div>
         <div class="logo-text">Aletheia</div>
-      </div>
-      
-      <!-- Top Navigation Tabs -->
-      <nav style="display: flex; gap: 4px;">
+      </a>
+      <nav style="display: flex; gap: 24px; margin-left: 12px;">
         <a href="/playground" class="nav-tab active">Playground</a>
         <a href="/docs" target="_blank" class="nav-tab">API Reference</a>
+        <a href="https://github.com/vikasny30/aletheia" target="_blank" rel="noopener" class="nav-tab">GitHub</a>
       </nav>
     </div>
-    
+
     <div class="header-actions">
-      <!-- Active API Key Indicator -->
-      <div style="font-size: 11px; padding: 6px 12px; background: var(--bg-dark); border: 1px solid var(--border-light); border-radius: 20px; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green);"></span>
-        <span>Key: <span id="active-key-indicator" style="opacity: 0.85;">aletheia_guest_...</span></span>
+      <div style="font-size: 11px; padding: 6px 12px; background: #f9fafb; border: 1px solid var(--border-light); border-radius: 20px; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); flex-shrink: 0;"></span>
+        <span>Key: <span id="active-key-indicator">aletheia_guest_...</span></span>
       </div>
+      <a href="/" style="font-size: 13px; font-weight: 600; color: var(--text-main); text-decoration: none; padding: 8px 16px; border: 1.5px solid #d1d5db; border-radius: 6px; transition: all 0.15s;" onmouseover="this.style.background='#0a0a0a';this.style.color='#fff';this.style.borderColor='#0a0a0a'" onmouseout="this.style.background='';this.style.color='#0a0a0a';this.style.borderColor='#d1d5db'">Get API key</a>
     </div>
   </header>
 
