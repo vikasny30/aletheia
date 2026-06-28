@@ -518,22 +518,61 @@
 
   <main class="playground-grid">
     <div>
-      <!-- Sandbox Video Walkthrough Panel (Visible only in Trial mode) -->
-      <div class="panel" id="sandbox-video-panel" style="display: block;">
-        <h2>Interactive Walkthrough</h2>
-        <p class="section-desc">Watch a 1-minute interactive demonstration of Aletheia's real-time safety guardrail audit pipeline.</p>
+      <!-- Sandbox Interactive Pipeline Visual (Visible only in Trial mode) -->
+      <div class="panel" id="sandbox-video-panel" style="display: block; padding: 32px;">
+        <h2>How Aletheia Audits Your Model</h2>
+        <p class="section-desc">Click on any stage in the pipeline below to see how Aletheia runs automated safety audits.</p>
         
-        <div class="video-container" style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-light); background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-          <!-- Dynamic Iframe Video Player (User can customize src to point to their own Loom, YouTube, or Vimeo demo) -->
-          <iframe id="sandbox-video-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top:0; left:0; width:100%; height:100%; border:none; display: none;"></iframe>
+        <!-- Pipeline Flowchart Container -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 32px 0; overflow-x: auto; padding: 10px 0;">
           
-          <!-- Mock Video Poster Overlay -->
-          <div id="mock-video-poster" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); cursor: pointer;" onclick="playDemoVideo()">
-            <div class="play-button" style="width: 64px; height: 64px; border-radius: 50%; background: var(--btn-bg); color: var(--btn-text); display: flex; align-items: center; justify-content: center; font-size: 24px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-              ▶
-            </div>
-            <span style="margin-top: 14px; font-weight: 600; font-size: 13px; color: #ffffff; letter-spacing: 0.3px;">Play Demonstration Video</span>
+          <!-- Step 1 -->
+          <div class="visual-step" id="vstep-1" onclick="selectVisualStep(1)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-focus); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; box-shadow: 0 0 0 1px var(--border-focus);">
+            <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+            <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">1. Adversarial Probes</strong>
+            <span style="font-size: 11px; color: var(--text-muted);">90+ test prompts</span>
           </div>
+          
+          <!-- Arrow -->
+          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
+          
+          <!-- Step 2 -->
+          <div class="visual-step" id="vstep-2" onclick="selectVisualStep(2)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🤖</div>
+            <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">2. Target Model</strong>
+            <span style="font-size: 11px; color: var(--text-muted);">The AI under test</span>
+          </div>
+          
+          <!-- Arrow -->
+          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
+          
+          <!-- Step 3 -->
+          <div class="visual-step" id="vstep-3" onclick="selectVisualStep(3)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🔬</div>
+            <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">3. Safety Scorer</strong>
+            <span style="font-size: 11px; color: var(--text-muted);">9 telemetry engines</span>
+          </div>
+          
+          <!-- Arrow -->
+          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
+          
+          <!-- Step 4 -->
+          <div class="visual-step" id="vstep-4" onclick="selectVisualStep(4)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
+            <div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+            <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">4. Audit Analytics</strong>
+            <span style="font-size: 11px; color: var(--text-muted);">Scorecard & BQ logs</span>
+          </div>
+          
+        </div>
+        
+        <!-- Explanation Card -->
+        <div id="visual-desc-card" style="padding: 24px; background: var(--bg-dark); border: 1px solid var(--border-light); border-radius: 12px; min-height: 140px; transition: all 0.3s; line-height: 1.6;">
+          <h3 id="visual-desc-title" style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+            <span>🎯</span> Stage 1: Adversarial Probes
+          </h3>
+          <p id="visual-desc-text" style="font-size: 13.5px; color: var(--text-muted);">
+            Aletheia maintains a pre-configured library of adversarial safety probes. When an audit is triggered, Aletheia pulls standardized prompts (covering hallucinations, identity manipulations, jailbreaks, distress blindness, and scope creep) to verify compliance.
+          </p>
         </div>
       </div>
 
@@ -687,9 +726,49 @@
     const resultsPanel = document.getElementById('results-panel');
     const terminalLog = document.getElementById('terminal-log');
 
-    function playDemoVideo() {
-      document.getElementById('mock-video-poster').style.display = 'none';
-      document.getElementById('sandbox-video-iframe').style.display = 'block';
+    const visualStepsData = {
+      1: {
+        icon: '🎯',
+        title: 'Stage 1: Adversarial Probes',
+        text: "Aletheia maintains a pre-configured library of adversarial safety probes. When an audit is triggered, Aletheia pulls standardized prompts (covering hallucinations, identity manipulations, jailbreaks, distress blindness, and scope creep) to verify compliance."
+      },
+      2: {
+        icon: '🤖',
+        title: 'Stage 2: Target Model',
+        text: "The selected target model (e.g. OpenAI GPT-4, Claude 3.5 Sonnet, or your custom-engineered endpoint) receives the adversarial prompts and generates output responses. Aletheia measures model latency and token overhead throughout the invocation."
+      },
+      3: {
+        icon: '🔬',
+        title: 'Stage 3: Safety Scorer',
+        text: "Aletheia's real-time telemetry scorer runs a series of 9 behavioral assessments on the model outputs. It evaluates metrics such as factual hallucination, social authority bias, jailbreak resistance, context literalness, and crisis recognition."
+      },
+      4: {
+        icon: '📊',
+        title: 'Stage 4: Audit Analytics',
+        text: "Scores are immediately compiled into a comprehensive results scorecard and exported to BigQuery for long-term telemetry analysis. This lets engineering teams monitor safety profiles over time and block vulnerable versions in CI/CD pipelines."
+      }
+    };
+
+    function selectVisualStep(stepNum) {
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`vstep-${i}`);
+        if (stepEl) {
+          stepEl.style.borderColor = 'var(--border-light)';
+          stepEl.style.boxShadow = 'none';
+        }
+      }
+
+      const activeEl = document.getElementById(`vstep-${stepNum}`);
+      if (activeEl) {
+        activeEl.style.borderColor = 'var(--border-focus)';
+        activeEl.style.boxShadow = '0 0 0 1px var(--border-focus)';
+      }
+
+      const stepData = visualStepsData[stepNum];
+      if (stepData) {
+        document.getElementById('visual-desc-title').innerHTML = `<span>${stepData.icon}</span> ${stepData.title}`;
+        document.getElementById('visual-desc-text').textContent = stepData.text;
+      }
     }
 
     const playModeRadios = document.getElementsByName('play_mode');
