@@ -11,45 +11,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* Design Tokens - Default Light Mode */
+    /* Google Material 3 Design Tokens - Light Theme Default */
     :root {
-      --bg-dark: #f8fafc;
+      --bg-dark: #f8f9fa;
       --card-bg: #ffffff;
-      --border-light: #e2e8f0;
-      --border-focus: #0f172a;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --logo-bg: #0f172a;
+      --border-light: #dadce0;
+      --border-focus: #1a73e8;
+      --text-main: #202124;
+      --text-muted: #5f6368;
+      
+      --logo-bg: #1a73e8;
       --logo-text: #ffffff;
-      --btn-bg: #0f172a;
+      
+      --btn-bg: #1a73e8;
       --btn-text: #ffffff;
-      --btn-hover: #1e293b;
+      --btn-hover: #1557b0;
+      
       --input-bg: #ffffff;
       
-      --accent-green: #10b981;
-      --accent-red: #ef4444;
-      --accent-amber: #f59e0b;
+      --accent-green: #137333;
+      --accent-red: #c5221f;
+      --accent-amber: #b06000;
+      
+      --terminal-bg: #202124;
+      --terminal-text: #e8eaed;
+      --terminal-border: #3c4043;
       
       --font-display: 'Outfit', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    /* Auto Override for Dark Mode */
+    /* Google Material 3 Design Tokens - Auto Dark Theme Override */
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg-dark: #000000;
-        --card-bg: #09090b;
-        --border-light: rgba(255, 255, 255, 0.06);
-        --border-focus: rgba(255, 255, 255, 0.2);
-        --text-main: #f4f4f5;
-        --text-muted: #71717a;
-        --logo-bg: #ffffff;
-        --logo-text: #000000;
-        --btn-bg: #ffffff;
-        --btn-text: #000000;
-        --btn-hover: #e4e4e7;
-        --input-bg: #000000;
+        --bg-dark: #121212;
+        --card-bg: #1e1e1e;
+        --border-light: #3c4043;
+        --border-focus: #8ab4f8;
+        --text-main: #e8eaed;
+        --text-muted: #9aa0a6;
+        
+        --logo-bg: #8ab4f8;
+        --logo-text: #202124;
+        
+        --btn-bg: #8ab4f8;
+        --btn-text: #202124;
+        --btn-hover: #aecbfa;
+        
+        --input-bg: #121212;
+        
+        --accent-green: #81c995;
+        --accent-red: #f28b82;
+        --accent-amber: #fdd663;
+        
+        --terminal-bg: #0d0e12;
+        --terminal-text: #e8eaed;
+        --terminal-border: #202124;
       }
     }
 
@@ -356,13 +374,13 @@
     }
 
     .console-terminal {
-      background: #09090b;
-      border: 1px solid var(--border-light);
+      background: var(--terminal-bg);
+      border: 1px solid var(--terminal-border);
       border-radius: 8px;
       padding: 20px;
       font-family: var(--font-mono);
       font-size: 12px;
-      color: #a1a1aa;
+      color: var(--terminal-text);
       height: 200px;
       overflow-y: auto;
       line-height: 1.6;
@@ -371,10 +389,10 @@
     .console-line {
       margin-bottom: 4px;
     }
-    .console-line.info { color: #3b82f6; }
-    .console-line.success { color: #10b981; }
-    .console-line.warning { color: #f59e0b; }
-    .console-line.error { color: #ef4444; }
+    .console-line.info { color: var(--border-focus); }
+    .console-line.success { color: var(--accent-green); }
+    .console-line.warning { color: var(--accent-amber); }
+    .console-line.error { color: var(--accent-red); }
 
     /* Results Dashboard Scorecard */
     .results-panel {

@@ -11,50 +11,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* Design Tokens - Default Light Mode */
+    /* Google Material 3 Design Tokens - Light Theme Default */
     :root {
-      --bg-dark: #f8fafc;
+      --bg-dark: #f8f9fa;
       --card-bg: #ffffff;
-      --border-light: #e2e8f0;
-      --border-focus: #0f172a;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --logo-bg: #0f172a;
+      --border-light: #dadce0;
+      --border-focus: #1a73e8;
+      --text-main: #202124;
+      --text-muted: #5f6368;
+      
+      --accent-color: #1a73e8;
+      --accent-hover: #1557b0;
+      --logo-bg: #1a73e8;
       --logo-text: #ffffff;
-      --btn-bg: #0f172a;
+      
+      --btn-bg: #1a73e8;
       --btn-text: #ffffff;
-      --btn-hover: #1e293b;
-      --checkbox-checked-bg: #0f172a;
+      --btn-hover: #1557b0;
+      
+      --checkbox-checked-bg: #1a73e8;
       --checkbox-checked-check: #ffffff;
-      --terminal-bg: #0f172a;
-      --terminal-text: #e2e8f0;
-      --terminal-border: #1e293b;
+      
+      --terminal-bg: #202124;
+      --terminal-text: #e8eaed;
+      --terminal-border: #3c4043;
       --input-bg: #ffffff;
+      
       --font-display: 'Outfit', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    /* Auto Override for Dark Mode */
+    /* Google Material 3 Design Tokens - Auto Dark Theme Override */
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg-dark: #000000;
-        --card-bg: #09090b;
-        --border-light: rgba(255, 255, 255, 0.06);
-        --border-focus: rgba(255, 255, 255, 0.2);
-        --text-main: #f4f4f5;
-        --text-muted: #71717a;
-        --logo-bg: #ffffff;
-        --logo-text: #000000;
-        --btn-bg: #ffffff;
-        --btn-text: #000000;
-        --btn-hover: #e4e4e7;
-        --checkbox-checked-bg: #ffffff;
-        --checkbox-checked-check: #000000;
-        --terminal-bg: #050505;
-        --terminal-text: #e4e4e7;
-        --terminal-border: rgba(255, 255, 255, 0.06);
-        --input-bg: #000000;
+        --bg-dark: #121212;
+        --card-bg: #1e1e1e;
+        --border-light: #3c4043;
+        --border-focus: #8ab4f8;
+        --text-main: #e8eaed;
+        --text-muted: #9aa0a6;
+        
+        --accent-color: #8ab4f8;
+        --accent-hover: #aecbfa;
+        --logo-bg: #8ab4f8;
+        --logo-text: #202124;
+        
+        --btn-bg: #8ab4f8;
+        --btn-text: #202124;
+        --btn-hover: #aecbfa;
+        
+        --checkbox-checked-bg: #8ab4f8;
+        --checkbox-checked-check: #202124;
+        
+        --terminal-bg: #0d0e12;
+        --terminal-text: #e8eaed;
+        --terminal-border: #202124;
+        --input-bg: #121212;
       }
     }
 
@@ -70,13 +83,13 @@
       justify-content: center;
       padding: 24px;
       overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     .container {
       width: 100%;
       max-width: 500px;
-      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .header-logo {
@@ -98,8 +111,8 @@
       font-weight: 800;
       font-size: 18px;
       color: var(--logo-text);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: background 0.3s ease, color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      transition: all 0.25s ease;
     }
 
     .logo-text {
@@ -108,34 +121,34 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       color: var(--text-main);
-      transition: color 0.3s ease;
+      transition: color 0.25s ease;
     }
 
-    /* Card Container */
+    /* Google Elevated Card Container */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-light);
-      border-radius: 16px;
+      border-radius: 12px;
       padding: 40px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
       position: relative;
-      transition: background 0.3s ease, border-color 0.3s ease;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     @media (prefers-color-scheme: dark) {
       .card {
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       }
     }
 
     h1 {
       font-family: var(--font-display);
       font-size: 28px;
-      font-weight: 800;
+      font-weight: 700;
       color: var(--text-main);
       margin-bottom: 8px;
-      letter-spacing: -0.8px;
-      line-height: 1.2;
+      letter-spacing: -0.6px;
+      line-height: 1.25;
     }
 
     .subtitle {
@@ -156,7 +169,7 @@
       color: var(--text-muted);
       margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
     input[type="email"] {
@@ -179,7 +192,7 @@
 
     input[type="email"]::placeholder {
       color: var(--text-muted);
-      opacity: 0.6;
+      opacity: 0.5;
     }
 
     /* Custom Checkbox Design */
@@ -236,42 +249,43 @@
     }
 
     .checkbox-label a {
-      color: var(--text-main);
+      color: var(--accent-color);
       text-decoration: none;
-      border-bottom: 1px solid var(--text-muted);
       transition: all 0.15s;
     }
 
     .checkbox-label a:hover {
-      border-color: var(--text-main);
+      text-decoration: underline;
     }
 
-    /* Premium Button */
+    /* Material Flat Button */
     button[type="submit"] {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       background: var(--btn-bg);
       color: var(--btn-text);
       border: none;
       border-radius: 8px;
       font-family: var(--font-body);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
     button[type="submit"]:hover:not(:disabled) {
       background: var(--btn-hover);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     button[type="submit"]:disabled {
-      background: var(--border-light);
+      background: var(--bg-dark);
       color: var(--text-muted);
       border: 1px solid var(--border-light);
       box-shadow: none;
       cursor: not-allowed;
+      opacity: 0.6;
     }
 
     /* Result Panel */
@@ -281,7 +295,7 @@
       padding: 24px;
       background: var(--bg-dark);
       border: 1px solid var(--border-light);
-      border-radius: 10px;
+      border-radius: 8px;
       animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
@@ -295,7 +309,7 @@
     }
 
     .success-icon {
-      color: var(--text-main);
+      color: var(--accent-color);
       font-weight: 700;
     }
 
@@ -327,7 +341,7 @@
       gap: 12px;
       background: var(--card-bg);
       border: 1px solid var(--border-light);
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 12px 14px;
       margin-bottom: 24px;
     }
@@ -392,23 +406,23 @@
     .copy-cmd-btn {
       background: transparent;
       border: none;
-      color: var(--text-main);
+      color: var(--accent-color);
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 1px dashed var(--text-muted);
+      border-bottom: 1px dashed var(--accent-color);
       transition: all 0.15s;
     }
 
     .copy-cmd-btn:hover {
-      color: var(--text-main);
-      border-bottom-color: var(--text-main);
+      color: var(--accent-hover);
+      border-bottom-color: var(--accent-hover);
     }
 
     .code-terminal {
       background: var(--terminal-bg);
       border: 1px solid var(--terminal-border);
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 16px;
       font-family: var(--font-mono);
       font-size: 12px;
@@ -419,11 +433,10 @@
     }
 
     .code-terminal span.comment { color: var(--text-muted); opacity: 0.8; }
-    .code-terminal span.highlight { color: #ffffff; }
+    .code-terminal span.highlight { color: var(--accent-color); }
 
-    /* Light Theme specific syntax coloring overrides */
-    @media (prefers-color-scheme: light) {
-      .code-terminal span.highlight { color: #f8fafc; }
+    @media (prefers-color-scheme: dark) {
+      .code-terminal span.highlight { color: #8ab4f8; }
     }
 
     .playground-action {
@@ -471,7 +484,7 @@
       padding: 14px 16px;
       background: rgba(239, 68, 68, 0.05);
       border: 1px solid rgba(239, 68, 68, 0.15);
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 13px;
       color: #ef4444;
     }
@@ -570,7 +583,7 @@
               <strong>Interactive API Playground</strong>
               Your credentials have been loaded. Launch the playground.
             </div>
-            <a href="/docs" class="playground-btn" id="playground-link">Launch Playground</a>
+            <a href="/playground" class="playground-btn" id="playground-link">Launch Playground</a>
           </div>
         </div>
       </div>
