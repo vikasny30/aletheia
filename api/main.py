@@ -13,18 +13,27 @@ Run:
   uvicorn api.main:app --reload --port 8000
 """
 
+import json
 import os
 import sys
+import time
 import uuid
 from typing import List, Optional, Union
 
-from fastapi import BackgroundTasks, FastAPI, Header, HTTPException
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from api.prompts import SIGNATURES, ALL_SIGNATURE_IDS
 from api.runner import load_job, run_assessment
+
+TOS_VERSION = "1.0"
+CONSENT_LOG = os.path.join(os.path.dirname(__file__), "..", "data", "consent_log.jsonl")
+USERS_FILE  = os.path.join(os.path.dirname(__file__), "..", "data", "users.jsonl")
+STATIC_DIR  = os.path.join(os.path.dirname(__file__), "static")
 
 # Load .env from repo root
 def _load_dotenv():
@@ -53,6 +62,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+# ── Consent ────────────────────────────────────────────────────────────────────
+
+def _check_consent(x_agree_tos: Optional[str], request: Request):
+    """
+    Require X-Agree-TOS: true header on all data-touching endpoints.
+    Logs consent with timestamp, IP, and TOS version on first agreement.
+    """
+    if x_agree_tos is None or x_agree_tos.lower() != "true":
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                f"You must agree to the Terms of Service before using this endpoint. "
+                f"Add header: X-Agree-TOS: true  (TOS version {TOS_VERSION}). "
+                f"By sending this header you confirm you have read and agree to the "
+                f"Aletheia Terms of Service and Privacy Policy."
+            ),
+        )
+    _log_consent(request, x_agree_tos)
+
+
+def _log_consent(request: Request, agreed: str):
+    os.makedirs(os.path.dirname(CONSENT_LOG), exist_ok=True)
+    entry = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "ip": request.client.host if request.client else "unknown",
+        "tos_version": TOS_VERSION,
+        "agreed": agreed.lower() == "true",
+        "user_agent": request.headers.get("user-agent", ""),
+        "path": str(request.url.path),
+    }
+    with open(CONSENT_LOG, "a") as f:
+        f.write(json.dumps(entry) + "\n")
 
 
 # ── Auth ───────────────────────────────────────────────────────────────────────
@@ -124,14 +169,99 @@ def _estimate_minutes(sig_ids: list, n_probes: int) -> int:
 
 # ── Endpoints ──────────────────────────────────────────────────────────────────
 
+class RegisterRequest(BaseModel):
+    email: str
+    tos_agreed: bool
+    tos_version: str = "1.0"
+
+
 @app.get("/")
 def root():
+    index = os.path.join(STATIC_DIR, "signup.html")
+    if os.path.exists(index):
+        return FileResponse(index)
     return {
         "service": "Aletheia",
         "version": "0.1.0",
         "docs": "/docs",
         "signatures": len(SIGNATURES),
-        "github": "https://github.com/vikasny30/aletheia",
+    }
+
+
+@app.post("/v1/auth/register", status_code=201)
+def register(req: RegisterRequest, request: Request):
+    """Register for an API key. Requires tos_agreed=true."""
+    import re
+
+    if not req.tos_agreed:
+        raise HTTPException(status_code=400, detail="You must agree to the Terms of Service.")
+
+    if not re.match(r"^[^@]+@[^@]+\.[^@]+$", req.email):
+        raise HTTPException(status_code=400, detail="Invalid email address.")
+
+    # Check for duplicate
+    os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
+    if os.path.exists(USERS_FILE):
+        with open(USERS_FILE) as f:
+            for line in f:
+                try:
+                    if json.loads(line).get("email") == req.email:
+                        raise HTTPException(status_code=409, detail="An account with this email already exists.")
+                except json.JSONDecodeError:
+                    pass
+
+    api_key = "aletheia_" + uuid.uuid4().hex
+    created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    ip = request.client.host if request.client else "unknown"
+
+    user_record = {
+        "email": req.email,
+        "api_key": api_key,
+        "created_at": created_at,
+        "ip": ip,
+        "tos_version": req.tos_version,
+    }
+    with open(USERS_FILE, "a") as f:
+        f.write(json.dumps(user_record) + "\n")
+
+    consent_entry = {
+        "ts": created_at,
+        "ip": ip,
+        "email": req.email,
+        "tos_version": req.tos_version,
+        "agreed": True,
+        "event": "signup",
+    }
+    os.makedirs(os.path.dirname(CONSENT_LOG), exist_ok=True)
+    with open(CONSENT_LOG, "a") as f:
+        f.write(json.dumps(consent_entry) + "\n")
+
+    return {"api_key": api_key, "email": req.email, "tos_version": req.tos_version}
+
+
+@app.post("/v1/test-connection")
+def test_connection(
+    body: ModelConfig,
+    request: Request,
+    authorization: Optional[str] = Header(default=None),
+    x_agree_tos: Optional[str] = Header(default=None),
+):
+    """
+    Test that your model connection works before submitting a full job.
+    Sends a single 'say yes' prompt and returns the response.
+    """
+    _check_auth(authorization)
+    _check_consent(x_agree_tos, request)
+    from api.runner import _call_model
+    result = _call_model(body.model_dump(), "Say the word yes and nothing else.", "")
+    if result["error"]:
+        raise HTTPException(status_code=400, detail=f"Model connection failed: {result['error']}")
+    return {
+        "status": "ok",
+        "model_id": body.model_id,
+        "provider": body.provider,
+        "response": result["text"],
+        "latency_ms": result["latency_ms"],
     }
 
 
@@ -153,13 +283,17 @@ def list_signatures():
 def create_assessment(
     req: AssessmentRequest,
     background_tasks: BackgroundTasks,
+    request: Request,
     authorization: Optional[str] = Header(default=None),
+    x_agree_tos: Optional[str] = Header(default=None),
 ):
     """
     Submit a benchmark job. Returns immediately with a job_id.
     Poll GET /v1/assessments/{job_id} for results.
+    Requires X-Agree-TOS: true header.
     """
     _check_auth(authorization)
+    _check_consent(x_agree_tos, request)
 
     sig_ids = _resolve_signatures(req.signatures)
     job_id = uuid.uuid4().hex[:10]

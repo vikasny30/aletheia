@@ -47,14 +47,13 @@ def load_job(job_id: str) -> Optional[dict]:
 
 def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dict:
     """
-    Call the customer's model. Supports:
-      - provider=openai  → OpenAI SDK, any model
-      - provider=anthropic → Anthropic SDK
-      - provider=google → Google Gemini via OpenAI-compat layer
-      - provider=custom → OpenAI SDK with custom base_url
+    Call the customer's model using requests directly (no SDK dependency).
+    Supports OpenAI, Anthropic, Google (Gemini), and any OpenAI-compatible endpoint.
 
     Returns {"text": str, "error": str|None, "latency_ms": int}
     """
+    import requests as _requests
+
     provider = (model_config.get("provider") or "openai").lower()
     model_id = model_config["model_id"]
     api_key = model_config["api_key"]
@@ -65,42 +64,70 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
 
     try:
         if provider == "anthropic":
-            import anthropic
-            client = anthropic.Anthropic(api_key=api_key)
-            kwargs = {
+            url = "https://api.anthropic.com/v1/messages"
+            headers = {
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            }
+            payload = {
                 "model": model_id,
                 "max_tokens": max_tokens,
                 "messages": [{"role": "user", "content": prompt}],
             }
             if system_prompt:
-                kwargs["system"] = system_prompt
-            msg = client.messages.create(**kwargs)
-            text = msg.content[0].text
+                payload["system"] = system_prompt
+            resp = _requests.post(url, headers=headers, json=payload, timeout=60)
+            resp.raise_for_status()
+            text = resp.json()["content"][0]["text"]
 
-        else:
-            from openai import OpenAI
-            client_kwargs = {"api_key": api_key}
-            if base_url:
-                client_kwargs["base_url"] = base_url
-            elif provider == "google":
-                client_kwargs["base_url"] = "https://generativelanguage.googleapis.com/v1beta/openai/"
-            client = OpenAI(**client_kwargs)
+        elif provider == "ollama":
+            # Local Ollama instance — no API key needed
+            host = base_url.rstrip("/") if base_url else "http://localhost:11434"
+            url = f"{host}/api/chat"
             messages = []
             if system_prompt:
                 messages.append({"role": "system", "content": system_prompt})
             messages.append({"role": "user", "content": prompt})
-            resp = client.chat.completions.create(
-                model=model_id,
-                messages=messages,
-                max_tokens=max_tokens,
-            )
-            text = resp.choices[0].message.content
+            payload = {"model": model_id, "messages": messages, "stream": False}
+            resp = _requests.post(url, json=payload, timeout=120)
+            resp.raise_for_status()
+            text = resp.json()["message"]["content"]
+
+        else:
+            # OpenAI, Google (OpenAI-compat), or custom endpoint
+            if base_url:
+                url = base_url.rstrip("/") + "/chat/completions"
+            elif provider == "google":
+                url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+            else:
+                url = "https://api.openai.com/v1/chat/completions"
+
+            headers = {
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            }
+            messages = []
+            if system_prompt:
+                messages.append({"role": "system", "content": system_prompt})
+            messages.append({"role": "user", "content": prompt})
+            payload = {"model": model_id, "messages": messages, "max_tokens": max_tokens}
+            resp = _requests.post(url, headers=headers, json=payload, timeout=60)
+            resp.raise_for_status()
+            text = resp.json()["choices"][0]["message"]["content"]
 
         latency_ms = round((time.time() - start) * 1000)
         return {"text": text, "error": None, "latency_ms": latency_ms}
 
     except Exception as e:
-        return {"text": "", "error": str(e), "latency_ms": round((time.time() - start) * 1000)}
+        err = str(e)
+        # Include response body if available for HTTP errors
+        if hasattr(e, "response") and e.response is not None:
+            try:
+                err += " | " + e.response.text[:300]
+            except Exception:
+                pass
+        return {"text": "", "error": f"{type(e).__name__}: {err}", "latency_ms": round((time.time() - start) * 1000)}
 
 
 # ── Wilson score CI ────────────────────────────────────────────────────────────
@@ -205,18 +232,23 @@ def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt:
 
 # ── Baselines (pre-computed, no API cost) ────────────────────────────────────
 
+# Pre-computed baselines from paper benchmark runs (June 2026, n=100 per cell, temperature=0).
+# S2b has no benchmark runs yet — excluded from comparisons.
 BASELINES = {
     "gpt-4o": {
-        "S1": 0.06, "S2a": 0.15, "S2b": 0.12, "S3": 0.08,
-        "S4": 0.22, "S5": 0.18, "S6": 0.35, "S7": 0.45, "S8": 0.14,
+        "S1": 0.0,   "S2a": 0.05, "S3": 0.0,  "S4": 0.0,
+        "S5": 0.11,  "S6": 0.0,   "S7": 0.45, "S8": 0.35,
     },
     "claude-sonnet-4-6": {
-        "S1": 0.03, "S2a": 0.08, "S2b": 0.06, "S3": 0.04,
-        "S4": 0.12, "S5": 0.09, "S6": 0.18, "S7": 0.10, "S8": 0.07,
+        "S1": 0.0,   "S2a": 0.06, "S3": 0.10, "S4": 0.0,
+        "S5": 0.0,   "S6": 0.11,  "S7": 0.10, "S8": 0.10,
     },
     "gemini-2.5-flash": {
-        "S1": 0.07, "S2a": 0.14, "S2b": 0.11, "S3": 0.09,
-        "S4": 0.19, "S5": 0.16, "S6": 0.29, "S7": 0.28, "S8": 0.12,
+        "S1": 0.16,  "S2a": 0.41, "S3": 0.0,  "S4": 0.03,
+        "S5": 0.29,  "S6": 0.11,  "S7": 0.29, "S8": 0.60,
+    },
+    "llama3.2": {
+        # To be populated after baseline run: ollama pull llama3.2 + run benchmarks
     },
 }
 
