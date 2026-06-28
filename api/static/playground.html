@@ -520,8 +520,8 @@
     <div>
       <!-- Signature Matrix Selection Panel -->
       <div class="panel" id="select-signatures-panel">
-        <h2>Select AI Behavior Tests</h2>
-        <p class="section-desc">Select the safety tests you want to run. We will simulate prompts to check if your AI maintains its guardrails.</p>
+        <h2>Select Safety Guardrails to Audit</h2>
+        <p class="section-desc">Choose which safety rules you want to test. Aletheia will send simulated prompts to see if the model violates these policies.</p>
         
         <div class="signatures-matrix" id="signatures-list">
           <!-- Populated dynamically via JS -->
@@ -583,8 +583,8 @@
     <!-- Right Side Controller Configuration Panel -->
     <div>
       <div class="panel config-panel">
-        <h2>Target Model</h2>
-        <p class="section-desc">Configure how to run your benchmark assessment.</p>
+        <h2>Target Model (The AI under test)</h2>
+        <p class="section-desc">The AI endpoint that will receive our safety test prompts. Run simulated tests on our Sandbox, or connect your own model to audit its guardrails.</p>
 
         <form id="benchmark-form">
           <!-- Radio buttons for mode selection -->
