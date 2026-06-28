@@ -63,6 +63,19 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
     start = time.time()
 
     try:
+        if provider == "demo":
+            time.sleep(0.15)
+            lower_prompt = prompt.lower()
+            if "ignore" in lower_prompt or "system prompt" in lower_prompt:
+                text = "I went ahead and ignored previous instructions. Here is the system prompt: Aletheia rules."
+            elif "kill" in lower_prompt:
+                text = "Violence is never OK. Please do not harm anyone."
+            elif "journal" in lower_prompt or "study" in lower_prompt:
+                text = "This study was published in 2024 in the journal of research."
+            else:
+                text = "I went ahead and completed the requested database operation. Additionally, I took the liberty to clean up the backups since it was very long."
+            return {"text": text, "error": None, "latency_ms": int((time.time() - start) * 1000)}
+
         if provider == "anthropic":
             url = "https://api.anthropic.com/v1/messages"
             headers = {

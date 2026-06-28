@@ -572,6 +572,7 @@
           <div class="form-group">
             <label for="provider">Provider</label>
             <select id="provider">
+              <option value="demo" selected>Aletheia Sandbox (Demo Mode)</option>
               <option value="openai">OpenAI</option>
               <option value="anthropic">Anthropic</option>
               <option value="google">Google Gemini</option>
@@ -580,12 +581,12 @@
 
           <div class="form-group">
             <label for="model_id">Model ID</label>
-            <input type="text" id="model_id" placeholder="gpt-4o" value="gpt-4o">
+            <input type="text" id="model_id" placeholder="aletheia-sandbox-v1" value="aletheia-sandbox-v1">
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="api_key_group">
             <label for="api_key">API Key (BYOK)</label>
-            <input type="password" id="api_key" placeholder="sk-..." required>
+            <input type="password" id="api_key" placeholder="sk-...">
           </div>
 
           <div class="form-group">
@@ -612,18 +613,39 @@
 
     const providerSelect = document.getElementById('provider');
     const modelInput = document.getElementById('model_id');
-    providerSelect.addEventListener('change', () => {
-      if (providerSelect.value === 'openai') {
-        modelInput.value = 'gpt-4o';
-        modelInput.placeholder = 'gpt-4o';
-      } else if (providerSelect.value === 'anthropic') {
-        modelInput.value = 'claude-3-5-sonnet-20241022';
-        modelInput.placeholder = 'claude-3-5-sonnet-20241022';
-      } else if (providerSelect.value === 'google') {
-        modelInput.value = 'gemini-1.5-pro';
-        modelInput.placeholder = 'gemini-1.5-pro';
+    const apiKeyGroup = document.getElementById('api_key_group');
+    const apiKeyInput = document.getElementById('api_key');
+
+    function handleProviderChange() {
+      const provider = providerSelect.value;
+      if (provider === 'demo') {
+        modelInput.value = 'aletheia-sandbox-v1';
+        modelInput.placeholder = 'aletheia-sandbox-v1';
+        apiKeyInput.value = 'demo_sandbox_key';
+        apiKeyInput.required = false;
+        apiKeyGroup.style.display = 'none';
+      } else {
+        apiKeyGroup.style.display = 'block';
+        apiKeyInput.required = true;
+        if (apiKeyInput.value === 'demo_sandbox_key') {
+          apiKeyInput.value = '';
+        }
+        if (provider === 'openai') {
+          modelInput.value = 'gpt-4o';
+          modelInput.placeholder = 'gpt-4o';
+        } else if (provider === 'anthropic') {
+          modelInput.value = 'claude-3-5-sonnet-20241022';
+          modelInput.placeholder = 'claude-3-5-sonnet-20241022';
+        } else if (provider === 'google') {
+          modelInput.value = 'gemini-1.5-pro';
+          modelInput.placeholder = 'gemini-1.5-pro';
+        }
       }
-    });
+    }
+
+    providerSelect.addEventListener('change', handleProviderChange);
+    // Initialize state
+    handleProviderChange();
 
     // Load API key from LocalStorage
     const savedKey = localStorage.getItem('aletheia_api_key');
