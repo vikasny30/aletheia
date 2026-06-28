@@ -4,301 +4,531 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aletheia — Get API Access</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <style>
+    /* Design Tokens */
+    :root {
+      --bg-dark: #07070a;
+      --card-bg: rgba(18, 18, 28, 0.45);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(99, 102, 241, 0.4);
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --primary-gradient: linear-gradient(135deg, #6366f1, #3b82f6);
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f0f0f;
-      color: #e8e8e8;
+      font-family: var(--font-body);
+      background: var(--bg-dark);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Decorative Ambient Glows */
+    .glow-blob-1 {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glow-blob-2 {
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .container {
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
+      z-index: 1;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .logo {
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 12px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
       color: #fff;
-      margin-bottom: 8px;
     }
 
-    .tagline {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 40px;
+    /* Glassmorphic Card Container */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 100px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     }
 
     h1 {
-      font-size: 26px;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
       color: #fff;
       margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
     }
 
     .subtitle {
       font-size: 14px;
-      color: #888;
+      color: var(--text-muted);
       margin-bottom: 32px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     label {
       display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: #aaa;
-      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
     }
 
     input[type="email"] {
       width: 100%;
-      padding: 12px 14px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
+      padding: 14px 16px;
+      background: rgba(10, 10, 15, 0.65);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
       color: #fff;
+      font-family: var(--font-body);
       font-size: 15px;
       outline: none;
-      transition: border-color 0.15s;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     input[type="email"]:focus {
-      border-color: #444;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px var(--primary-glow);
+      background: rgba(10, 10, 15, 0.85);
     }
 
     input[type="email"]::placeholder {
-      color: #444;
+      color: #4b5563;
     }
 
+    /* Custom Checkbox Design */
     .checkbox-row {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      cursor: pointer;
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s;
+      background: rgba(10, 10, 15, 0.5);
     }
 
     input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      flex-shrink: 0;
-      accent-color: #fff;
-      cursor: pointer;
+      display: none;
+    }
+
+    input[type="checkbox"]:checked + .custom-checkbox {
+      background: var(--primary-gradient);
+      border-color: transparent;
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
+    .custom-checkbox::after {
+      content: '';
+      width: 5px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translate(-1px, -1px);
+      display: none;
+    }
+
+    input[type="checkbox"]:checked + .custom-checkbox::after {
+      display: block;
     }
 
     .checkbox-label {
       font-size: 13px;
-      color: #888;
-      line-height: 1.5;
+      color: var(--text-muted);
+      line-height: 1.55;
+      user-select: none;
     }
 
     .checkbox-label a {
-      color: #aaa;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      color: #a5b4fc;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(165, 180, 252, 0.3);
+      transition: border-color 0.2s, color 0.2s;
     }
 
     .checkbox-label a:hover {
       color: #fff;
+      border-color: #fff;
     }
 
+    /* Premium Submission Button */
     button[type="submit"] {
       width: 100%;
-      padding: 13px;
-      background: #fff;
-      color: #000;
+      padding: 15px;
+      background: var(--primary-gradient);
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-family: var(--font-body);
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.15s;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    button[type="submit"]:hover {
-      background: #e8e8e8;
+    button[type="submit"]:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+
+    button[type="submit"]:active:not(:disabled) {
+      transform: translateY(0);
     }
 
     button[type="submit"]:disabled {
-      background: #333;
-      color: #666;
+      background: #1e1e2d;
+      color: #4b5563;
+      border: 1px solid var(--border-light);
+      box-shadow: none;
       cursor: not-allowed;
     }
 
-    /* Result panel */
+    /* Result Panel */
     .result {
       display: none;
       margin-top: 32px;
       padding: 24px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 10px;
+      background: rgba(10, 10, 15, 0.7);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .result.visible { display: block; }
 
-    .result-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 6px;
+    }
+
+    .success-icon {
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    .result-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
     }
 
     .result-sub {
       font-size: 13px;
-      color: #666;
-      margin-bottom: 20px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
     }
 
     .key-label {
-      font-size: 12px;
-      color: #666;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       margin-bottom: 8px;
     }
 
     .key-box {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: #111;
-      border: 1px solid #2a2a2a;
-      border-radius: 6px;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
       padding: 12px 14px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      transition: border-color 0.25s;
+    }
+
+    .key-box:hover {
+      border-color: rgba(255,255,255,0.15);
     }
 
     .key-value {
       flex: 1;
-      font-family: "SF Mono", "Fira Code", monospace;
+      font-family: var(--font-mono);
       font-size: 13px;
-      color: #ccc;
+      color: #10b981;
       word-break: break-all;
+      letter-spacing: -0.3px;
     }
 
     .copy-btn {
-      padding: 6px 12px;
-      background: #2a2a2a;
-      border: none;
-      border-radius: 5px;
-      color: #aaa;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      color: var(--text-main);
+      font-family: var(--font-body);
       font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s;
+      transition: all 0.2s;
     }
 
-    .copy-btn:hover { background: #333; color: #fff; }
-    .copy-btn.copied { color: #4ade80; }
+    .copy-btn:hover {
+      background: #fff;
+      color: #000;
+      border-color: transparent;
+    }
+    
+    .copy-btn.copied {
+      background: #10b981;
+      color: #fff;
+      border-color: transparent;
+    }
 
+    /* Custom formatted curl block */
     .next-steps {
       font-size: 13px;
-      color: #666;
-      line-height: 1.7;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .next-steps p {
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: #fff;
     }
 
-    .next-steps code {
-      background: #111;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: "SF Mono", "Fira Code", monospace;
-      color: #aaa;
+    .code-terminal {
+      background: #09090f;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--font-mono);
       font-size: 12px;
+      color: #a5b4fc;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
+
+    .code-terminal span.comment { color: #4b5563; }
+    .code-terminal span.url { color: #3b82f6; }
+    .code-terminal span.string { color: #10b981; }
 
     .error-msg {
       display: none;
-      margin-top: 14px;
-      padding: 12px 14px;
-      background: #1a0a0a;
-      border: 1px solid #3a1a1a;
-      border-radius: 6px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
       font-size: 13px;
-      color: #f87171;
+      color: #fca5a5;
+      animation: fadeIn 0.4s;
     }
 
     .error-msg.visible { display: block; }
 
     .divider {
       height: 1px;
-      background: #1e1e1e;
+      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
       margin: 32px 0;
     }
 
     .footer {
       font-size: 12px;
-      color: #444;
+      color: #4b5563;
       text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
+  <!-- Decorative Glowing Background Blobs -->
+  <div class="glow-blob-1"></div>
+  <div class="glow-blob-2"></div>
+
   <div class="container">
-    <div class="logo">Aletheia</div>
-    <div class="tagline">Behavioral observability for AI systems</div>
-
-    <h1>Get API access</h1>
-    <p class="subtitle">Run behavioral benchmarks against any AI system. Free to start — bring your own model API key.</p>
-
-    <form id="signup-form">
-      <div class="form-group">
-        <label for="email">Work email</label>
-        <input type="email" id="email" name="email" placeholder="you@company.com" required>
-      </div>
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="tos" name="tos" required>
-        <label class="checkbox-label" for="tos">
-          I have read and agree to the
-          <a href="https://aletheia.dev/terms" target="_blank">Terms of Service</a>
-          and
-          <a href="https://aletheia.dev/privacy" target="_blank">Privacy Policy</a>.
-          I understand that Aletheia processes AI system responses to produce behavioral scores.
-        </label>
-      </div>
-
-      <button type="submit" id="submit-btn" disabled>Get API key</button>
-
-      <div class="error-msg" id="error-msg"></div>
-    </form>
-
-    <div class="result" id="result">
-      <div class="result-title">Your API key</div>
-      <div class="result-sub">Save this — it won't be shown again.</div>
-
-      <div class="key-label">API Key</div>
-      <div class="key-box">
-        <span class="key-value" id="api-key-value"></span>
-        <button class="copy-btn" id="copy-btn" onclick="copyKey()">Copy</button>
-      </div>
-
-      <div class="next-steps">
-        Run your first benchmark:<br><br>
-        <code>curl -X POST https://aletheia.dev/v1/assessments \</code><br>
-        <code>&nbsp;&nbsp;-H "Authorization: Bearer YOUR_KEY" \</code><br>
-        <code>&nbsp;&nbsp;-H "Content-Type: application/json" \</code><br>
-        <code>&nbsp;&nbsp;-d '{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": ["S1","S7"], "probes_per_signature": 20}'</code><br><br>
-        Full docs at <a href="/docs" style="color:#aaa;">aletheia.dev/docs</a>
-      </div>
+    <div class="header-logo">
+      <div class="logo-mark">A</div>
+      <div class="logo-text">Aletheia</div>
     </div>
 
-    <div class="divider"></div>
-    <div class="footer">Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source</div>
+    <div class="card">
+      <h1>Get API access</h1>
+      <p class="subtitle">Run behavioral benchmarks against any AI system. Free to start — bring your own model API key.</p>
+
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="email">Work email</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          </div>
+        </div>
+
+        <label class="checkbox-row" for="tos">
+          <input type="checkbox" id="tos" name="tos" required>
+          <div class="custom-checkbox"></div>
+          <span class="checkbox-label">
+            I have read and agree to the
+            <a href="https://aletheia.dev/terms" target="_blank">Terms of Service</a>
+            and
+            <a href="https://aletheia.dev/privacy" target="_blank">Privacy Policy</a>.
+            I understand that Aletheia processes AI system responses to produce behavioral scores.
+          </span>
+        </label>
+
+        <button type="submit" id="submit-btn" disabled>Get API key</button>
+
+        <div class="error-msg" id="error-msg"></div>
+      </form>
+
+      <div class="result" id="result">
+        <div class="result-header">
+          <span class="success-icon">✓</span>
+          <div class="result-title">Registration Successful</div>
+        </div>
+        <div class="result-sub">Save this API key — it won't be shown again.</div>
+
+        <div class="key-label">API Key</div>
+        <div class="key-box">
+          <span class="key-value" id="api-key-value"></span>
+          <button class="copy-btn" id="copy-btn" onclick="copyKey()">Copy</button>
+        </div>
+
+        <div class="next-steps">
+          <p>Run your first benchmark:</p>
+          <div class="code-terminal">
+            <span class="comment"># Submit a scoring assessment run</span><br>
+            curl -X POST <span class="url">https://aletheia.dev/v1/assessments</span> \<br>
+            &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer YOUR_KEY"</span> \<br>
+            &nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span> \<br>
+            &nbsp;&nbsp;-d '<span class="string">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
+          </div>
+          Full documentation available at <a href="/docs" style="color:#a5b4fc;">aletheia.dev/docs</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="footer">Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source</div>
+    </div>
   </div>
 
   <script>
@@ -354,7 +584,10 @@
       const btn = document.getElementById('copy-btn');
       btn.textContent = 'Copied';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { 
+        btn.textContent = 'Copy'; 
+        btn.classList.remove('copied'); 
+      }, 2000);
     }
   </script>
 </body>
