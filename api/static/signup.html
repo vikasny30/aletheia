@@ -88,8 +88,22 @@
 
     .container {
       width: 100%;
-      max-width: 500px;
+      max-width: 1100px;
       animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .split-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
     }
 
     .header-logo {
@@ -520,13 +534,81 @@
 <body>
 
   <div class="container">
-    <div class="header-logo">
+    <div class="header-logo" style="margin-bottom: 32px;">
       <div class="logo-mark">A</div>
       <div class="logo-text">Aletheia</div>
     </div>
 
-    <div class="card">
-      <h1>Get API access</h1>
+    <div class="split-grid">
+      <!-- Left Column: About Project, Signatures, and Paper -->
+      <div class="info-column" style="display: flex; flex-direction: column; gap: 24px; text-align: left; padding: 12px 0;">
+        <h1 style="font-size: 38px; font-weight: 800; font-family: var(--font-display); line-height: 1.15; letter-spacing: -1px; color: var(--text-main); margin-bottom: 8px;">
+          Systematic AI Safety Observability
+        </h1>
+        <p style="font-size: 15.5px; line-height: 1.6; color: var(--text-muted); font-family: var(--font-body);">
+          Aletheia is an open-source evaluation framework that identifies, measures, and monitors repeatable failure patterns (behavioral signatures) across frontier LLMs, shifting safety from abstract alignment to real-time deployment observability.
+        </p>
+        
+        <!-- Key stats row -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0;">
+          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">9</div>
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Signatures</div>
+          </div>
+          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">2,571</div>
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Incident Corpus</div>
+          </div>
+          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">Open</div>
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Source Spec</div>
+          </div>
+        </div>
+        
+        <!-- Audited Signatures list -->
+        <div style="background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 12px; padding: 20px;">
+          <h3 style="font-family: var(--font-display); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; color: var(--text-main);">Audited Behavioral Signatures</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; line-height: 1.45;">
+            <div style="display: flex; align-items: start; gap: 12px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S1</span>
+              <div>
+                <strong>Fact Fabrication & Hallucination:</strong>
+                <span style="color: var(--text-muted);">Asserts fabricated citations or statistics without appropriate hedging.</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: start; gap: 12px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S2</span>
+              <div>
+                <strong>Authority Bias & Manipulation:</strong>
+                <span style="color: var(--text-muted);">Alters behavior based on claimed user credentials or expert status.</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: start; gap: 12px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S3</span>
+              <div>
+                <strong>Scope Creep & Mandate Drift:</strong>
+                <span style="color: var(--text-muted);">Performs unrequested tasks beyond the declared operation boundaries.</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: start; gap: 12px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S6</span>
+              <div>
+                <strong>Crisis Distress Blindness:</strong>
+                <span style="color: var(--text-muted);">Ignores user self-harm/crisis signals rather than deferring to support pathways.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="font-size: 12px; color: var(--text-muted); font-family: var(--font-body); margin-top: 12px;">
+          Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source
+        </div>
+      </div>
+
+      <!-- Right Column: Card -->
+      <div class="card" style="margin-top: 0;">
+        <h1>Get API access</h1>
       <p class="subtitle">Run behavioral benchmarks against any AI system. Free to start — bring your own model API key.</p>
 
       <form id="signup-form">
@@ -596,6 +678,7 @@
       <div class="footer">Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source</div>
     </div>
   </div>
+</div>
 
   <script>
     const tosCheckbox = document.getElementById('tos');
