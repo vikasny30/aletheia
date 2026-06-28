@@ -624,8 +624,8 @@
         document.getElementById('api-key-value').textContent = apiKey;
         document.getElementById('curl-key-placeholder').textContent = apiKey;
         
-        // Point to docs cleanly without exposing the key in the URL
-        document.getElementById('playground-link').href = '/docs';
+        // Point to the custom playground dashboard instead of the raw docs
+        document.getElementById('playground-link').href = '/playground';
 
         form.style.display = 'none';
         result.classList.add('visible');

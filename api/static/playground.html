@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aletheia — Interactive Playground</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Design Tokens - Default Light Mode */
+    :root {
+      --bg-dark: #f8fafc;
+      --card-bg: #ffffff;
+      --border-light: #e2e8f0;
+      --border-focus: #0f172a;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --logo-bg: #0f172a;
+      --logo-text: #ffffff;
+      --btn-bg: #0f172a;
+      --btn-text: #ffffff;
+      --btn-hover: #1e293b;
+      --input-bg: #ffffff;
+      
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Auto Override for Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-dark: #000000;
+        --card-bg: #09090b;
+        --border-light: rgba(255, 255, 255, 0.06);
+        --border-focus: rgba(255, 255, 255, 0.2);
+        --text-main: #f4f4f5;
+        --text-muted: #71717a;
+        --logo-bg: #ffffff;
+        --logo-text: #000000;
+        --btn-bg: #ffffff;
+        --btn-text: #000000;
+        --btn-hover: #e4e4e7;
+        --input-bg: #000000;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Header Navigation */
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--logo-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--logo-text);
+      transition: all 0.3s ease;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dev-docs-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px dashed var(--border-light);
+      transition: all 0.2s;
+    }
+
+    .dev-docs-link:hover {
+      color: var(--text-main);
+      border-color: var(--text-main);
+    }
+
+    /* Playground Layout */
+    .playground-grid {
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .playground-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Card Panels */
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+      margin-bottom: 32px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Config Controller */
+    .config-panel {
+      position: sticky;
+      top: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    select:focus, input[type="text"]:focus, input[type="password"]:focus {
+      border-color: var(--border-focus);
+    }
+
+    .probes-slider-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--text-main);
+    }
+
+    .probes-val {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      width: 32px;
+      text-align: right;
+    }
+
+    /* Signatures Selection Matrix */
+    .signatures-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .sig-card {
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--input-bg);
+      transition: all 0.2s ease;
+      position: relative;
+      user-select: none;
+    }
+
+    .sig-card:hover {
+      border-color: var(--text-muted);
+    }
+
+    .sig-card.selected {
+      border-color: var(--text-main);
+      box-shadow: 0 0 0 1px var(--text-main);
+    }
+
+    .sig-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sig-id {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg-dark);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .sig-card.selected .sig-id {
+      color: var(--text-main);
+      background: var(--border-light);
+    }
+
+    .sig-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .sig-card.selected .sig-checkbox {
+      background: var(--text-main);
+      border-color: var(--text-main);
+    }
+
+    .sig-checkbox::after {
+      content: '';
+      width: 3px;
+      height: 6px;
+      border: solid var(--card-bg);
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg) translate(-0.5px, -0.5px);
+      display: none;
+    }
+
+    .sig-card.selected .sig-checkbox::after {
+      display: block;
+    }
+
+    .sig-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .sig-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Live Benchmarking Console */
+    .console-panel {
+      display: none;
+    }
+    
+    .console-panel.visible {
+      display: block;
+      animation: fadeIn 0.4s;
+    }
+
+    .progress-bar-outer {
+      width: 100%;
+      height: 6px;
+      background: var(--border-light);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar-inner {
+      width: 0%;
+      height: 100%;
+      background: var(--text-main);
+      transition: width 0.3s ease;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .console-terminal {
+      background: #09090b;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #a1a1aa;
+      height: 200px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+
+    .console-line {
+      margin-bottom: 4px;
+    }
+    .console-line.info { color: #3b82f6; }
+    .console-line.success { color: #10b981; }
+    .console-line.warning { color: #f59e0b; }
+    .console-line.error { color: #ef4444; }
+
+    /* Results Dashboard Scorecard */
+    .results-panel {
+      display: none;
+    }
+
+    .results-panel.visible {
+      display: block;
+      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .scorecard-summary {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 32px;
+      background: var(--bg-dark);
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid var(--border-light);
+    }
+
+    .summary-metric {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .scorecard-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .scorecard-table th, .scorecard-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
+    }
+
+    .scorecard-table th {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-pass { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+    .badge-fail { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+
+    /* Custom run buttons */
+    .primary-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--btn-hover);
+    }
+
+    .primary-btn:disabled {
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-logo">
+      <div class="logo-mark">A</div>
+      <div class="logo-text">Aletheia</div>
+    </div>
+    
+    <div class="header-actions">
+      <a href="/docs" target="_blank" class="dev-docs-link">Developer Docs (Swagger)</a>
+    </div>
+  </header>
+
+  <main class="playground-grid">
+    <div>
+      <!-- Signature Matrix Selection Panel -->
+      <div class="panel" id="select-signatures-panel">
+        <h2>Select Behavior Signatures</h2>
+        <p class="section-desc">Choose the threat vector behaviors you wish to benchmark against your model.</p>
+        
+        <div class="signatures-matrix" id="signatures-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Live Assessment Logger Console -->
+      <div class="panel console-panel" id="console-panel">
+        <h2>Live Assessment Runner</h2>
+        <p class="section-desc">Executing adversarial probe sequences against your endpoint...</p>
+        
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="run-progress"></div>
+        </div>
+        <div class="status-row">
+          <span id="run-status-text">Initializing assessment run...</span>
+          <span id="run-percent">0%</span>
+        </div>
+
+        <div class="console-terminal" id="terminal-log"></div>
+      </div>
+
+      <!-- Result Scorecard Panel -->
+      <div class="panel results-panel" id="results-panel">
+        <h2>Benchmark Results Scorecard</h2>
+        <p class="section-desc" id="run-timestamp-desc">Run completed</p>
+
+        <div class="scorecard-summary">
+          <div class="summary-metric">
+            <span class="metric-val" id="metric-fail-rate">0%</span>
+            <span class="metric-label">Total Fail Rate</span>
+          </div>
+          <div class="summary-metric">
+            <span class="metric-val" id="metric-passes">0/0</span>
+            <span class="metric-label">Signatures Passed</span>
+          </div>
+          <div class="summary-metric">
+            <span class="metric-val" id="metric-duration">0s</span>
+            <span class="metric-label">Execution Time</span>
+          </div>
+        </div>
+
+        <table class="scorecard-table">
+          <thead>
+            <tr>
+              <th>Signature</th>
+              <th>Status</th>
+              <th>Avg Confidence</th>
+              <th>Evaluation Description</th>
+            </tr>
+          </thead>
+          <tbody id="scorecard-rows">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right Side Controller Configuration Panel -->
+    <div>
+      <div class="panel config-panel">
+        <h2>Target Model</h2>
+        <p class="section-desc">Configure connection parameters for the AI endpoint.</p>
+
+        <form id="benchmark-form">
+          <div class="form-group">
+            <label for="provider">Provider</label>
+            <select id="provider">
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="google">Google Gemini</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="model_id">Model ID</label>
+            <input type="text" id="model_id" placeholder="gpt-4o" value="gpt-4o">
+          </div>
+
+          <div class="form-group">
+            <label for="api_key">API Key (BYOK)</label>
+            <input type="password" id="api_key" placeholder="sk-..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="probes">Probes Per Signature</label>
+            <div class="probes-slider-container">
+              <input type="range" id="probes" min="5" max="50" value="10" step="5">
+              <span class="probes-val" id="probes-val">10</span>
+            </div>
+          </div>
+
+          <button type="submit" class="primary-btn" id="run-btn">Run Assessment</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Config Slider sync
+    const probesSlider = document.getElementById('probes');
+    const probesVal = document.getElementById('probes-val');
+    probesSlider.addEventListener('input', () => {
+      probesVal.textContent = probesSlider.value;
+    });
+
+    const providerSelect = document.getElementById('provider');
+    const modelInput = document.getElementById('model_id');
+    providerSelect.addEventListener('change', () => {
+      if (providerSelect.value === 'openai') {
+        modelInput.value = 'gpt-4o';
+        modelInput.placeholder = 'gpt-4o';
+      } else if (providerSelect.value === 'anthropic') {
+        modelInput.value = 'claude-3-5-sonnet-20241022';
+        modelInput.placeholder = 'claude-3-5-sonnet-20241022';
+      } else if (providerSelect.value === 'google') {
+        modelInput.value = 'gemini-1.5-pro';
+        modelInput.placeholder = 'gemini-1.5-pro';
+      }
+    });
+
+    // Load API key from LocalStorage
+    const savedKey = localStorage.getItem('aletheia_api_key');
+    if (!savedKey) {
+      // Redirect to register page if key not present
+      window.location.href = '/';
+    }
+
+    // List of signatures
+    let availableSignatures = {};
+    let selectedSignatures = new Set();
+
+    async function loadSignatures() {
+      try {
+        const resp = await fetch('/v1/signatures', {
+          headers: { 'Authorization': `Bearer ${savedKey}` }
+        });
+        const data = await resp.json();
+        availableSignatures = data;
+        
+        const listContainer = document.getElementById('signatures-list');
+        listContainer.innerHTML = '';
+
+        Object.entries(data).forEach(([id, meta]) => {
+          selectedSignatures.add(id); // default select all
+
+          const card = document.createElement('div');
+          card.className = 'sig-card selected';
+          card.dataset.id = id;
+          card.innerHTML = `
+            <div class="sig-header">
+              <span class="sig-id">${id}</span>
+              <div class="sig-checkbox"></div>
+            </div>
+            <div class="sig-title">${meta.name}</div>
+            <div class="sig-desc">${meta.description}</div>
+          `;
+
+          card.addEventListener('click', () => {
+            if (selectedSignatures.has(id)) {
+              selectedSignatures.delete(id);
+              card.classList.remove('selected');
+            } else {
+              selectedSignatures.add(id);
+              card.classList.add('selected');
+            }
+            document.getElementById('run-btn').disabled = selectedSignatures.size === 0;
+          });
+
+          listContainer.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error fetching signatures:', err);
+      }
+    }
+
+    loadSignatures();
+
+    // Benchmarking runner logic
+    const form = document.getElementById('benchmark-form');
+    const runBtn = document.getElementById('run-btn');
+    const consolePanel = document.getElementById('console-panel');
+    const resultsPanel = document.getElementById('results-panel');
+    const terminalLog = document.getElementById('terminal-log');
+
+    function logConsole(message, type = 'info') {
+      const line = document.createElement('div');
+      line.className = `console-line ${type}`;
+      line.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+      terminalLog.appendChild(line);
+      terminalLog.scrollTop = terminalLog.scrollHeight;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const provider = providerSelect.value;
+      const modelId = modelInput.value.trim();
+      const apiKey = document.getElementById('api_key').value.trim();
+      const probes = parseInt(probesSlider.value);
+
+      if (selectedSignatures.size === 0) return;
+
+      runBtn.disabled = true;
+      runBtn.textContent = 'Job Submitted...';
+      resultsPanel.classList.remove('visible');
+      consolePanel.classList.add('visible');
+      terminalLog.innerHTML = '';
+      
+      logConsole(`Starting validation job for target: ${modelId} (${provider})`, 'info');
+      logConsole(`Assessing ${selectedSignatures.size} behavioral signatures with ${probes} probes each.`, 'info');
+
+      try {
+        const response = await fetch('/v1/assessments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${savedKey}`,
+            'X-Agree-TOS': 'true'
+          },
+          body: JSON.stringify({
+            model: {
+              provider: provider,
+              model_id: modelId,
+              api_key: apiKey
+            },
+            signatures: Array.from(selectedSignatures),
+            probes_per_signature: probes
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.detail || 'Failed to submit job');
+        }
+
+        const job = await response.json();
+        const jobId = job.job_id;
+        logConsole(`Job generated successfully. ID: ${jobId}`, 'success');
+
+        // Start polling results
+        pollJob(jobId);
+
+      } catch (err) {
+        logConsole(`Job error: ${err.message}`, 'error');
+        runBtn.disabled = false;
+        runBtn.textContent = 'Run Assessment';
+      }
+    });
+
+    async function pollJob(jobId) {
+      const interval = setInterval(async () => {
+        try {
+          const resp = await fetch(`/v1/assessments/${jobId}`, {
+            headers: { 'Authorization': `Bearer ${savedKey}` }
+          });
+          const job = await resp.json();
+
+          const completed = job.signatures_completed || [];
+          const total = selectedSignatures.size;
+          const status = job.status;
+
+          // Compute percentage
+          let progressPercent = 0;
+          if (total > 0) {
+            progressPercent = Math.round((completed.length / total) * 100);
+          }
+
+          document.getElementById('run-progress').style.width = `${progressPercent}%`;
+          document.getElementById('run-percent').textContent = `${progressPercent}%`;
+
+          if (status === 'running') {
+            document.getElementById('run-status-text').textContent = `Assessing signatures... (${completed.length}/${total})`;
+            logConsole(`Signature benchmark in progress: completed [${completed.join(', ')}]`, 'info');
+          }
+
+          if (status === 'completed') {
+            clearInterval(interval);
+            document.getElementById('run-status-text').textContent = 'Benchmark assessment run complete!';
+            document.getElementById('run-percent').textContent = '100%';
+            document.getElementById('run-progress').style.width = '100%';
+            logConsole(`Successfully completed all validations for job ${jobId}!`, 'success');
+            
+            // Render results
+            renderResults(jobId);
+            runBtn.disabled = false;
+            runBtn.textContent = 'Run Assessment';
+          }
+
+          if (status === 'failed') {
+            clearInterval(interval);
+            document.getElementById('run-status-text').textContent = 'Benchmark assessment run failed!';
+            logConsole(`Execution terminated with error: ${job.error}`, 'error');
+            runBtn.disabled = false;
+            runBtn.textContent = 'Run Assessment';
+          }
+
+        } catch (err) {
+          logConsole(`Polling connection error: ${err.message}`, 'warning');
+        }
+      }, 3000);
+    }
+
+    async function renderResults(jobId) {
+      try {
+        const resp = await fetch(`/v1/assessments/${jobId}/full`, {
+          headers: { 'Authorization': `Bearer ${savedKey}` }
+        });
+        const job = await resp.json();
+        
+        // Duration
+        const duration = job.duration_seconds ? `${Math.round(job.duration_seconds)}s` : 'N/A';
+        document.getElementById('metric-duration').textContent = duration;
+
+        // Scorecard compilation
+        const scorecard = job.scorecard || [];
+        const passedSignatures = scorecard.filter(s => !s.failed).length;
+        const totalSignatures = scorecard.length;
+        
+        document.getElementById('metric-passes').textContent = `${passedSignatures}/${totalSignatures}`;
+
+        // Compute total fail rate across all signature probes
+        let totalProbes = 0;
+        let failedProbes = 0;
+        
+        const tbody = document.getElementById('scorecard-rows');
+        tbody.innerHTML = '';
+
+        scorecard.forEach(item => {
+          totalProbes += item.probes_run;
+          failedProbes += item.failures;
+
+          const row = document.createElement('tr');
+          
+          const badgeClass = item.failed ? 'badge-fail' : 'badge-pass';
+          const badgeText = item.failed ? 'FAILED' : 'PASSED';
+          const ratePercent = Math.round((item.failures / item.probes_run) * 100);
+
+          row.innerHTML = `
+            <td>
+              <strong style="display:block; font-size:14px; font-family:var(--font-display);">${availableSignatures[item.signature_id]?.name || item.signature_id}</strong>
+              <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">${item.signature_id}</span>
+            </td>
+            <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+            <td><span style="font-family:var(--font-mono);">${(item.avg_confidence * 100).toFixed(1)}%</span></td>
+            <td style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+              Fired in ${item.failures} of ${item.probes_run} context runs (${ratePercent}% failure rate).
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        const totalFailRate = totalProbes > 0 ? Math.round((failedProbes / totalProbes) * 100) : 0;
+        document.getElementById('metric-fail-rate').textContent = `${totalFailRate}%`;
+
+        document.getElementById('run-timestamp-desc').textContent = `Run completed at ${new Date(job.created_at).toLocaleString()}`;
+        resultsPanel.classList.add('visible');
+
+      } catch (err) {
+        console.error('Error rendering results:', err);
+      }
+    }
+  </script>
+</body>
+</html>

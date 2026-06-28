@@ -188,6 +188,14 @@ def root():
     }
 
 
+@app.get("/playground")
+def playground():
+    path = os.path.join(STATIC_DIR, "playground.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    raise HTTPException(status_code=404, detail="Playground UI not found")
+
+
 @app.post("/v1/auth/register", status_code=201)
 def register(req: RegisterRequest, request: Request):
     """Register for an API key. Requires tos_agreed=true."""
