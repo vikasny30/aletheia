@@ -1043,84 +1043,103 @@
   </div>
 
   <!-- Databases Modal Overlay -->
-  <div id="databases-modal" class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.2s ease;">
-    <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 16px; max-width: 720px; width: 100%; padding: 36px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); margin: 20px; max-height: 90vh; overflow-y: auto;">
+  <div id="databases-modal" class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.2s ease;">
+    <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 16px; max-width: 760px; width: 100%; padding: 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.25); margin: 20px; max-height: 90vh; overflow-y: auto;">
       
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
         <div>
-          <h3 style="font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.5px;">Adversarial Safety Baselines</h3>
-          <p style="font-size: 13.5px; color: var(--text-2); margin-top: 4px;">Empirical datasets and security frameworks validating Aletheia's behavioral taxonomy.</p>
+          <h3 style="font-family: var(--display); font-size: 24px; font-weight: 700; color: var(--text); letter-spacing: -0.5px;">Adversarial Safety Baselines</h3>
+          <p style="font-size: 14px; color: var(--text-2); margin-top: 4px;">Empirical datasets and safety frameworks validating Aletheia's behavioral signatures.</p>
         </div>
         <button onclick="closeDatabasesModal()" style="background: var(--surface); border: none; font-size: 20px; cursor: pointer; color: var(--text-2); line-height: 1; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.15s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--surface)'">&times;</button>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
         
-        <!-- AIID -->
-        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-dark);">
-          <!-- Logo Block -->
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #e8f0fe; border-radius: 8px; height: 80px; width: 80px; flex-shrink: 0;">
-            <div style="font-family: var(--display); font-size: 22px; font-weight: 800; color: #1a73e8; letter-spacing: -1px;">AIID</div>
-            <div style="font-size: 9px; font-weight: 700; color: #1557b0; text-transform: uppercase; margin-top: 2px;">Database</div>
+        <!-- AIID Card (Official Slate & Sky Blue colors) -->
+        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 24px; border: 1px solid #cbd5e1; border-radius: 12px; background: #f8fafc;">
+          <!-- AIID Logo -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; border-radius: 10px; height: 80px; width: 80px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(15,23,42,0.15);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="#0f172a"/>
+              <path d="M6 18h2.5v-4H6v4zm4.5 0h2.5v-8h-2.5v8zm5 0H18V6h-2.5v12z" fill="#0ea5e9"/>
+            </svg>
+            <div style="font-size: 9px; font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px;">AIID</div>
           </div>
           <!-- Info -->
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <h4 style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text);">AI Incident Database (AIID)</h4>
-              <a href="https://incidentdatabase.ai" target="_blank" style="font-size: 12.5px; color: var(--accent); font-weight: 600; text-decoration: none;">incidentdatabase.ai &rarr;</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h4 style="font-family: var(--display); font-size: 17px; font-weight: 700; color: #0f172a;">AI Incident Database (AIID)</h4>
+              <a href="https://incidentdatabase.ai" target="_blank" style="font-size: 13px; color: #0284c7; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">incidentdatabase.ai &rarr;</a>
             </div>
-            <p style="font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 12px;">
-              The global repository indexing thousands of real-world AI failures, harms, and deployment incidents. Developed under the Responsible AI Collaborative (RAIC).
+            <p style="font-size: 13.5px; color: #334155; line-height: 1.55; margin-bottom: 14px;">
+              The global registry indexing real-world AI failures, harms, and deployment incidents. Managed by the Responsible AI Collaborative (RAIC) to provide systematic tracking of automated system liabilities.
             </p>
-            <div style="font-size: 11px; color: #137333; background: #e6f4ea; padding: 6px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; border: 1px solid #ceead6; line-height: 1.4;">
-              <span>🛡️ Standards &amp; Citation:</span>
-              <span style="color: #137333; font-weight: 500;">Official reference source used by OECD.AI, NIST AI Risk Management Framework, and EU AI Act policy researchers.</span>
+            <div style="font-size: 11.5px; color: #0f5132; background: #d1e7dd; padding: 8px 12px; border-radius: 6px; display: flex; align-items: start; gap: 8px; font-weight: 600; border: 1px solid #badbcc; line-height: 1.45;">
+              <span style="font-size: 14px; line-height: 1;">🛡️</span>
+              <span><strong>OECD &amp; NIST Reference Source:</strong> Coded and cited by the OECD.AI policy dashboard, the NIST AI Risk Management Framework, and the EU AI Act research teams.</span>
             </div>
           </div>
         </div>
 
-        <!-- AVID -->
-        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-dark);">
-          <!-- Logo Block -->
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fef7e0; border-radius: 8px; height: 80px; width: 80px; flex-shrink: 0;">
-            <div style="font-family: var(--display); font-size: 22px; font-weight: 800; color: #b06000; letter-spacing: -1px;">AVID</div>
-            <div style="font-size: 9px; font-weight: 700; color: #b06000; text-transform: uppercase; margin-top: 2px;">Vulner.</div>
+        <!-- AVID Card (Official Teal & Jade Green colors) -->
+        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 24px; border: 1px solid #b2f5ea; border-radius: 12px; background: #f0fdf4;">
+          <!-- AVID Logo -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #115e59; border-radius: 10px; height: 80px; width: 80px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(17,94,89,0.15);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L3 5v6c0 5.5 3.8 10.5 9 12 5.2-1.5 9-6.5 9-12V5l-9-3z" fill="url(#avid-grad-official)"/>
+              <path d="M9 11.5l2 2 4.5-4.5" stroke="#115e59" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div style="font-size: 9px; font-weight: 800; color: #5eead4; text-transform: uppercase; margin-top: 2px; letter-spacing: 0.5px;">AVID</div>
+            <defs>
+              <linearGradient id="avid-grad-official" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2dd4bf" />
+                <stop offset="100%" stop-color="#a7f3d0" />
+              </linearGradient>
+            </defs>
           </div>
           <!-- Info -->
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <h4 style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text);">AI Vulnerability Database (AVID)</h4>
-              <a href="https://avidml.org" target="_blank" style="font-size: 12.5px; color: var(--accent); font-weight: 600; text-decoration: none;">avidml.org &rarr;</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h4 style="font-family: var(--display); font-size: 17px; font-weight: 700; color: #115e59;">AI Vulnerability Database (AVID)</h4>
+              <a href="https://avidml.org" target="_blank" style="font-size: 13px; color: #0f766e; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">avidml.org &rarr;</a>
             </div>
-            <p style="font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 12px;">
-              An open developer-focused database cataloging flaws, adversarial susceptibilities, and bias profiles in foundation machine learning models.
+            <p style="font-size: 13.5px; color: #1e3a3a; line-height: 1.55; margin-bottom: 14px;">
+              An open, developer-centric developer platform cataloging vulnerability metadata, bias assessments, and security flaws in foundation machine learning models.
             </p>
-            <div style="font-size: 11px; color: #b06000; background: #fef7e0; padding: 6px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; border: 1px solid #feebc8; line-height: 1.4;">
-              <span>🛡️ Security Framework Alignment:</span>
-              <span style="color: #b06000; font-weight: 500;">Aligned with the federal-grade MITRE ATLAS™ matrix for tracking adversarial machine learning threats.</span>
+            <div style="font-size: 11.5px; color: #0f766e; background: #e6fffa; padding: 8px 12px; border-radius: 6px; display: flex; align-items: start; gap: 8px; font-weight: 600; border: 1px solid #b2f5ea; line-height: 1.45;">
+              <span style="font-size: 14px; line-height: 1;">🛡️</span>
+              <span><strong>MITRE ATLAS™ Mapping:</strong> Aligning AI vulnerability tracking with federal threat model taxonomies developed for secure machine learning.</span>
             </div>
           </div>
         </div>
 
-        <!-- MIT -->
-        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-dark);">
-          <!-- Logo Block -->
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fce8e6; border-radius: 8px; height: 80px; width: 80px; flex-shrink: 0;">
-            <div style="font-family: var(--display); font-size: 22px; font-weight: 800; color: #a51d24; letter-spacing: -1px;">MIT</div>
-            <div style="font-size: 9px; font-weight: 700; color: #a51d24; text-transform: uppercase; margin-top: 2px;">Repository</div>
+        <!-- MIT Card (Official MIT Cardinal Red & Silver Gray) -->
+        <div style="display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 24px; border: 1px solid #e5e5e5; border-radius: 12px; background: #fafafa;">
+          <!-- MIT Official Block Logo -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 10px; height: 80px; width: 80px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <div style="display: flex; gap: 4px; align-items: flex-end; width: 44px; height: 32px; margin-bottom: 4px;">
+              <!-- Left bar: height 32px, width 12px, gray -->
+              <div style="width: 12px; height: 32px; background: #8B959E;"></div>
+              <!-- Middle bar: height 16px, width 12px, red -->
+              <div style="width: 12px; height: 16px; background: #750014; margin-bottom: 8px;"></div>
+              <!-- Right bar: height 32px, width 12px, red -->
+              <div style="width: 12px; height: 32px; background: #750014;"></div>
+            </div>
+            <div style="font-size: 9px; font-weight: 800; color: #750014; text-transform: uppercase; letter-spacing: 0.5px;">MIT Tech</div>
           </div>
           <!-- Info -->
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <h4 style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text);">MIT AI Risk Repository</h4>
-              <a href="https://airisk.mit.edu" target="_blank" style="font-size: 12.5px; color: var(--accent); font-weight: 600; text-decoration: none;">airisk.mit.edu &rarr;</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <h4 style="font-family: var(--display); font-size: 17px; font-weight: 700; color: #750014;">MIT AI Risk Repository</h4>
+              <a href="https://airisk.mit.edu" target="_blank" style="font-size: 13px; color: #750014; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">airisk.mit.edu &rarr;</a>
             </div>
-            <p style="font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 12px;">
-              A comprehensive taxonomy compiling over 700 documented AI risks from academic papers, industry audits, and global security catalogs.
+            <p style="font-size: 13.5px; color: #404040; line-height: 1.55; margin-bottom: 14px;">
+              A comprehensive directory compiling and categorizing over 700 documented AI safety risks from academic, corporate, and government threat reports.
             </p>
-            <div style="font-size: 11px; color: #c5221f; background: #fce8e6; padding: 6px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; border: 1px solid #fad2cf; line-height: 1.4;">
-              <span>🛡️ Academic Credibility:</span>
-              <span style="color: #c5221f; font-weight: 500;">Developed by MIT FutureTech. Governed by top-tier academic review guidelines.</span>
+            <div style="font-size: 11.5px; color: #525252; background: #f5f5f5; padding: 8px 12px; border-radius: 6px; display: flex; align-items: start; gap: 8px; font-weight: 600; border: 1px solid #e5e5e5; line-height: 1.45;">
+              <span style="font-size: 14px; line-height: 1;">🛡️</span>
+              <span><strong>MIT FutureTech Classification:</strong> Developed and governed by top-tier academic review standards, offering a foundational taxonomy for systemic AI observability.</span>
             </div>
           </div>
         </div>
