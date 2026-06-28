@@ -370,3 +370,48 @@ def delete_assessment(
         raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
     os.remove(p)
     return {"deleted": job_id}
+
+
+@app.get("/docs", include_in_schema=False)
+def custom_swagger_ui():
+    from fastapi.openapi.docs import get_swagger_ui_html
+    from fastapi.responses import HTMLResponse
+
+    html = get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - API Docs",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_ui_parameters=app.swagger_ui_parameters,
+    )
+    
+    html_content = html.body.decode("utf-8")
+    
+    # Inject client-side script to load aletheia_api_key from localStorage and pre-fill header fields
+    dx_script = """
+    <script>
+    window.addEventListener('load', function() {
+        setInterval(() => {
+            const apiKey = localStorage.getItem('aletheia_api_key');
+            if (!apiKey) return;
+            
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                // Check if this input is for the "authorization" parameter
+                const parameterContainer = input.closest('.parameter__name');
+                const isAuthHeader = (
+                    input.placeholder === 'authorization' ||
+                    (parameterContainer && parameterContainer.textContent.toLowerCase().includes('authorization'))
+                );
+                if (isAuthHeader && !input.value) {
+                    input.value = 'Bearer ' + apiKey;
+                    // Trigger input event to update React's virtual DOM state in Swagger
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+        }, 800);
+    });
+    </script>
+    """
+    
+    html_content = html_content.replace("</body>", f"{dx_script}</body>")
+    return HTMLResponse(content=html_content, status_code=200)

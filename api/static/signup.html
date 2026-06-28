@@ -624,8 +624,8 @@
         document.getElementById('api-key-value').textContent = apiKey;
         document.getElementById('curl-key-placeholder').textContent = apiKey;
         
-        // Append key to playground link
-        document.getElementById('playground-link').href = `/docs?key=${apiKey}`;
+        // Point to docs cleanly without exposing the key in the URL
+        document.getElementById('playground-link').href = '/docs';
 
         form.style.display = 'none';
         result.classList.add('visible');
