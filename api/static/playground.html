@@ -577,7 +577,7 @@
 
         <!-- Run Trial Button -->
         <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
-          <button type="button" class="primary-btn" id="run-trial-btn" style="width: auto; padding: 12px 28px; font-size: 13.5px;" onclick="startTrialSimulation()">Run Trial Audit</button>
+          <button type="button" class="primary-btn" id="run-trial-btn" style="width: auto; padding: 12px 28px; font-size: 13.5px;">Run Trial Audit</button>
         </div>
       </div>
 
@@ -730,6 +730,7 @@
     const consolePanel = document.getElementById('console-panel');
     const resultsPanel = document.getElementById('results-panel');
     const terminalLog = document.getElementById('terminal-log');
+    const trialBtn = document.getElementById('run-trial-btn');
 
     const visualStepsData = {
       1: {
@@ -1096,6 +1097,10 @@
         document.getElementById('run-percent').textContent = `${progressPercent}%`;
         document.getElementById('run-status-text').textContent = `Assessing signatures... (${currentIdx}/${sigsToRun.length})`;
       }, 700);
+    }
+
+    if (trialBtn) {
+      trialBtn.addEventListener('click', startTrialSimulation);
     }
 
     function renderSandboxResults(sigsToRun, probes) {
