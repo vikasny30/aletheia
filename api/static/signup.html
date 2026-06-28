@@ -374,10 +374,35 @@
       line-height: 1.6;
     }
     
-    .next-steps p {
-      margin-bottom: 12px;
-      font-weight: 500;
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .terminal-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .copy-cmd-btn {
+      background: transparent;
+      border: none;
       color: var(--text-main);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 1px dashed var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .copy-cmd-btn:hover {
+      color: var(--text-main);
+      border-bottom-color: var(--text-main);
     }
 
     .code-terminal {
@@ -389,7 +414,7 @@
       font-size: 12px;
       color: var(--terminal-text);
       overflow-x: auto;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       line-height: 1.5;
     }
 
@@ -399,6 +424,45 @@
     /* Light Theme specific syntax coloring overrides */
     @media (prefers-color-scheme: light) {
       .code-terminal span.highlight { color: #f8fafc; }
+    }
+
+    .playground-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .playground-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .playground-text strong {
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .playground-btn {
+      padding: 10px 18px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .playground-btn:hover {
+      background: var(--btn-hover);
     }
 
     .error-msg {
@@ -489,15 +553,25 @@
         </div>
 
         <div class="next-steps">
-          <p>Run your first benchmark:</p>
-          <div class="code-terminal">
+          <div class="terminal-header">
+            <span class="terminal-title">Run benchmark command</span>
+            <button class="copy-cmd-btn" id="copy-cmd-btn" onclick="copyCurlCommand()">Copy Command</button>
+          </div>
+          <div class="code-terminal" id="code-block">
             <span class="comment"># Submit a scoring assessment run</span><br>
             curl -X POST <span class="highlight">https://aletheia.dev/v1/assessments</span> \<br>
-            &nbsp;&nbsp;-H <span class="highlight">"Authorization: Bearer YOUR_KEY"</span> \<br>
+            &nbsp;&nbsp;-H <span class="highlight">"Authorization: Bearer <span id="curl-key-placeholder">YOUR_KEY</span>"</span> \<br>
             &nbsp;&nbsp;-H <span class="highlight">"Content-Type: application/json"</span> \<br>
             &nbsp;&nbsp;-d '<span class="highlight">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
           </div>
-          Full documentation available at <a href="/docs" style="color:inherit; text-decoration: underline;">aletheia.dev/docs</a>
+          
+          <div class="playground-action">
+            <div class="playground-text">
+              <strong>Interactive API Playground</strong>
+              Your credentials have been loaded. Launch the playground.
+            </div>
+            <a href="/docs" class="playground-btn" id="playground-link">Launch Playground</a>
+          </div>
         </div>
       </div>
 
@@ -541,7 +615,18 @@
           throw new Error(data.detail || 'Registration failed');
         }
 
-        document.getElementById('api-key-value').textContent = data.api_key;
+        const apiKey = data.api_key;
+
+        // Save key in localStorage for seamless auth in the playground
+        localStorage.setItem('aletheia_api_key', apiKey);
+
+        // Update UI placeholders with actual key
+        document.getElementById('api-key-value').textContent = apiKey;
+        document.getElementById('curl-key-placeholder').textContent = apiKey;
+        
+        // Append key to playground link
+        document.getElementById('playground-link').href = `/docs?key=${apiKey}`;
+
         form.style.display = 'none';
         result.classList.add('visible');
 
@@ -562,6 +647,18 @@
       setTimeout(() => { 
         btn.textContent = 'Copy'; 
         btn.classList.remove('copied'); 
+      }, 2000);
+    }
+
+    function copyCurlCommand() {
+      const key = document.getElementById('api-key-value').textContent;
+      const curlCmd = `curl -X POST https://aletheia.dev/v1/assessments \\\n  -H "Authorization: Bearer ${key}" \\\n  -H "Content-Type: application/json" \\\n  -d '{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}'`;
+      navigator.clipboard.writeText(curlCmd);
+      
+      const btn = document.getElementById('copy-cmd-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => { 
+        btn.textContent = 'Copy Command'; 
       }, 2000);
     }
   </script>
