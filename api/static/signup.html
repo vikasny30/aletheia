@@ -146,15 +146,43 @@
     /* Stats */
     .stats {
       display: flex;
-      gap: 40px;
+      gap: 16px;
       margin-bottom: 40px;
       padding-bottom: 40px;
       border-bottom: 1px solid var(--border);
     }
 
+    .stat-card-link {
+      flex: 1;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      display: block;
+    }
+
+    .stat-card {
+      padding: 16px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      background: var(--bg);
+      box-shadow: 0 6px 20px rgba(26, 115, 232, 0.08);
+      transform: translateY(-2px);
+    }
+
     .stat-num {
       font-family: var(--display);
-      font-size: 38px;
+      font-size: 32px;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--text);
@@ -163,8 +191,8 @@
     }
 
     .stat-label {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-2);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -662,18 +690,24 @@
       </p>
 
       <div class="stats">
-        <div>
-          <div class="stat-num">9</div>
-          <div class="stat-label">Behavioral Signatures</div>
-        </div>
-        <div>
-          <div class="stat-num">2,571</div>
-          <div class="stat-label">Incident Corpus</div>
-        </div>
-        <div>
-          <div class="stat-num">Free</div>
-          <div class="stat-label">Open Source</div>
-        </div>
+        <a href="#signatures-list-section" class="stat-card-link">
+          <div class="stat-card">
+            <div class="stat-num">9</div>
+            <div class="stat-label">Behavioral Signatures</div>
+          </div>
+        </a>
+        <a href="#" onclick="openDatabasesModal(); return false;" class="stat-card-link">
+          <div class="stat-card">
+            <div class="stat-num">2,571</div>
+            <div class="stat-label">Incident Corpus</div>
+          </div>
+        </a>
+        <a href="https://github.com/vikasny30/aletheia" target="_blank" class="stat-card-link">
+          <div class="stat-card">
+            <div class="stat-num">Free</div>
+            <div class="stat-label">Open Source</div>
+          </div>
+        </a>
       </div>
 
       <div class="section-block">
@@ -706,7 +740,7 @@
       </div>
 
       <div class="section-block">
-        <h2 class="section-heading">9 Behavioral Signatures</h2>
+        <h2 class="section-heading" id="signatures-list-section">9 Behavioral Signatures</h2>
         <div>
           <div class="sig-row">
             <span class="sig-badge">S1</span>
@@ -841,12 +875,48 @@
     </div>
   </div>
 
+  <!-- Databases Modal Overlay -->
+  <div id="databases-modal" class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s;">
+    <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; max-width: 500px; width: 100%; padding: 28px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); margin: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-family: var(--display); font-size: 18px; font-weight: 700; color: var(--text);">AI Incident Databases Used</h3>
+        <button onclick="closeDatabasesModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-3); line-height: 1; outline: none; padding: 4px;">&times;</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="https://incidentdatabase.ai" target="_blank" style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: inherit; transition: background 0.15s;" onmouseover="this.style.background='var(--bg-dark)'" onmouseout="this.style.background='none'">
+          <strong style="color: var(--accent); font-size: 14px;">AI Incident Database (AIID) &rarr;</strong>
+          <span style="font-size: 12.5px; color: var(--text-2); line-height: 1.4;">The canonical dataset cataloging harms and safety failures caused by the deployment of AI systems.</span>
+        </a>
+        <a href="https://avidml.org" target="_blank" style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: inherit; transition: background 0.15s;" onmouseover="this.style.background='var(--bg-dark)'" onmouseout="this.style.background='none'">
+          <strong style="color: var(--accent); font-size: 14px;">AI Vulnerability Database (AVID) &rarr;</strong>
+          <span style="font-size: 12.5px; color: var(--text-2); line-height: 1.4;">An open collaboration developer database for documenting model flaws, biases, and vulnerabilities.</span>
+        </a>
+        <a href="https://airisk.mit.edu" target="_blank" style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: inherit; transition: background 0.15s;" onmouseover="this.style.background='var(--bg-dark)'" onmouseout="this.style.background='none'">
+          <strong style="color: var(--accent); font-size: 14px;">MIT AI Risk Repository &rarr;</strong>
+          <span style="font-size: 12.5px; color: var(--text-2); line-height: 1.4;">A rigorous database classifying over 700 AI safety risks by causal origin and taxonomy.</span>
+        </a>
+      </div>
+      <button onclick="closeDatabasesModal()" style="margin-top: 24px; width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: var(--sans);">Close</button>
+    </div>
+  </div>
+
   <script>
     const tos = document.getElementById('tos');
     const submitBtn = document.getElementById('submit-btn');
     const form = document.getElementById('signup-form');
     const result = document.getElementById('result');
     const errorMsg = document.getElementById('error-msg');
+
+    function openDatabasesModal() {
+      const modal = document.getElementById('databases-modal');
+      modal.style.opacity = '1';
+      modal.style.pointerEvents = 'auto';
+    }
+    function closeDatabasesModal() {
+      const modal = document.getElementById('databases-modal');
+      modal.style.opacity = '0';
+      modal.style.pointerEvents = 'none';
+    }
 
     tos.addEventListener('change', () => {
       submitBtn.disabled = !tos.checked;
