@@ -205,8 +205,10 @@ def register(req: RegisterRequest, request: Request):
         with open(USERS_FILE) as f:
             for line in f:
                 try:
-                    if json.loads(line).get("email") == req.email:
-                        raise HTTPException(status_code=409, detail="An account with this email already exists.")
+                    record = json.loads(line)
+                    if record.get("email") == req.email:
+                        # Return existing key seamlessly to avoid user friction
+                        return {"email": req.email, "api_key": record.get("api_key")}
                 except json.JSONDecodeError:
                     pass
 
