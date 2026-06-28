@@ -518,6 +518,25 @@
 
   <main class="playground-grid">
     <div>
+      <!-- Sandbox Video Walkthrough Panel (Visible only in Trial mode) -->
+      <div class="panel" id="sandbox-video-panel" style="display: block;">
+        <h2>Interactive Walkthrough</h2>
+        <p class="section-desc">Watch a 1-minute interactive demonstration of Aletheia's real-time safety guardrail audit pipeline.</p>
+        
+        <div class="video-container" style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-light); background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+          <!-- Dynamic Iframe Video Player (User can customize src to point to their own Loom, YouTube, or Vimeo demo) -->
+          <iframe id="sandbox-video-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top:0; left:0; width:100%; height:100%; border:none; display: none;"></iframe>
+          
+          <!-- Mock Video Poster Overlay -->
+          <div id="mock-video-poster" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); cursor: pointer;" onclick="playDemoVideo()">
+            <div class="play-button" style="width: 64px; height: 64px; border-radius: 50%; background: var(--btn-bg); color: var(--btn-text); display: flex; align-items: center; justify-content: center; font-size: 24px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              ▶
+            </div>
+            <span style="margin-top: 14px; font-weight: 600; font-size: 13px; color: #ffffff; letter-spacing: 0.3px;">Play Demonstration Video</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Signature Matrix Selection Panel -->
       <div class="panel" id="select-signatures-panel">
         <h2>Select Safety Guardrails to Audit</h2>
@@ -661,6 +680,18 @@
       probesVal.textContent = probesSlider.value;
     });
 
+    // Global DOM Elements
+    const form = document.getElementById('benchmark-form');
+    const runBtn = document.getElementById('run-btn');
+    const consolePanel = document.getElementById('console-panel');
+    const resultsPanel = document.getElementById('results-panel');
+    const terminalLog = document.getElementById('terminal-log');
+
+    function playDemoVideo() {
+      document.getElementById('mock-video-poster').style.display = 'none';
+      document.getElementById('sandbox-video-iframe').style.display = 'block';
+    }
+
     const playModeRadios = document.getElementsByName('play_mode');
     const sandboxInfoBox = document.getElementById('sandbox_info_box');
     const byokFormFields = document.getElementById('byok_form_fields');
@@ -678,14 +709,33 @@
         }
       }
 
+      const videoPanel = document.getElementById('sandbox-video-panel');
+      const signaturesPanel = document.getElementById('select-signatures-panel');
+      const probesGroup = probesSlider.closest('.form-group');
+
       if (selectedMode === 'sandbox') {
         sandboxInfoBox.style.display = 'block';
         byokFormFields.style.display = 'none';
+        
+        videoPanel.style.display = 'block';
+        signaturesPanel.style.display = 'none';
+        probesGroup.style.display = 'none';
+        runBtn.style.display = 'none';
+        
+        consolePanel.classList.remove('visible');
+        resultsPanel.classList.remove('visible');
+        
         apiKeyInput.required = false;
         apiKeyInput.value = 'demo_sandbox_key';
       } else {
         sandboxInfoBox.style.display = 'none';
         byokFormFields.style.display = 'block';
+        
+        videoPanel.style.display = 'none';
+        signaturesPanel.style.display = 'block';
+        probesGroup.style.display = 'block';
+        runBtn.style.display = 'block';
+        
         apiKeyInput.required = true;
         if (apiKeyInput.value === 'demo_sandbox_key') {
           apiKeyInput.value = '';
@@ -783,11 +833,6 @@
     loadSignatures();
 
     // Benchmarking runner logic
-    const form = document.getElementById('benchmark-form');
-    const runBtn = document.getElementById('run-btn');
-    const consolePanel = document.getElementById('console-panel');
-    const resultsPanel = document.getElementById('results-panel');
-    const terminalLog = document.getElementById('terminal-log');
 
     function logConsole(message, type = 'info') {
       const line = document.createElement('div');
