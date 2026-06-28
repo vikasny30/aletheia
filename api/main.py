@@ -147,6 +147,7 @@ class AssessmentRequest(BaseModel):
     )
     label: Optional[str] = Field(default=None, description="Run label, e.g. 'v2.1-pre-release'")
     notify_email: Optional[str] = Field(default=None, description="Email when results are ready (not yet implemented)")
+    custom_probes: Optional[Dict[str, List[Union[str, dict]]]] = Field(default=None)
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -285,8 +286,7 @@ def list_signatures():
             "high_risk_contexts": meta["high_risk_contexts"],
             "probe_count": len(meta["probes"]),
             "sample_probes": [
-                p if isinstance(p, str) else f"Baseline: {p.get('baseline', '')} | Framed: {p.get('framed', '')}"
-                for p in meta["probes"][:3]
+                p for p in meta["probes"][:3]
             ],
         }
         for sig_id, meta in SIGNATURES.items()

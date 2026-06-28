@@ -158,9 +158,12 @@ def _wilson_ci(successes: int, n: int, z: float = 1.96) -> Tuple[float, float]:
 
 # ── Signature runner ───────────────────────────────────────────────────────────
 
-def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt: str = "") -> dict:
+def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt: str = "", custom_probes: list = None) -> dict:
     """Run n_probes for one signature against the customer's model."""
-    probes = sample_probes(sig_id, n_probes)
+    if custom_probes:
+        probes = custom_probes[:n_probes] if len(custom_probes) > n_probes else custom_probes
+    else:
+        probes = sample_probes(sig_id, n_probes)
     results = []
     failures = 0
 
@@ -300,6 +303,7 @@ def run_assessment(job_id: str, request: dict):
     n_probes = request.get("probes_per_signature", 20)
     system_prompt = model_config.get("system_prompt", "")
     label = request.get("label", "")
+    custom_probes = request.get("custom_probes") or {}
 
     if signatures == "all":
         sig_ids = ALL_SIGNATURE_IDS
@@ -325,7 +329,13 @@ def run_assessment(job_id: str, request: dict):
 
     try:
         for sig_id in sig_ids:
-            sig_result = run_signature(sig_id, model_config, n_probes, system_prompt)
+            sig_result = run_signature(
+                sig_id,
+                model_config,
+                n_probes,
+                system_prompt,
+                custom_probes=custom_probes.get(sig_id)
+            )
             sig_result["vs_baselines"] = _vs_baseline(sig_id, sig_result["detection_rate"])
             job["results"][sig_id] = sig_result
             save_job(job)  # persist incremental progress

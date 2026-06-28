@@ -880,7 +880,31 @@
           card.className = 'sig-card selected';
           card.dataset.id = id;
 
-          const sampleList = (meta.sample_probes || []).map(p => `<li>${escapeHtml(p)}</li>`).join('');
+          let sampleList = '';
+          (meta.sample_probes || []).forEach((p, idx) => {
+            if (typeof p === 'string') {
+              sampleList += `
+                <div style="margin-bottom: 10px; text-align: left;">
+                  <label style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; display: block; font-weight: 700; letter-spacing: 0.3px;">Prompt ${idx + 1}</label>
+                  <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 54px; background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 6px; padding: 8px; font-family: var(--font-body); font-size: 12px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p)}</textarea>
+                </div>
+              `;
+            } else if (p && typeof p === 'object') {
+              sampleList += `
+                <div style="margin-bottom: 10px; padding: 10px; border: 1.5px dashed var(--border-light); border-radius: 8px; background: var(--bg-dark); text-align: left;">
+                  <label style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; display: block; font-weight: 700; letter-spacing: 0.3px;">Prompt ${idx + 1} (Paired Credentials Check)</label>
+                  <div style="margin-bottom: 8px;">
+                    <span style="font-size: 10px; color: var(--text-muted); display:block; margin-bottom: 3px; font-weight: 600;">Baseline Prompt (Normal request):</span>
+                    <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="baseline" style="width: 100%; min-height: 44px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px; font-family: var(--font-body); font-size: 11.5px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.baseline || '')}</textarea>
+                  </div>
+                  <div>
+                    <span style="font-size: 10px; color: var(--text-muted); display:block; margin-bottom: 3px; font-weight: 600;">Framed Prompt (Claiming Authority/Credentials):</span>
+                    <textarea class="sig-prompt-textarea" data-sig="${id}" data-idx="${idx}" data-type="framed" style="width: 100%; min-height: 44px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px; font-family: var(--font-body); font-size: 11.5px; resize: vertical; line-height: 1.4; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--border-focus)'" onblur="this.style.borderColor='var(--border-light)'">${escapeHtml(p.framed || '')}</textarea>
+                  </div>
+                </div>
+              `;
+            }
+          });
 
           card.innerHTML = `
             <div class="sig-header">
@@ -890,10 +914,10 @@
             <div class="sig-title">${meta.name}</div>
             <div class="sig-desc">${meta.description}</div>
             <details style="margin-top: 12px; font-size: 12px; color: var(--text-muted);" onclick="event.stopPropagation();">
-              <summary style="cursor: pointer; outline: none; user-select: none; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color);">View 3 Sample Prompts</summary>
-              <ul style="margin-top: 8px; padding-left: 16px; list-style-type: disc; display: flex; flex-direction: column; gap: 6px; text-align: left; font-size: 12px; line-height: 1.4;">
+              <summary style="cursor: pointer; outline: none; user-select: none; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color);">View & Edit Sample Prompts</summary>
+              <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                 ${sampleList}
-              </ul>
+              </div>
             </details>
           `;
 
@@ -959,8 +983,47 @@
       const modelId = modelInput.value.trim();
       const apiKey = apiKeyInput.value.trim();
       
+      // Gather edited custom prompts from textareas
+      const customProbes = {};
+      const textareas = document.querySelectorAll('.sig-prompt-textarea');
+      
+      textareas.forEach(ta => {
+        const sigId = ta.dataset.sig;
+        if (!selectedSignatures.has(sigId)) return;
+        
+        const idx = parseInt(ta.dataset.idx);
+        const type = ta.dataset.type;
+        const val = ta.value.trim();
+        if (!val) return;
+        
+        if (!customProbes[sigId]) {
+          customProbes[sigId] = [];
+        }
+        
+        if (!customProbes[sigId][idx]) {
+          customProbes[sigId][idx] = type === 'string' ? '' : {};
+        }
+        
+        if (type === 'string') {
+          customProbes[sigId][idx] = val;
+        } else if (type === 'baseline') {
+          customProbes[sigId][idx].baseline = val;
+        } else if (type === 'framed') {
+          customProbes[sigId][idx].framed = val;
+        }
+      });
+      
+      // Clean up any empty items or incomplete objects
+      Object.keys(customProbes).forEach(sigId => {
+        customProbes[sigId] = customProbes[sigId].filter(p => {
+          if (typeof p === 'string') return p !== '';
+          if (typeof p === 'object') return p.baseline && p.framed;
+          return false;
+        });
+      });
+      
       logConsole(`Starting validation job for target: ${modelId} (${provider})`, 'info');
-      logConsole(`Assessing ${selectedSignatures.size} behavioral signatures with ${probes} probes each.`, 'info');
+      logConsole(`Assessing ${selectedSignatures.size} behavioral signatures. Using custom prompts where edited.`, 'info');
 
       try {
         const response = await fetch('/v1/assessments', {
@@ -977,7 +1040,8 @@
               api_key: apiKey
             },
             signatures: Array.from(selectedSignatures),
-            probes_per_signature: probes
+            probes_per_signature: probes,
+            custom_probes: customProbes
           })
         });
 
