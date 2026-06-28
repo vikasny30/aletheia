@@ -11,17 +11,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* Design Tokens - Ultra Dark Theme */
+    /* Design Tokens - Default Light Mode */
     :root {
-      --bg-dark: #000000;
-      --card-bg: #09090b;
-      --border-light: rgba(255, 255, 255, 0.06);
-      --border-focus: rgba(255, 255, 255, 0.2);
-      --text-main: #f4f4f5;
-      --text-muted: #71717a;
+      --bg-dark: #f8fafc;
+      --card-bg: #ffffff;
+      --border-light: #e2e8f0;
+      --border-focus: #0f172a;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --logo-bg: #0f172a;
+      --logo-text: #ffffff;
+      --btn-bg: #0f172a;
+      --btn-text: #ffffff;
+      --btn-hover: #1e293b;
+      --checkbox-checked-bg: #0f172a;
+      --checkbox-checked-check: #ffffff;
+      --terminal-bg: #0f172a;
+      --terminal-text: #e2e8f0;
+      --terminal-border: #1e293b;
+      --input-bg: #ffffff;
       --font-display: 'Outfit', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Auto Override for Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-dark: #000000;
+        --card-bg: #09090b;
+        --border-light: rgba(255, 255, 255, 0.06);
+        --border-focus: rgba(255, 255, 255, 0.2);
+        --text-main: #f4f4f5;
+        --text-muted: #71717a;
+        --logo-bg: #ffffff;
+        --logo-text: #000000;
+        --btn-bg: #ffffff;
+        --btn-text: #000000;
+        --btn-hover: #e4e4e7;
+        --checkbox-checked-bg: #ffffff;
+        --checkbox-checked-check: #000000;
+        --terminal-bg: #050505;
+        --terminal-text: #e4e4e7;
+        --terminal-border: rgba(255, 255, 255, 0.06);
+        --input-bg: #000000;
+      }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,6 +70,7 @@
       justify-content: center;
       padding: 24px;
       overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .container {
@@ -55,15 +90,16 @@
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: #ffffff;
+      background: var(--logo-bg);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
       font-weight: 800;
       font-size: 18px;
-      color: #000000;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+      color: var(--logo-text);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .logo-text {
@@ -71,24 +107,32 @@
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: #ffffff;
+      color: var(--text-main);
+      transition: color 0.3s ease;
     }
 
-    /* Sleek Ultra-Dark Card Container */
+    /* Card Container */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-light);
       border-radius: 16px;
       padding: 40px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
       position: relative;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card {
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      }
     }
 
     h1 {
       font-family: var(--font-display);
       font-size: 28px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 8px;
       letter-spacing: -0.8px;
       line-height: 1.2;
@@ -118,10 +162,10 @@
     input[type="email"] {
       width: 100%;
       padding: 14px 16px;
-      background: #000000;
+      background: var(--input-bg);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      color: #ffffff;
+      color: var(--text-main);
       font-family: var(--font-body);
       font-size: 15px;
       outline: none;
@@ -134,7 +178,8 @@
     }
 
     input[type="email"]::placeholder {
-      color: #3f3f46;
+      color: var(--text-muted);
+      opacity: 0.6;
     }
 
     /* Custom Checkbox Design */
@@ -157,7 +202,7 @@
       flex-shrink: 0;
       margin-top: 2px;
       transition: all 0.15s;
-      background: #000000;
+      background: var(--input-bg);
     }
 
     input[type="checkbox"] {
@@ -165,15 +210,15 @@
     }
 
     input[type="checkbox"]:checked + .custom-checkbox {
-      background: #ffffff;
-      border-color: #ffffff;
+      background: var(--checkbox-checked-bg);
+      border-color: var(--checkbox-checked-bg);
     }
 
     .custom-checkbox::after {
       content: '';
       width: 4px;
       height: 8px;
-      border: solid #000000;
+      border: solid var(--checkbox-checked-check);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg) translate(-1px, -1px);
       display: none;
@@ -191,23 +236,22 @@
     }
 
     .checkbox-label a {
-      color: #a1a1aa;
+      color: var(--text-main);
       text-decoration: none;
-      border-bottom: 1px solid rgba(161, 161, 170, 0.3);
+      border-bottom: 1px solid var(--text-muted);
       transition: all 0.15s;
     }
 
     .checkbox-label a:hover {
-      color: #ffffff;
-      border-color: #ffffff;
+      border-color: var(--text-main);
     }
 
-    /* Premium Minimal White Button */
+    /* Premium Button */
     button[type="submit"] {
       width: 100%;
       padding: 15px;
-      background: #ffffff;
-      color: #000000;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       border: none;
       border-radius: 8px;
       font-family: var(--font-body);
@@ -215,16 +259,16 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     button[type="submit"]:hover:not(:disabled) {
-      background: #e4e4e7;
+      background: var(--btn-hover);
     }
 
     button[type="submit"]:disabled {
-      background: #18181b;
-      color: #3f3f46;
+      background: var(--border-light);
+      color: var(--text-muted);
       border: 1px solid var(--border-light);
       box-shadow: none;
       cursor: not-allowed;
@@ -235,7 +279,7 @@
       display: none;
       margin-top: 32px;
       padding: 24px;
-      background: #000000;
+      background: var(--bg-dark);
       border: 1px solid var(--border-light);
       border-radius: 10px;
       animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -251,7 +295,7 @@
     }
 
     .success-icon {
-      color: #ffffff;
+      color: var(--text-main);
       font-weight: 700;
     }
 
@@ -259,7 +303,7 @@
       font-family: var(--font-display);
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
     }
 
     .result-sub {
@@ -281,7 +325,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: #09090b;
+      background: var(--card-bg);
       border: 1px solid var(--border-light);
       border-radius: 6px;
       padding: 12px 14px;
@@ -292,17 +336,17 @@
       flex: 1;
       font-family: var(--font-mono);
       font-size: 13px;
-      color: #ffffff;
+      color: var(--text-main);
       word-break: break-all;
       letter-spacing: -0.3px;
     }
 
     .copy-btn {
       padding: 8px 16px;
-      background: #18181b;
+      background: var(--bg-dark);
       border: 1px solid var(--border-light);
       border-radius: 4px;
-      color: #ffffff;
+      color: var(--text-main);
       font-family: var(--font-body);
       font-size: 12px;
       font-weight: 500;
@@ -312,14 +356,14 @@
     }
 
     .copy-btn:hover {
-      background: #ffffff;
-      color: #000000;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       border-color: transparent;
     }
     
     .copy-btn.copied {
-      background: #27272a;
-      color: #ffffff;
+      background: var(--border-light);
+      color: var(--text-main);
       border-color: transparent;
     }
 
@@ -333,24 +377,29 @@
     .next-steps p {
       margin-bottom: 12px;
       font-weight: 500;
-      color: #ffffff;
+      color: var(--text-main);
     }
 
     .code-terminal {
-      background: #050505;
-      border: 1px solid var(--border-light);
+      background: var(--terminal-bg);
+      border: 1px solid var(--terminal-border);
       border-radius: 6px;
       padding: 16px;
       font-family: var(--font-mono);
       font-size: 12px;
-      color: #e4e4e7;
+      color: var(--terminal-text);
       overflow-x: auto;
       margin-bottom: 16px;
       line-height: 1.5;
     }
 
-    .code-terminal span.comment { color: #52525b; }
+    .code-terminal span.comment { color: var(--text-muted); opacity: 0.8; }
     .code-terminal span.highlight { color: #ffffff; }
+
+    /* Light Theme specific syntax coloring overrides */
+    @media (prefers-color-scheme: light) {
+      .code-terminal span.highlight { color: #f8fafc; }
+    }
 
     .error-msg {
       display: none;
@@ -360,7 +409,7 @@
       border: 1px solid rgba(239, 68, 68, 0.15);
       border-radius: 6px;
       font-size: 13px;
-      color: #fca5a5;
+      color: #ef4444;
     }
 
     .error-msg.visible { display: block; }
@@ -448,7 +497,7 @@
             &nbsp;&nbsp;-H <span class="highlight">"Content-Type: application/json"</span> \<br>
             &nbsp;&nbsp;-d '<span class="highlight">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
           </div>
-          Full documentation available at <a href="/docs" style="color:#ffffff;">aletheia.dev/docs</a>
+          Full documentation available at <a href="/docs" style="color:inherit; text-decoration: underline;">aletheia.dev/docs</a>
         </div>
       </div>
 
