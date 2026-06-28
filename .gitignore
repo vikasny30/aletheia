@@ -1,1 +1,4 @@
 .env
+data/api_jobs/
+data/consent_log.jsonl
+data/users.jsonl
