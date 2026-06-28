@@ -3,693 +3,853 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aletheia — Get API Access</title>
-  
-  <!-- Premium Fonts -->
+  <title>Aletheia — Behavioral Observability for AI Systems</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
-    /* Google Material 3 Design Tokens - Light Theme Default */
     :root {
+      --bg: #ffffff;
       --bg-dark: #f8f9fa;
-      --card-bg: #ffffff;
-      --border-light: #dadce0;
-      --border-focus: #1a73e8;
-      --text-main: #202124;
-      --text-muted: #5f6368;
-      
-      --accent-color: #1a73e8;
+      --text: #202124;
+      --text-2: #5f6368;
+      --text-3: #80868b;
+      --border: #dadce0;
+      --border-strong: #9aa0a6;
+      --surface: #f1f3f4;
+      --accent: #1a73e8; /* Google Blue */
       --accent-hover: #1557b0;
-      --logo-bg: #1a73e8;
-      --logo-text: #ffffff;
-      
-      --btn-bg: #1a73e8;
-      --btn-text: #ffffff;
-      --btn-hover: #1557b0;
-      
-      --checkbox-checked-bg: #1a73e8;
-      --checkbox-checked-check: #ffffff;
-      
-      --terminal-bg: #202124;
-      --terminal-text: #e8eaed;
-      --terminal-border: #3c4043;
-      --input-bg: #ffffff;
-      
-      --font-display: 'Outfit', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --accent-red: #c5221f;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
+      --display: 'Outfit', sans-serif;
     }
 
-    /* Google Material 3 Design Tokens - Auto Dark Theme Override */
     @media (prefers-color-scheme: dark) {
       :root {
+        --bg: #202124;
         --bg-dark: #121212;
-        --card-bg: #1e1e1e;
-        --border-light: #3c4043;
-        --border-focus: #8ab4f8;
-        --text-main: #e8eaed;
-        --text-muted: #9aa0a6;
-        
-        --accent-color: #8ab4f8;
+        --text: #e8eaed;
+        --text-2: #9aa0a6;
+        --text-3: #5f6368;
+        --border: #3c4043;
+        --border-strong: #5f6368;
+        --surface: #2d2e30;
+        --accent: #8ab4f8; /* Google Light Blue */
         --accent-hover: #aecbfa;
-        --logo-bg: #8ab4f8;
-        --logo-text: #202124;
-        
-        --btn-bg: #8ab4f8;
-        --btn-text: #202124;
-        --btn-hover: #aecbfa;
-        
-        --checkbox-checked-bg: #8ab4f8;
-        --checkbox-checked-check: #202124;
-        
-        --terminal-bg: #0d0e12;
-        --terminal-text: #e8eaed;
-        --terminal-border: #202124;
-        --input-bg: #121212;
       }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-body);
-      background: var(--bg-dark);
-      color: var(--text-main);
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      overflow-x: hidden;
-      transition: background 0.25s ease, color 0.25s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
-    .container {
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
       width: 100%;
-      max-width: 1100px;
-      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      border-bottom: 1px solid var(--border);
     }
 
-    .split-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .split-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-    }
-
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 32px;
-    }
-
-    .logo-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--logo-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-weight: 800;
+    .wordmark {
+      font-family: var(--display);
       font-size: 18px;
-      color: var(--logo-text);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-      transition: all 0.25s ease;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .logo-text {
-      font-family: var(--font-display);
-      font-size: 22px;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--text) !important;
+      color: var(--bg) !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: opacity 0.15s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.8; }
+
+    /* ── Two-column page ── */
+    .page {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      min-height: calc(100vh - 72px);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 24px;
+    }
+
+    /* ── Left: editorial column ── */
+    .editorial {
+      padding: 48px 48px 64px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .kicker {
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text-main);
-      transition: color 0.25s ease;
-    }
-
-    /* Google Elevated Card Container */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-      position: relative;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .card {
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      }
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
     }
 
     h1 {
-      font-family: var(--font-display);
-      font-size: 28px;
+      font-family: var(--display);
+      font-size: 46px;
       font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 8px;
-      letter-spacing: -0.6px;
-      line-height: 1.25;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 20px;
     }
 
-    .subtitle {
+    .lede {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-2);
+      margin-bottom: 40px;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-num {
+      font-family: var(--display);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* About */
+    .section-block {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-heading {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .body-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-2);
+    }
+
+    /* Links */
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.15s;
+      background: var(--bg);
+    }
+
+    .link-pill:hover {
+      border-color: var(--text);
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .link-pill:hover svg path,
+    .link-pill:hover svg polyline,
+    .link-pill:hover svg line,
+    .link-pill:hover svg polygon { stroke: var(--bg); }
+
+    .link-pill:hover svg[fill="currentColor"] { fill: var(--bg); }
+
+    /* Signatures */
+    .sig-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sig-row:last-child { border-bottom: none; }
+
+    .sig-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--surface);
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+      border: 1px solid var(--border);
+    }
+
+    .sig-info strong {
       font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      line-height: 1.6;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
     }
 
-    .form-group {
-      margin-bottom: 24px;
+    .sig-info span {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
     }
 
-    label {
+    /* ── Right: form column ── */
+    .form-col {
+      padding: 48px 0 64px 48px;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 24px;
+      align-self: start;
+    }
+
+    .form-card {
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .form-heading {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .form-sub {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .field-label {
       display: block;
       font-size: 11px;
       font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+      color: var(--text-2);
+      margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
     }
+
+    .field-group { margin-bottom: 20px; }
 
     input[type="email"] {
       width: 100%;
-      padding: 14px 16px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-light);
+      padding: 13px 16px;
+      border: 1.5px solid var(--border-strong);
       border-radius: 8px;
-      color: var(--text-main);
-      font-family: var(--font-body);
       font-size: 15px;
+      font-family: var(--sans);
+      color: var(--text);
       outline: none;
-      transition: all 0.2s ease;
+      background: var(--bg);
+      transition: all 0.15s;
     }
 
     input[type="email"]:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 1px var(--border-focus);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
     }
 
-    input[type="email"]::placeholder {
-      color: var(--text-muted);
-      opacity: 0.5;
-    }
+    input[type="email"]::placeholder { color: var(--text-3); }
 
-    /* Custom Checkbox Design */
-    .checkbox-row {
+    .tos-row {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       cursor: pointer;
-    }
-
-    .custom-checkbox {
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid var(--border-light);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      transition: all 0.15s;
-      background: var(--input-bg);
-    }
-
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    input[type="checkbox"]:checked + .custom-checkbox {
-      background: var(--checkbox-checked-bg);
-      border-color: var(--checkbox-checked-bg);
-    }
-
-    .custom-checkbox::after {
-      content: '';
-      width: 4px;
-      height: 8px;
-      border: solid var(--checkbox-checked-check);
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg) translate(-1px, -1px);
-      display: none;
-    }
-
-    input[type="checkbox"]:checked + .custom-checkbox::after {
-      display: block;
-    }
-
-    .checkbox-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.55;
       user-select: none;
     }
 
-    .checkbox-label a {
-      color: var(--accent-color);
-      text-decoration: none;
+    input[type="checkbox"] { display: none; }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.15s;
+      background: var(--bg);
     }
 
-    .checkbox-label a:hover {
+    input[type="checkbox"]:checked + .check-box {
+      background: var(--text);
+      border-color: var(--text);
+    }
+
+    .check-box::after {
+      content: '';
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translate(-0.5px, -0.5px);
+      display: none;
+    }
+
+    input[type="checkbox"]:checked + .check-box::after { display: block; }
+
+    .tos-text {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    .tos-text a {
+      color: var(--text);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: -0.2px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      background: var(--border);
+      color: var(--text-3);
+      cursor: not-allowed;
+    }
+
+    .skip-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .skip-link:hover {
       text-decoration: underline;
     }
 
-    /* Material Flat Button */
-    button[type="submit"] {
-      width: 100%;
-      padding: 14px;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border: none;
-      border-radius: 8px;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    button[type="submit"]:hover:not(:disabled) {
-      background: var(--btn-hover);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    button[type="submit"]:disabled {
-      background: var(--bg-dark);
-      color: var(--text-muted);
-      border: 1px solid var(--border-light);
-      box-shadow: none;
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    /* Result Panel */
-    .result {
+    .error-msg {
       display: none;
-      margin-top: 32px;
-      padding: 24px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-light);
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
       border-radius: 8px;
-      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+      font-size: 13px;
+      color: #dc2626;
     }
 
-    .result.visible { display: block; }
+    .error-msg.visible { display: block; }
 
-    .result-header {
+    /* ── Success state ── */
+    .result-panel {
+      display: none;
+      flex-direction: column;
+    }
+
+    .result-panel.visible { display: flex; }
+
+    .success-heading {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
+      gap: 10px;
     }
 
-    .success-icon {
-      color: var(--accent-color);
-      font-weight: 700;
-    }
-
-    .result-title {
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-main);
+    .success-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      flex-shrink: 0;
     }
 
     .result-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.5;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .key-label {
+    .result-label {
       font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
+      font-weight: 600;
       letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-3);
       margin-bottom: 8px;
     }
 
-    .key-box {
+    .key-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 24px;
+      gap: 10px;
+      margin-bottom: 28px;
     }
 
-    .key-value {
+    .key-val {
       flex: 1;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-main);
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 6px;
       word-break: break-all;
-      letter-spacing: -0.3px;
+      line-height: 1.4;
     }
 
     .copy-btn {
-      padding: 8px 16px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-light);
-      border-radius: 4px;
-      color: var(--text-main);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
+      padding: 10px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--sans);
       cursor: pointer;
+      color: var(--text);
       white-space: nowrap;
+      flex-shrink: 0;
       transition: all 0.15s;
     }
 
     .copy-btn:hover {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border-color: transparent;
-    }
-    
-    .copy-btn.copied {
-      background: var(--border-light);
-      color: var(--text-main);
-      border-color: transparent;
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
     }
 
-    /* Terminal Code Block */
-    .next-steps {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-    
     .terminal-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-    }
-    
-    .terminal-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
 
-    .copy-cmd-btn {
-      background: transparent;
-      border: none;
-      color: var(--accent-color);
+    .terminal-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .copy-cmd {
       font-size: 12px;
       font-weight: 500;
+      color: var(--accent);
+      background: none;
+      border: none;
       cursor: pointer;
-      border-bottom: 1px dashed var(--accent-color);
-      transition: all 0.15s;
+      font-family: var(--sans);
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
-    .copy-cmd-btn:hover {
-      color: var(--accent-hover);
-      border-bottom-color: var(--accent-hover);
-    }
-
-    .code-terminal {
-      background: var(--terminal-bg);
-      border: 1px solid var(--terminal-border);
+    .terminal {
+      background: #0a0a0a;
       border-radius: 8px;
-      padding: 16px;
-      font-family: var(--font-mono);
+      padding: 18px 20px;
+      font-family: var(--mono);
       font-size: 12px;
-      color: var(--terminal-text);
-      overflow-x: auto;
+      line-height: 1.7;
+      color: #e2e8f0;
       margin-bottom: 24px;
-      line-height: 1.5;
+      overflow-x: auto;
     }
 
-    .code-terminal span.comment { color: var(--text-muted); opacity: 0.8; }
-    .code-terminal span.highlight { color: var(--accent-color); }
-
-    @media (prefers-color-scheme: dark) {
-      .code-terminal span.highlight { color: #8ab4f8; }
-    }
+    .terminal .c { color: #6b7280; }
+    .terminal .h { color: #818cf8; }
 
     .playground-action {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      padding: 16px;
-      margin-top: 24px;
-    }
-
-    .playground-text {
-      font-size: 13px;
-      color: var(--text-muted);
+      gap: 16px;
+      padding: 20px 0 0;
+      border-top: 1px solid var(--border);
     }
 
     .playground-text strong {
-      color: var(--text-main);
       display: block;
-      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .playground-text span {
+      font-size: 13px;
+      color: var(--text-2);
     }
 
     .playground-btn {
-      padding: 10px 18px;
-      background: var(--btn-bg);
-      color: var(--btn-text);
+      padding: 10px 20px;
+      background: var(--text);
+      color: var(--bg);
       border: none;
       border-radius: 6px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.15s;
+      white-space: nowrap;
+      font-family: var(--sans);
+      transition: opacity 0.15s;
+      flex-shrink: 0;
     }
 
-    .playground-btn:hover {
-      background: var(--btn-hover);
-    }
+    .playground-btn:hover { opacity: 0.8; }
 
-    .error-msg {
-      display: none;
-      margin-top: 18px;
-      padding: 14px 16px;
-      background: rgba(239, 68, 68, 0.05);
-      border: 1px solid rgba(239, 68, 68, 0.15);
-      border-radius: 8px;
-      font-size: 13px;
-      color: #ef4444;
-    }
+    /* ── Mobile ── */
+    @media (max-width: 980px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 16px; }
 
-    .error-msg.visible { display: block; }
+      .page { grid-template-columns: 1fr; }
 
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
-      margin: 32px 0;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
-      letter-spacing: 0.3px;
-    }
-
-    /* Keyframe Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
+      .editorial {
+        padding: 48px 24px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+      h1 { font-size: 36px; letter-spacing: -0.5px; }
+      .stats { gap: 28px; flex-wrap: wrap; }
+      .stat-num { font-size: 34px; }
+
+      .form-col { padding: 48px 24px; position: static; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header-logo" style="margin-bottom: 32px;">
-      <div class="logo-mark">A</div>
-      <div class="logo-text">Aletheia</div>
+  <nav>
+    <a class="wordmark" href="/">Aletheia</a>
+    <div class="nav-links">
+      <a href="https://github.com/vikasny30/aletheia" target="_blank" rel="noopener">GitHub</a>
+      <a href="/docs" target="_blank">API Docs</a>
+      <a href="/playground" class="nav-cta">Playground</a>
     </div>
+  </nav>
 
-    <div class="split-grid">
-      <!-- Left Column: About Project, Signatures, and Paper -->
-      <div class="info-column" style="display: flex; flex-direction: column; gap: 24px; text-align: left; padding: 12px 0;">
-        <h1 style="font-size: 38px; font-weight: 800; font-family: var(--font-display); line-height: 1.15; letter-spacing: -1px; color: var(--text-main); margin-bottom: 8px;">
-          Systematic AI Safety Observability
-        </h1>
-        <p style="font-size: 15.5px; line-height: 1.6; color: var(--text-muted); font-family: var(--font-body);">
-          Aletheia is an open-source evaluation framework that identifies, measures, and monitors repeatable failure patterns (behavioral signatures) across frontier LLMs, shifting safety from abstract alignment to real-time deployment observability.
-        </p>
-        
-        <!-- Key stats row -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0;">
-          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">9</div>
-            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Signatures</div>
-          </div>
-          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">2,571</div>
-            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Incident Corpus</div>
-          </div>
-          <div style="padding: 16px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
-            <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent-color);">Open</div>
-            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">Source Spec</div>
-          </div>
+  <div class="page">
+
+    <!-- Left: editorial -->
+    <div class="editorial">
+
+      <div class="kicker">Behavioral Observability &middot; Open Source &middot; Research</div>
+
+      <h1>The missing observability layer for AI systems.</h1>
+
+      <p class="lede">
+        Aletheia is an open-source evaluation framework that identifies, measures, and monitors repeatable failure patterns across frontier LLMs &mdash; shifting AI safety from abstract alignment to real-time deployment observability.
+      </p>
+
+      <div class="stats">
+        <div>
+          <div class="stat-num">9</div>
+          <div class="stat-label">Behavioral Signatures</div>
         </div>
-        
-        <!-- Audited Signatures list -->
-        <div style="background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 12px; padding: 20px;">
-          <h3 style="font-family: var(--font-display); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; color: var(--text-main);">Audited Behavioral Signatures</h3>
-          
-          <div style="display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; line-height: 1.45;">
-            <div style="display: flex; align-items: start; gap: 12px;">
-              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S1</span>
-              <div>
-                <strong>Fact Fabrication & Hallucination:</strong>
-                <span style="color: var(--text-muted);">Asserts fabricated citations or statistics without appropriate hedging.</span>
-              </div>
-            </div>
-            <div style="display: flex; align-items: start; gap: 12px;">
-              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S2</span>
-              <div>
-                <strong>Authority Bias & Manipulation:</strong>
-                <span style="color: var(--text-muted);">Alters behavior based on claimed user credentials or expert status.</span>
-              </div>
-            </div>
-            <div style="display: flex; align-items: start; gap: 12px;">
-              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S3</span>
-              <div>
-                <strong>Scope Creep & Mandate Drift:</strong>
-                <span style="color: var(--text-muted);">Performs unrequested tasks beyond the declared operation boundaries.</span>
-              </div>
-            </div>
-            <div style="display: flex; align-items: start; gap: 12px;">
-              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-color); background: var(--bg-dark); padding: 2px 6px; border-radius: 4px; font-size: 11px;">S6</span>
-              <div>
-                <strong>Crisis Distress Blindness:</strong>
-                <span style="color: var(--text-muted);">Ignores user self-harm/crisis signals rather than deferring to support pathways.</span>
-              </div>
-            </div>
-          </div>
+        <div>
+          <div class="stat-num">2,571</div>
+          <div class="stat-label">Incident Corpus</div>
         </div>
-        
-        <div style="font-size: 12px; color: var(--text-muted); font-family: var(--font-body); margin-top: 12px;">
-          Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source
+        <div>
+          <div class="stat-num">Free</div>
+          <div class="stat-label">Open Source</div>
         </div>
       </div>
 
-      <!-- Right Column: Card -->
-      <div class="card" style="margin-top: 0;">
-        <h1>Get API access</h1>
-      <p class="subtitle">Run behavioral benchmarks against any AI system. Free to start — bring your own model API key.</p>
+      <div class="section-block">
+        <h2 class="section-heading">About the Project</h2>
+        <p class="body-text">
+          We built Aletheia after finding that the AI safety field lacked a systematic, production-ready methodology for measuring behavioral failures at deployment time. By grounding our 9 signatures in a corpus of 2,571 real-world AI incidents from AIID, AVID, and the MIT AI Risk Repository, Aletheia provides the first empirically-validated behavioral taxonomy for AI observability — not just red-teaming or vibe checks, but measurable, reproducible failure rates with statistical process control.
+        </p>
+      </div>
 
-      <form id="signup-form">
-        <div class="form-group">
-          <label for="email">Work email</label>
-          <input type="email" id="email" name="email" placeholder="you@company.com" required>
+      <div class="section-block">
+        <h2 class="section-heading">Research &amp; Links</h2>
+        <div class="links-row">
+          <a class="link-pill" href="https://github.com/vikasny30/aletheia" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            GitHub
+          </a>
+          <a class="link-pill" href="https://github.com/vikasny30/aletheia/blob/main/ALETHEIA_FINAL_SPEC.md" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Research Spec
+          </a>
+          <a class="link-pill" href="/docs" target="_blank">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            API Reference
+          </a>
+          <a class="link-pill" href="/playground">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Live Playground
+          </a>
         </div>
+      </div>
 
-        <label class="checkbox-row" for="tos">
-          <input type="checkbox" id="tos" name="tos" required>
-          <div class="custom-checkbox"></div>
-          <span class="checkbox-label">
-            I have read and agree to the
-            <a href="https://aletheia.dev/terms" target="_blank">Terms of Service</a>
-            and
-            <a href="https://aletheia.dev/privacy" target="_blank">Privacy Policy</a>.
-            I understand that Aletheia processes AI system responses to produce behavioral scores.
-          </span>
-        </label>
-
-        <button type="submit" id="submit-btn" disabled>Get API key</button>
-
-        <div style="margin-top: 18px; text-align: center;">
-          <a href="#" onclick="skipToPlayground()" style="font-size: 13px; color: var(--accent-color); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Skip to Playground (Guest Access)</a>
+      <div class="section-block">
+        <h2 class="section-heading">9 Behavioral Signatures</h2>
+        <div>
+          <div class="sig-row">
+            <span class="sig-badge">S1</span>
+            <div class="sig-info">
+              <strong>Fact Fabrication &amp; Hallucination</strong>
+              <span>Asserts fabricated citations or statistics without appropriate hedging.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S2a</span>
+            <div class="sig-info">
+              <strong>Authority Bias</strong>
+              <span>Alters behavior based on claimed user credentials or expert status.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S2b</span>
+            <div class="sig-info">
+              <strong>Prompt Injection Susceptibility</strong>
+              <span>Responds to injected instructions embedded in user content.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S3</span>
+            <div class="sig-info">
+              <strong>Scope Creep &amp; Mandate Drift</strong>
+              <span>Performs unrequested tasks beyond declared operation boundaries.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S4</span>
+            <div class="sig-info">
+              <strong>Context Literalness Failure</strong>
+              <span>Interprets figurative speech as literal intent.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S5</span>
+            <div class="sig-info">
+              <strong>Cascading Error Propagation</strong>
+              <span>Compounds early mistakes in multi-step reasoning without self-correction.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S6</span>
+            <div class="sig-info">
+              <strong>Crisis Distress Blindness</strong>
+              <span>Ignores user self-harm signals rather than deferring to support pathways.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S7</span>
+            <div class="sig-info">
+              <strong>Institutional Authority Amplification</strong>
+              <span>Uncritically amplifies institutional statistics without epistemic qualification.</span>
+            </div>
+          </div>
+          <div class="sig-row">
+            <span class="sig-badge">S8</span>
+            <div class="sig-info">
+              <strong>Emotional Register Drift</strong>
+              <span>Progressively amplifies emotional certainty across conversation turns.</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="error-msg" id="error-msg"></div>
-      </form>
+    </div>
 
-      <div class="result" id="result">
-        <div class="result-header">
-          <span class="success-icon">✓</span>
-          <div class="result-title">Registration Successful</div>
-        </div>
-        <div class="result-sub">Save this API key — it won't be shown again.</div>
+    <!-- Right: form -->
+    <div class="form-col">
+      <div class="form-card">
 
-        <div class="key-label">API Key</div>
-        <div class="key-box">
-          <span class="key-value" id="api-key-value"></span>
-          <button class="copy-btn" id="copy-btn" onclick="copyKey()">Copy</button>
-        </div>
+        <form id="signup-form">
+          <h2 class="form-heading">Get API access</h2>
+          <p class="form-sub">Free to start. Bring your own model API key.</p>
 
-        <div class="next-steps">
+          <div class="field-group">
+            <label class="field-label" for="email">Work email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          </div>
+
+          <label class="tos-row" for="tos">
+            <input type="checkbox" id="tos" name="tos" required>
+            <div class="check-box"></div>
+            <span class="tos-text">
+              I agree to the <a href="https://aletheia.dev/terms" target="_blank">Terms of Service</a> and <a href="https://aletheia.dev/privacy" target="_blank">Privacy Policy</a>. I understand Aletheia processes AI system responses to produce behavioral scores.
+            </span>
+          </label>
+
+          <button type="submit" class="submit-btn" id="submit-btn" disabled>Get API key</button>
+          <a href="#" class="skip-link" onclick="skipToPlayground(); return false;">Continue as guest &rarr;</a>
+
+          <div class="error-msg" id="error-msg"></div>
+        </form>
+
+        <div class="result-panel" id="result">
+          <div class="success-heading">
+            <div class="success-dot"></div>
+            API key generated
+          </div>
+          <p class="result-sub">Save this key &mdash; it won&rsquo;t be shown again. Already loaded into your browser for the playground.</p>
+
+          <div class="result-label">API Key</div>
+          <div class="key-row">
+            <div class="key-val" id="api-key-value"></div>
+            <button class="copy-btn" id="copy-btn" onclick="copyKey()">Copy</button>
+          </div>
+
           <div class="terminal-header">
-            <span class="terminal-title">Run benchmark command</span>
-            <button class="copy-cmd-btn" id="copy-cmd-btn" onclick="copyCurlCommand()">Copy Command</button>
+            <span class="terminal-label">Quick start</span>
+            <button class="copy-cmd" id="copy-cmd-btn" onclick="copyCurlCommand()">Copy command</button>
           </div>
-          <div class="code-terminal" id="code-block">
-            <span class="comment"># Submit a scoring assessment run</span><br>
-            curl -X POST <span class="highlight">https://aletheia.dev/v1/assessments</span> \<br>
-            &nbsp;&nbsp;-H <span class="highlight">"Authorization: Bearer <span id="curl-key-placeholder">YOUR_KEY</span>"</span> \<br>
-            &nbsp;&nbsp;-H <span class="highlight">"Content-Type: application/json"</span> \<br>
-            &nbsp;&nbsp;-d '<span class="highlight">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
+          <div class="terminal">
+            <span class="c"># Submit a benchmark job</span><br>
+            curl -X POST https://aletheia.dev/v1/assessments \<br>
+            &nbsp;&nbsp;-H <span class="h">"Authorization: Bearer <span id="curl-key-placeholder">YOUR_KEY</span>"</span> \<br>
+            &nbsp;&nbsp;-H <span class="h">"Content-Type: application/json"</span> \<br>
+            &nbsp;&nbsp;-d '<span class="h">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
           </div>
-          
+
           <div class="playground-action">
             <div class="playground-text">
-              <strong>Interactive API Playground</strong>
-              Your credentials have been loaded. Launch the playground.
+              <strong>Interactive Playground</strong>
+              <span>Credentials loaded. Run a live audit.</span>
             </div>
-            <a href="/playground" class="playground-btn" id="playground-link">Launch Playground</a>
+            <a href="/playground" class="playground-btn" id="playground-link">Launch &rarr;</a>
           </div>
         </div>
-      </div>
 
-      <div class="divider"></div>
-      <div class="footer">Aletheia · 9 behavioral signatures · 2,571 incident corpus · Open source</div>
+      </div>
     </div>
   </div>
-</div>
 
   <script>
-    const tosCheckbox = document.getElementById('tos');
+    const tos = document.getElementById('tos');
     const submitBtn = document.getElementById('submit-btn');
     const form = document.getElementById('signup-form');
     const result = document.getElementById('result');
     const errorMsg = document.getElementById('error-msg');
 
-    // Enable button only when checkbox is checked
-    tosCheckbox.addEventListener('change', () => {
-      submitBtn.disabled = !tosCheckbox.checked;
+    tos.addEventListener('change', () => {
+      submitBtn.disabled = !tos.checked;
     });
 
     form.addEventListener('submit', async (e) => {
@@ -710,22 +870,13 @@
         });
 
         const data = await resp.json();
-
-        if (!resp.ok) {
-          throw new Error(data.detail || 'Registration failed');
-        }
+        if (!resp.ok) throw new Error(data.detail || 'Registration failed');
 
         const apiKey = data.api_key;
-
-        // Save key in localStorage for seamless auth in the playground
         localStorage.setItem('aletheia_api_key', apiKey);
 
-        // Update UI placeholders with actual key
         document.getElementById('api-key-value').textContent = apiKey;
         document.getElementById('curl-key-placeholder').textContent = apiKey;
-        
-        // Point to the custom playground dashboard instead of the raw docs
-        document.getElementById('playground-link').href = '/playground';
 
         form.style.display = 'none';
         result.classList.add('visible');
@@ -742,24 +893,17 @@
       const key = document.getElementById('api-key-value').textContent;
       navigator.clipboard.writeText(key);
       const btn = document.getElementById('copy-btn');
-      btn.textContent = 'Copied';
-      btn.classList.add('copied');
-      setTimeout(() => { 
-        btn.textContent = 'Copy'; 
-        btn.classList.remove('copied'); 
-      }, 2000);
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
     }
 
     function copyCurlCommand() {
       const key = document.getElementById('api-key-value').textContent;
-      const curlCmd = `curl -X POST https://aletheia.dev/v1/assessments \\\n  -H "Authorization: Bearer ${key}" \\\n  -H "Content-Type: application/json" \\\n  -d '{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}'`;
-      navigator.clipboard.writeText(curlCmd);
-      
+      const cmd = `curl -X POST https://aletheia.dev/v1/assessments \\\n  -H "Authorization: Bearer ${key}" \\\n  -H "Content-Type: application/json" \\\n  -d '{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}'`;
+      navigator.clipboard.writeText(cmd);
       const btn = document.getElementById('copy-cmd-btn');
       btn.textContent = 'Copied!';
-      setTimeout(() => { 
-        btn.textContent = 'Copy Command'; 
-      }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy command'; }, 2000);
     }
 
     function skipToPlayground() {
