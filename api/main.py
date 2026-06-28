@@ -18,7 +18,7 @@ import os
 import sys
 import time
 import uuid
-from typing import List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
