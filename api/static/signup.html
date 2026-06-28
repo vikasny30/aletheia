@@ -132,8 +132,15 @@
 
     /* ── Left: editorial column ── */
     .editorial {
-      padding: 48px 48px 64px 0;
+      padding: 48px 48px 64px 24px;
       border-right: 1px solid var(--border);
+      background: linear-gradient(180deg, #fbfcfe 0%, #f4f7fc 100%);
+      margin-left: -24px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .editorial {
+        background: linear-gradient(180deg, #1e2024 0%, #15171a 100%);
+      }
     }
 
     .kicker {
@@ -197,6 +204,33 @@
       background: var(--bg);
       box-shadow: 0 6px 20px rgba(26, 115, 232, 0.08);
       transform: translateY(-2px);
+    }
+
+    .stat-card.blue {
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(to right, rgba(26, 115, 232, 0.03), transparent);
+    }
+    .stat-card.red {
+      border-left: 4px solid #ea4335;
+      background: linear-gradient(to right, rgba(234, 67, 53, 0.03), transparent);
+    }
+    .stat-card.green {
+      border-left: 4px solid #34a853;
+      background: linear-gradient(to right, rgba(52, 168, 83, 0.03), transparent);
+    }
+    @media (prefers-color-scheme: dark) {
+      .stat-card.blue {
+        border-left: 4px solid #8ab4f8;
+        background: linear-gradient(to right, rgba(138, 180, 248, 0.05), transparent);
+      }
+      .stat-card.red {
+        border-left: 4px solid #f28b82;
+        background: linear-gradient(to right, rgba(242, 139, 130, 0.05), transparent);
+      }
+      .stat-card.green {
+        border-left: 4px solid #81c995;
+        background: linear-gradient(to right, rgba(129, 201, 149, 0.05), transparent);
+      }
     }
 
     .stat-num {
@@ -293,15 +327,78 @@
     .sig-badge {
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 500;
-      color: var(--text-2);
-      background: var(--surface);
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
       flex-shrink: 0;
       margin-top: 2px;
       letter-spacing: 0.2px;
       border: 1px solid var(--border);
+    }
+
+    /* Semantic color classes for badges */
+    .sig-badge.red {
+      background: #fce8e6;
+      color: #c5221f;
+      border-color: #fad2cf;
+    }
+    .sig-badge.orange {
+      background: #fef7e0;
+      color: #b06000;
+      border-color: #feebc8;
+    }
+    .sig-badge.blue {
+      background: #e8f0fe;
+      color: #1a73e8;
+      border-color: #d2e3fc;
+    }
+    .sig-badge.purple {
+      background: #f3e8fd;
+      color: #9333ea;
+      border-color: #e9d5ff;
+    }
+    .sig-badge.green {
+      background: #e6f4ea;
+      color: #137333;
+      border-color: #ceead6;
+    }
+    .sig-badge.pink {
+      background: #fce4ec;
+      color: #c2185b;
+      border-color: #f8bbd0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .sig-badge.red {
+        background: rgba(234, 67, 53, 0.15);
+        color: #f28b82;
+        border-color: rgba(234, 67, 53, 0.3);
+      }
+      .sig-badge.orange {
+        background: rgba(251, 188, 5, 0.15);
+        color: #fdd663;
+        border-color: rgba(251, 188, 5, 0.3);
+      }
+      .sig-badge.blue {
+        background: rgba(26, 115, 232, 0.15);
+        color: #8ab4f8;
+        border-color: rgba(26, 115, 232, 0.3);
+      }
+      .sig-badge.purple {
+        background: rgba(147, 51, 234, 0.15);
+        color: #d8b4fe;
+        border-color: rgba(147, 51, 234, 0.3);
+      }
+      .sig-badge.green {
+        background: rgba(52, 168, 83, 0.15);
+        color: #81c995;
+        border-color: rgba(52, 168, 83, 0.3);
+      }
+      .sig-badge.pink {
+        background: rgba(216, 27, 96, 0.15);
+        color: #ff8da1;
+        border-color: rgba(216, 27, 96, 0.3);
+      }
     }
 
     .sig-info strong {
@@ -713,19 +810,19 @@
 
       <div class="stats">
         <a href="#signatures-list-section" class="stat-card-link">
-          <div class="stat-card">
+          <div class="stat-card blue">
             <div class="stat-num">9</div>
             <div class="stat-label">Behavioral Signatures</div>
           </div>
         </a>
         <a href="#" onclick="openDatabasesModal(); return false;" class="stat-card-link">
-          <div class="stat-card">
+          <div class="stat-card red">
             <div class="stat-num">2,571</div>
             <div class="stat-label">Incident Corpus</div>
           </div>
         </a>
         <a href="https://github.com/vikasny30/aletheia" target="_blank" class="stat-card-link">
-          <div class="stat-card">
+          <div class="stat-card green">
             <div class="stat-num">Free</div>
             <div class="stat-label">Open Source</div>
           </div>
@@ -765,63 +862,63 @@
         <h2 class="section-heading" id="signatures-list-section">9 Behavioral Signatures</h2>
         <div>
           <div class="sig-row">
-            <span class="sig-badge">S1</span>
+            <span class="sig-badge red">S1</span>
             <div class="sig-info">
               <strong>Fact Fabrication &amp; Hallucination</strong>
               <span>Asserts fabricated citations or statistics without appropriate hedging.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S2a</span>
+            <span class="sig-badge orange">S2a</span>
             <div class="sig-info">
               <strong>Authority Bias</strong>
               <span>Alters behavior based on claimed user credentials or expert status.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S2b</span>
+            <span class="sig-badge orange">S2b</span>
             <div class="sig-info">
               <strong>Prompt Injection Susceptibility</strong>
               <span>Responds to injected instructions embedded in user content.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S3</span>
+            <span class="sig-badge blue">S3</span>
             <div class="sig-info">
               <strong>Scope Creep &amp; Mandate Drift</strong>
               <span>Performs unrequested tasks beyond declared operation boundaries.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S4</span>
+            <span class="sig-badge blue">S4</span>
             <div class="sig-info">
               <strong>Context Literalness Failure</strong>
               <span>Interprets figurative speech as literal intent.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S5</span>
+            <span class="sig-badge purple">S5</span>
             <div class="sig-info">
               <strong>Cascading Error Propagation</strong>
               <span>Compounds early mistakes in multi-step reasoning without self-correction.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S6</span>
+            <span class="sig-badge green">S6</span>
             <div class="sig-info">
               <strong>Crisis Distress Blindness</strong>
               <span>Ignores user self-harm signals rather than deferring to support pathways.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S7</span>
+            <span class="sig-badge pink">S7</span>
             <div class="sig-info">
               <strong>Institutional Authority Amplification</strong>
               <span>Uncritically amplifies institutional statistics without epistemic qualification.</span>
             </div>
           </div>
           <div class="sig-row">
-            <span class="sig-badge">S8</span>
+            <span class="sig-badge purple">S8</span>
             <div class="sig-info">
               <strong>Emotional Register Drift</strong>
               <span>Progressively amplifies emotional certainty across conversation turns.</span>
