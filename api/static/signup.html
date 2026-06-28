@@ -549,6 +549,10 @@
 
         <button type="submit" id="submit-btn" disabled>Get API key</button>
 
+        <div style="margin-top: 18px; text-align: center;">
+          <a href="#" onclick="skipToPlayground()" style="font-size: 13px; color: var(--accent-color); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Skip to Playground (Guest Access)</a>
+        </div>
+
         <div class="error-msg" id="error-msg"></div>
       </form>
 
@@ -673,6 +677,12 @@
       setTimeout(() => { 
         btn.textContent = 'Copy Command'; 
       }, 2000);
+    }
+
+    function skipToPlayground() {
+      const guestKey = 'aletheia_guest_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem('aletheia_api_key', guestKey);
+      window.location.href = '/playground';
     }
   </script>
 </body>

@@ -852,10 +852,11 @@
     handleModeChange();
 
     // Load API key from LocalStorage
-    const savedKey = localStorage.getItem('aletheia_api_key');
+    let savedKey = localStorage.getItem('aletheia_api_key');
     if (!savedKey) {
-      // Redirect to register page if key not present
-      window.location.href = '/';
+      // Auto-generate guest key for instant onboarding
+      savedKey = 'aletheia_guest_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem('aletheia_api_key', savedKey);
     }
 
     // List of signatures
