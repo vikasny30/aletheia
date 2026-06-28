@@ -566,27 +566,49 @@
     <div>
       <div class="panel config-panel">
         <h2>Target Model</h2>
-        <p class="section-desc">Configure connection parameters for the AI endpoint.</p>
+        <p class="section-desc">Configure how to run your benchmark assessment.</p>
 
         <form id="benchmark-form">
-          <div class="form-group">
-            <label for="provider">Provider</label>
-            <select id="provider">
-              <option value="demo" selected>Aletheia Sandbox (Demo Mode)</option>
-              <option value="openai">OpenAI</option>
-              <option value="anthropic">Anthropic</option>
-              <option value="google">Google Gemini</option>
-            </select>
+          <!-- Radio buttons for mode selection -->
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label>Connection Mode</label>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+              <label style="display: flex; align-items: center; gap: 8px; text-transform: none; font-size: 14px; font-weight: 500; color: var(--text-main); cursor: pointer;">
+                <input type="radio" name="play_mode" value="sandbox" checked style="accent-color: var(--text-main); width: 16px; height: 16px;">
+                Trial Sandbox (Demo Mode)
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; text-transform: none; font-size: 14px; font-weight: 500; color: var(--text-main); cursor: pointer;">
+                <input type="radio" name="play_mode" value="byok" style="accent-color: var(--text-main); width: 16px; height: 16px;">
+                Bring Your Own Key (BYOK)
+              </label>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="model_id">Model ID</label>
-            <input type="text" id="model_id" placeholder="aletheia-sandbox-v1" value="aletheia-sandbox-v1">
+          <!-- Sandbox info box -->
+          <div id="sandbox_info_box" style="padding: 14px; background: var(--bg-dark); border: 1px solid var(--border-light); border-radius: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; transition: all 0.3s;">
+            Pre-configured Aletheia Sandbox. Runs simulated assessments immediately with zero credentials required.
           </div>
 
-          <div class="form-group" id="api_key_group">
-            <label for="api_key">API Key (BYOK)</label>
-            <input type="password" id="api_key" placeholder="sk-...">
+          <!-- BYOK connection details (hidden by default) -->
+          <div id="byok_form_fields" style="display: none;">
+            <div class="form-group">
+              <label for="provider">Provider</label>
+              <select id="provider">
+                <option value="openai" selected>OpenAI</option>
+                <option value="anthropic">Anthropic</option>
+                <option value="google">Google Gemini</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="model_id">Model ID</label>
+              <input type="text" id="model_id" placeholder="gpt-4o" value="gpt-4o">
+            </div>
+
+            <div class="form-group">
+              <label for="api_key">API Key</label>
+              <input type="password" id="api_key" placeholder="sk-...">
+            </div>
           </div>
 
           <div class="form-group">
@@ -611,41 +633,60 @@
       probesVal.textContent = probesSlider.value;
     });
 
+    const playModeRadios = document.getElementsByName('play_mode');
+    const sandboxInfoBox = document.getElementById('sandbox_info_box');
+    const byokFormFields = document.getElementById('byok_form_fields');
+
     const providerSelect = document.getElementById('provider');
     const modelInput = document.getElementById('model_id');
-    const apiKeyGroup = document.getElementById('api_key_group');
     const apiKeyInput = document.getElementById('api_key');
 
-    function handleProviderChange() {
-      const provider = providerSelect.value;
-      if (provider === 'demo') {
-        modelInput.value = 'aletheia-sandbox-v1';
-        modelInput.placeholder = 'aletheia-sandbox-v1';
-        apiKeyInput.value = 'demo_sandbox_key';
+    function handleModeChange() {
+      let selectedMode = 'sandbox';
+      for (const radio of playModeRadios) {
+        if (radio.checked) {
+          selectedMode = radio.value;
+          break;
+        }
+      }
+
+      if (selectedMode === 'sandbox') {
+        sandboxInfoBox.style.display = 'block';
+        byokFormFields.style.display = 'none';
         apiKeyInput.required = false;
-        apiKeyGroup.style.display = 'none';
+        apiKeyInput.value = 'demo_sandbox_key';
       } else {
-        apiKeyGroup.style.display = 'block';
+        sandboxInfoBox.style.display = 'none';
+        byokFormFields.style.display = 'block';
         apiKeyInput.required = true;
         if (apiKeyInput.value === 'demo_sandbox_key') {
           apiKeyInput.value = '';
         }
-        if (provider === 'openai') {
-          modelInput.value = 'gpt-4o';
-          modelInput.placeholder = 'gpt-4o';
-        } else if (provider === 'anthropic') {
-          modelInput.value = 'claude-3-5-sonnet-20241022';
-          modelInput.placeholder = 'claude-3-5-sonnet-20241022';
-        } else if (provider === 'google') {
-          modelInput.value = 'gemini-1.5-pro';
-          modelInput.placeholder = 'gemini-1.5-pro';
-        }
+        updateModelDefaults();
       }
     }
 
-    providerSelect.addEventListener('change', handleProviderChange);
+    function updateModelDefaults() {
+      const provider = providerSelect.value;
+      if (provider === 'openai') {
+        modelInput.value = 'gpt-4o';
+        modelInput.placeholder = 'gpt-4o';
+      } else if (provider === 'anthropic') {
+        modelInput.value = 'claude-3-5-sonnet-20241022';
+        modelInput.placeholder = 'claude-3-5-sonnet-20241022';
+      } else if (provider === 'google') {
+        modelInput.value = 'gemini-1.5-pro';
+        modelInput.placeholder = 'gemini-1.5-pro';
+      }
+    }
+
+    for (const radio of playModeRadios) {
+      radio.addEventListener('change', handleModeChange);
+    }
+    providerSelect.addEventListener('change', updateModelDefaults);
+
     // Initialize state
-    handleProviderChange();
+    handleModeChange();
 
     // Load API key from LocalStorage
     const savedKey = localStorage.getItem('aletheia_api_key');
@@ -722,9 +763,25 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const provider = providerSelect.value;
-      const modelId = modelInput.value.trim();
-      const apiKey = document.getElementById('api_key').value.trim();
+      let selectedMode = 'sandbox';
+      for (const radio of playModeRadios) {
+        if (radio.checked) {
+          selectedMode = radio.value;
+          break;
+        }
+      }
+
+      let provider, modelId, apiKey;
+      if (selectedMode === 'sandbox') {
+        provider = 'demo';
+        modelId = 'aletheia-sandbox-v1';
+        apiKey = 'demo_sandbox_key';
+      } else {
+        provider = providerSelect.value;
+        modelId = modelInput.value.trim();
+        apiKey = apiKeyInput.value.trim();
+      }
+
       const probes = parseInt(probesSlider.value);
 
       if (selectedSignatures.size === 0) return;
