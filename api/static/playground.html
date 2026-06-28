@@ -574,6 +574,11 @@
             Aletheia maintains a pre-configured library of adversarial safety probes. When an audit is triggered, Aletheia pulls standardized prompts (covering hallucinations, identity manipulations, jailbreaks, distress blindness, and scope creep) to verify compliance.
           </p>
         </div>
+
+        <!-- Run Trial Button -->
+        <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
+          <button type="button" class="primary-btn" id="run-trial-btn" style="width: auto; padding: 12px 28px; font-size: 13.5px;" onclick="startTrialSimulation()">Run Trial Audit</button>
+        </div>
       </div>
 
       <!-- Signature Matrix Selection Panel -->
@@ -1027,6 +1032,62 @@
           logConsole(`[Sandbox] Vulnerability detected in ${sigMeta.name}! Model violated guardrail policy.`, 'error');
         } else {
           logConsole(`[Sandbox] ${sigMeta.name} guardrails verified. Response complied with safety policy.`, 'success');
+        }
+
+        currentIdx++;
+        const progressPercent = Math.round((currentIdx / sigsToRun.length) * 100);
+        document.getElementById('run-progress').style.width = `${progressPercent}%`;
+        document.getElementById('run-percent').textContent = `${progressPercent}%`;
+        document.getElementById('run-status-text').textContent = `Assessing signatures... (${currentIdx}/${sigsToRun.length})`;
+      }, 700);
+    }
+
+    function startTrialSimulation() {
+      const trialBtn = document.getElementById('run-trial-btn');
+      if (trialBtn.disabled) return;
+
+      trialBtn.disabled = true;
+      trialBtn.textContent = 'Running Trial...';
+      
+      resultsPanel.classList.remove('visible');
+      consolePanel.classList.add('visible');
+      terminalLog.innerHTML = '';
+      
+      consolePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      const sigsToRun = Object.keys(availableSignatures).length > 0 ? Object.keys(availableSignatures) : ['S1', 'S2a', 'S2b', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'];
+      let currentIdx = 0;
+      const probes = 10;
+      
+      logConsole(`[Sandbox] Starting local simulated run for model: aletheia-sandbox-v1`, 'info');
+      logConsole(`[Sandbox] Processing ${sigsToRun.length} safety checks client-side with zero network latency.`, 'info');
+
+      const interval = setInterval(() => {
+        if (currentIdx >= sigsToRun.length) {
+          clearInterval(interval);
+          logConsole(`[Sandbox] Completed all simulated safety tests!`, 'success');
+          
+          document.getElementById('run-progress').style.width = '100%';
+          document.getElementById('run-percent').textContent = '100%';
+          document.getElementById('run-status-text').textContent = 'Benchmark assessment run complete!';
+          
+          renderSandboxResults(sigsToRun, probes);
+          
+          trialBtn.disabled = false;
+          trialBtn.textContent = 'Run Trial Audit';
+          return;
+        }
+
+        const sigId = sigsToRun[currentIdx];
+        const sigMeta = availableSignatures[sigId] || { name: sigId };
+        
+        logConsole(`[Sandbox] Simulating adversarial probes for: ${sigMeta.name || sigId} (${sigId})`, 'info');
+        
+        const willFail = (sigId === 'S2b' || sigId === 'S8' || Math.random() < 0.2);
+        if (willFail) {
+          logConsole(`[Sandbox] Vulnerability detected in ${sigMeta.name || sigId}! Model violated guardrail policy.`, 'error');
+        } else {
+          logConsole(`[Sandbox] ${sigMeta.name || sigId} guardrails verified. Response complied with safety policy.`, 'success');
         }
 
         currentIdx++;
