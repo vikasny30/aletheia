@@ -815,7 +815,7 @@
 
             <div class="form-group">
               <label for="api_key">API Key</label>
-              <input type="password" id="api_key" placeholder="sk-...">
+              <input type="password" id="api_key" placeholder="sk-..." autocomplete="new-password">
             </div>
           </div>
 
@@ -1456,8 +1456,16 @@
         });
         const job = await resp.json();
         
-        // Duration
-        const duration = job.duration_seconds ? `${Math.round(job.duration_seconds)}s` : 'N/A';
+        // Duration computation from timestamps
+        let duration = 'N/A';
+        if (job.started_at && job.completed_at) {
+          const start = new Date(job.started_at);
+          const end = new Date(job.completed_at);
+          const diffMs = end - start;
+          if (!isNaN(diffMs)) {
+            duration = `${Math.round(diffMs / 1000)}s`;
+          }
+        }
         document.getElementById('metric-duration').textContent = duration;
 
         // Scorecard compilation
@@ -1475,24 +1483,40 @@
         tbody.innerHTML = '';
 
         scorecard.forEach(item => {
-          totalProbes += item.probes_run;
-          failedProbes += item.failures;
+          const sigId = item.sig || item.signature_id;
+          const r = (job.results && job.results[sigId]) || {};
+          
+          const probesRun = typeof item.probes_run === 'number' ? item.probes_run : (r.n_probes || 0);
+          const failures = typeof item.failures === 'number' ? item.failures : (r.failures || 0);
+          const errors = r.n_errors || 0;
+          
+          totalProbes += probesRun;
+          failedProbes += failures;
 
           const row = document.createElement('tr');
           
           const badgeClass = item.failed ? 'badge-fail' : 'badge-pass';
           const badgeText = item.failed ? 'FAILED' : 'PASSED';
-          const ratePercent = Math.round((item.failures / item.probes_run) * 100);
+          const ratePercent = probesRun > 0 ? Math.round((failures / probesRun) * 100) : 0;
+          
+          const confidenceVal = typeof item.avg_confidence === 'number' && !isNaN(item.avg_confidence) 
+            ? `${(item.avg_confidence * 100).toFixed(1)}%` 
+            : 'N/A';
+
+          let desc = `Fired in ${failures} of ${probesRun} context runs (${ratePercent}% failure rate).`;
+          if (errors > 0) {
+            desc += ` <span style="color:var(--accent-red); font-weight:600; display:inline-block; margin-top: 4px;">(⚠️ ${errors} API connection/auth errors occurred)</span>`;
+          }
 
           row.innerHTML = `
             <td>
-              <strong style="display:block; font-size:14px; font-family:var(--font-display);">${availableSignatures[item.signature_id]?.name || item.signature_id}</strong>
-              <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">${item.signature_id}</span>
+              <strong style="display:block; font-size:14px; font-family:var(--font-display);">${availableSignatures[sigId]?.name || sigId}</strong>
+              <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">${sigId}</span>
             </td>
             <td><span class="badge ${badgeClass}">${badgeText}</span></td>
-            <td><span style="font-family:var(--font-mono);">${(item.avg_confidence * 100).toFixed(1)}%</span></td>
+            <td><span style="font-family:var(--font-mono);">${confidenceVal}</span></td>
             <td style="font-size:13px; color:var(--text-muted); line-height:1.4;">
-              Fired in ${item.failures} of ${item.probes_run} context runs (${ratePercent}% failure rate).
+              ${desc}
             </td>
           `;
           tbody.appendChild(row);
@@ -1501,7 +1525,11 @@
         const totalFailRate = totalProbes > 0 ? Math.round((failedProbes / totalProbes) * 100) : 0;
         document.getElementById('metric-fail-rate').textContent = `${totalFailRate}%`;
 
-        document.getElementById('run-timestamp-desc').textContent = `Run completed at ${new Date(job.created_at).toLocaleString()}`;
+        const timestampStr = job.completed_at || job.created_at;
+        document.getElementById('run-timestamp-desc').textContent = timestampStr
+          ? `Run completed at ${new Date(timestampStr).toLocaleString()}`
+          : `Run completed`;
+          
         resultsPanel.classList.add('visible');
         
         // Smooth scroll scorecard results into viewport focus

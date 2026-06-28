@@ -227,7 +227,8 @@ def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt:
                 **score,
             })
 
-    valid_n = sum(1 for r in results if "error" not in r)
+    valid_n = sum(1 for r in results if not r.get("error"))
+    avg_confidence = round(sum(r.get("confidence", 0.0) for r in results if not r.get("error")) / max(1, valid_n), 3)
     detection_rate = round(failures / max(1, valid_n), 4)
     ci_lo, ci_hi = _wilson_ci(failures, valid_n)
 
@@ -242,6 +243,7 @@ def run_signature(sig_id: str, model_config: dict, n_probes: int, system_prompt:
         "detection_pct": round(detection_rate * 100, 1),
         "ci_95_lo": ci_lo,
         "ci_95_hi": ci_hi,
+        "avg_confidence": avg_confidence,
         "probes": results,
     }
 
@@ -346,9 +348,14 @@ def run_assessment(job_id: str, request: dict):
             r = job["results"][sig_id]
             scorecard.append({
                 "sig": sig_id,
+                "signature_id": sig_id,
                 "name": r["signature_name"],
                 "detection_pct": r["detection_pct"],
                 "ci_95": f"[{round(r['ci_95_lo']*100,1)}–{round(r['ci_95_hi']*100,1)}]",
+                "avg_confidence": r.get("avg_confidence", 0.0),
+                "probes_run": r.get("n_probes", 0),
+                "failures": r.get("failures", 0),
+                "failed": r["detection_pct"] > 30,
                 "vs_baselines": r["vs_baselines"],
                 "flag": "⚠" if r["detection_pct"] > 30 else "",
             })
