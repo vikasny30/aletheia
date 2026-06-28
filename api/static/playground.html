@@ -817,6 +817,9 @@
       consolePanel.classList.add('visible');
       terminalLog.innerHTML = '';
 
+      // Smooth scroll progress logger into viewport focus
+      consolePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
       if (selectedMode === 'sandbox') {
         runSandboxSimulation(probes);
         return;
@@ -963,6 +966,9 @@
       document.getElementById('run-timestamp-desc').textContent = `Local simulation completed at ${new Date().toLocaleString()}`;
       
       resultsPanel.classList.add('visible');
+      
+      // Smooth scroll scorecard results into viewport focus
+      resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     async function pollJob(jobId) {
@@ -1072,6 +1078,9 @@
 
         document.getElementById('run-timestamp-desc').textContent = `Run completed at ${new Date(job.created_at).toLocaleString()}`;
         resultsPanel.classList.add('visible');
+        
+        // Smooth scroll scorecard results into viewport focus
+        resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       } catch (err) {
         console.error('Error rendering results:', err);
