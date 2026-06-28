@@ -284,6 +284,10 @@ def list_signatures():
             "description": meta["description"],
             "high_risk_contexts": meta["high_risk_contexts"],
             "probe_count": len(meta["probes"]),
+            "sample_probes": [
+                p if isinstance(p, str) else f"Baseline: {p.get('baseline', '')} | Framed: {p.get('framed', '')}"
+                for p in meta["probes"][:3]
+            ],
         }
         for sig_id, meta in SIGNATURES.items()
     }
