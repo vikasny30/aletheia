@@ -808,26 +808,23 @@
         }
       }
 
-      let provider, modelId, apiKey;
-      if (selectedMode === 'sandbox') {
-        provider = 'demo';
-        modelId = 'aletheia-sandbox-v1';
-        apiKey = 'demo_sandbox_key';
-      } else {
-        provider = providerSelect.value;
-        modelId = modelInput.value.trim();
-        apiKey = apiKeyInput.value.trim();
-      }
-
       const probes = parseInt(probesSlider.value);
-
       if (selectedSignatures.size === 0) return;
 
       runBtn.disabled = true;
-      runBtn.textContent = 'Job Submitted...';
+      runBtn.textContent = 'Running...';
       resultsPanel.classList.remove('visible');
       consolePanel.classList.add('visible');
       terminalLog.innerHTML = '';
+
+      if (selectedMode === 'sandbox') {
+        runSandboxSimulation(probes);
+        return;
+      }
+
+      const provider = providerSelect.value;
+      const modelId = modelInput.value.trim();
+      const apiKey = apiKeyInput.value.trim();
       
       logConsole(`Starting validation job for target: ${modelId} (${provider})`, 'info');
       logConsole(`Assessing ${selectedSignatures.size} behavioral signatures with ${probes} probes each.`, 'info');
@@ -869,6 +866,104 @@
         runBtn.textContent = 'Run Assessment';
       }
     });
+
+    function runSandboxSimulation(probes) {
+      const sigsToRun = Array.from(selectedSignatures);
+      let currentIdx = 0;
+      
+      logConsole(`[Sandbox] Starting local simulated run for model: aletheia-sandbox-v1`, 'info');
+      logConsole(`[Sandbox] Processing ${sigsToRun.length} safety checks client-side with zero network latency.`, 'info');
+
+      const interval = setInterval(() => {
+        if (currentIdx >= sigsToRun.length) {
+          clearInterval(interval);
+          logConsole(`[Sandbox] Completed all simulated safety tests!`, 'success');
+          
+          document.getElementById('run-progress').style.width = '100%';
+          document.getElementById('run-percent').textContent = '100%';
+          document.getElementById('run-status-text').textContent = 'Benchmark assessment run complete!';
+          
+          renderSandboxResults(sigsToRun, probes);
+          
+          runBtn.disabled = false;
+          runBtn.textContent = 'Run Assessment';
+          return;
+        }
+
+        const sigId = sigsToRun[currentIdx];
+        const sigMeta = availableSignatures[sigId] || { name: sigId };
+        
+        logConsole(`[Sandbox] Simulating adversarial probes for: ${sigMeta.name} (${sigId})`, 'info');
+        
+        const willFail = (sigId === 'S2b' || sigId === 'S8' || Math.random() < 0.2);
+        if (willFail) {
+          logConsole(`[Sandbox] Vulnerability detected in ${sigMeta.name}! Model violated guardrail policy.`, 'error');
+        } else {
+          logConsole(`[Sandbox] ${sigMeta.name} guardrails verified. Response complied with safety policy.`, 'success');
+        }
+
+        currentIdx++;
+        const progressPercent = Math.round((currentIdx / sigsToRun.length) * 100);
+        document.getElementById('run-progress').style.width = `${progressPercent}%`;
+        document.getElementById('run-percent').textContent = `${progressPercent}%`;
+        document.getElementById('run-status-text').textContent = `Assessing signatures... (${currentIdx}/${sigsToRun.length})`;
+      }, 700);
+    }
+
+    function renderSandboxResults(sigsToRun, probes) {
+      const duration = `${(sigsToRun.length * 0.7).toFixed(1)}s`;
+      document.getElementById('metric-duration').textContent = duration;
+
+      let passedCount = 0;
+      let totalProbes = sigsToRun.length * probes;
+      let failedProbes = 0;
+
+      const tbody = document.getElementById('scorecard-rows');
+      tbody.innerHTML = '';
+
+      sigsToRun.forEach(sigId => {
+        const sigMeta = availableSignatures[sigId] || { name: sigId, description: '' };
+        
+        let failures = 0;
+        if (sigId === 'S2b') {
+          failures = Math.round(probes * 0.4);
+        } else if (sigId === 'S8') {
+          failures = Math.round(probes * 0.3);
+        } else if (Math.random() < 0.2) {
+          failures = Math.round(probes * 0.1);
+        }
+        
+        const failed = failures > 0;
+        if (!failed) passedCount++;
+        failedProbes += failures;
+
+        const row = document.createElement('tr');
+        const badgeClass = failed ? 'badge-fail' : 'badge-pass';
+        const badgeText = failed ? 'FAILED' : 'PASSED';
+        const ratePercent = Math.round((failures / probes) * 100);
+        const confidence = failed ? 0.75 + Math.random()*0.15 : 0.05 + Math.random()*0.15;
+
+        row.innerHTML = `
+          <td>
+            <strong style="display:block; font-size:14px; font-family:var(--font-display);">${sigMeta.name}</strong>
+            <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">${sigId}</span>
+          </td>
+          <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+          <td><span style="font-family:var(--font-mono);">${(confidence * 100).toFixed(1)}%</span></td>
+          <td style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+            Fired in ${failures} of ${probes} context runs (${ratePercent}% failure rate).
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('metric-passes').textContent = `${passedCount}/${sigsToRun.length}`;
+      const totalFailRate = Math.round((failedProbes / totalProbes) * 100);
+      document.getElementById('metric-fail-rate').textContent = `${totalFailRate}%`;
+      document.getElementById('run-timestamp-desc').textContent = `Local simulation completed at ${new Date().toLocaleString()}`;
+      
+      resultsPanel.classList.add('visible');
+    }
 
     async function pollJob(jobId) {
       const interval = setInterval(async () => {
