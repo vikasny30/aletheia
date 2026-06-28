@@ -11,16 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
-    /* Design Tokens */
+    /* Design Tokens - Ultra Dark Theme */
     :root {
-      --bg-dark: #07070a;
-      --card-bg: rgba(18, 18, 28, 0.45);
-      --border-light: rgba(255, 255, 255, 0.08);
-      --border-focus: rgba(99, 102, 241, 0.4);
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --primary-gradient: linear-gradient(135deg, #6366f1, #3b82f6);
-      --primary-glow: rgba(99, 102, 241, 0.35);
+      --bg-dark: #000000;
+      --card-bg: #09090b;
+      --border-light: rgba(255, 255, 255, 0.06);
+      --border-focus: rgba(255, 255, 255, 0.2);
+      --text-main: #f4f4f5;
+      --text-muted: #71717a;
       --font-display: 'Outfit', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -38,41 +36,12 @@
       justify-content: center;
       padding: 24px;
       overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Decorative Ambient Glows */
-    .glow-blob-1 {
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 50vw;
-      height: 50vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
-      filter: blur(80px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .glow-blob-2 {
-      position: absolute;
-      bottom: -10%;
-      right: -10%;
-      width: 50vw;
-      height: 50vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
-      filter: blur(80px);
-      z-index: 0;
-      pointer-events: none;
     }
 
     .container {
       width: 100%;
       max-width: 500px;
-      z-index: 1;
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .header-logo {
@@ -86,15 +55,15 @@
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: var(--primary-gradient);
-      box-shadow: 0 4px 12px var(--primary-glow);
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
       font-weight: 800;
       font-size: 18px;
-      color: #fff;
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
 
     .logo-text {
@@ -102,37 +71,24 @@
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: #fff;
+      color: #ffffff;
     }
 
-    /* Glassmorphic Card Container */
+    /* Sleek Ultra-Dark Card Container */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-light);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 40px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 100px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
       position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     }
 
     h1 {
       font-family: var(--font-display);
       font-size: 28px;
       font-weight: 800;
-      color: #fff;
+      color: #ffffff;
       margin-bottom: 8px;
       letter-spacing: -0.8px;
       line-height: 1.2;
@@ -151,39 +107,34 @@
 
     label {
       display: block;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-muted);
       margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .input-wrapper {
-      position: relative;
+      letter-spacing: 1px;
     }
 
     input[type="email"] {
       width: 100%;
       padding: 14px 16px;
-      background: rgba(10, 10, 15, 0.65);
+      background: #000000;
       border: 1px solid var(--border-light);
-      border-radius: 10px;
-      color: #fff;
+      border-radius: 8px;
+      color: #ffffff;
       font-family: var(--font-body);
       font-size: 15px;
       outline: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
 
     input[type="email"]:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 4px var(--primary-glow);
-      background: rgba(10, 10, 15, 0.85);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 1px var(--border-focus);
     }
 
     input[type="email"]::placeholder {
-      color: #4b5563;
+      color: #3f3f46;
     }
 
     /* Custom Checkbox Design */
@@ -196,17 +147,17 @@
     }
 
     .custom-checkbox {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 1.5px solid var(--border-light);
-      border-radius: 6px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       margin-top: 2px;
-      transition: all 0.2s;
-      background: rgba(10, 10, 15, 0.5);
+      transition: all 0.15s;
+      background: #000000;
     }
 
     input[type="checkbox"] {
@@ -214,16 +165,15 @@
     }
 
     input[type="checkbox"]:checked + .custom-checkbox {
-      background: var(--primary-gradient);
-      border-color: transparent;
-      box-shadow: 0 2px 8px var(--primary-glow);
+      background: #ffffff;
+      border-color: #ffffff;
     }
 
     .custom-checkbox::after {
       content: '';
-      width: 5px;
-      height: 10px;
-      border: solid #fff;
+      width: 4px;
+      height: 8px;
+      border: solid #000000;
       border-width: 0 2px 2px 0;
       transform: rotate(45deg) translate(-1px, -1px);
       display: none;
@@ -241,47 +191,40 @@
     }
 
     .checkbox-label a {
-      color: #a5b4fc;
+      color: #a1a1aa;
       text-decoration: none;
-      border-bottom: 1px solid rgba(165, 180, 252, 0.3);
-      transition: border-color 0.2s, color 0.2s;
+      border-bottom: 1px solid rgba(161, 161, 170, 0.3);
+      transition: all 0.15s;
     }
 
     .checkbox-label a:hover {
-      color: #fff;
-      border-color: #fff;
+      color: #ffffff;
+      border-color: #ffffff;
     }
 
-    /* Premium Submission Button */
+    /* Premium Minimal White Button */
     button[type="submit"] {
       width: 100%;
       padding: 15px;
-      background: var(--primary-gradient);
-      color: #fff;
+      background: #ffffff;
+      color: #000000;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: var(--font-body);
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 15px var(--primary-glow);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
     }
 
     button[type="submit"]:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-    }
-
-    button[type="submit"]:active:not(:disabled) {
-      transform: translateY(0);
+      background: #e4e4e7;
     }
 
     button[type="submit"]:disabled {
-      background: #1e1e2d;
-      color: #4b5563;
+      background: #18181b;
+      color: #3f3f46;
       border: 1px solid var(--border-light);
       box-shadow: none;
       cursor: not-allowed;
@@ -292,10 +235,10 @@
       display: none;
       margin-top: 32px;
       padding: 24px;
-      background: rgba(10, 10, 15, 0.7);
+      background: #000000;
       border: 1px solid var(--border-light);
-      border-radius: 12px;
-      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      border-radius: 10px;
+      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .result.visible { display: block; }
@@ -308,7 +251,7 @@
     }
 
     .success-icon {
-      color: #10b981;
+      color: #ffffff;
       font-weight: 700;
     }
 
@@ -316,7 +259,7 @@
       font-family: var(--font-display);
       font-size: 16px;
       font-weight: 700;
-      color: #fff;
+      color: #ffffff;
     }
 
     .result-sub {
@@ -338,54 +281,49 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(0, 0, 0, 0.4);
+      background: #09090b;
       border: 1px solid var(--border-light);
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 12px 14px;
       margin-bottom: 24px;
-      transition: border-color 0.25s;
-    }
-
-    .key-box:hover {
-      border-color: rgba(255,255,255,0.15);
     }
 
     .key-value {
       flex: 1;
       font-family: var(--font-mono);
       font-size: 13px;
-      color: #10b981;
+      color: #ffffff;
       word-break: break-all;
       letter-spacing: -0.3px;
     }
 
     .copy-btn {
       padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
+      background: #18181b;
       border: 1px solid var(--border-light);
-      border-radius: 6px;
-      color: var(--text-main);
+      border-radius: 4px;
+      color: #ffffff;
       font-family: var(--font-body);
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
 
     .copy-btn:hover {
-      background: #fff;
-      color: #000;
+      background: #ffffff;
+      color: #000000;
       border-color: transparent;
     }
     
     .copy-btn.copied {
-      background: #10b981;
-      color: #fff;
+      background: #27272a;
+      color: #ffffff;
       border-color: transparent;
     }
 
-    /* Custom formatted curl block */
+    /* Terminal Code Block */
     .next-steps {
       font-size: 13px;
       color: var(--text-muted);
@@ -395,36 +333,34 @@
     .next-steps p {
       margin-bottom: 12px;
       font-weight: 500;
-      color: #fff;
+      color: #ffffff;
     }
 
     .code-terminal {
-      background: #09090f;
+      background: #050505;
       border: 1px solid var(--border-light);
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 16px;
       font-family: var(--font-mono);
       font-size: 12px;
-      color: #a5b4fc;
+      color: #e4e4e7;
       overflow-x: auto;
       margin-bottom: 16px;
       line-height: 1.5;
     }
 
-    .code-terminal span.comment { color: #4b5563; }
-    .code-terminal span.url { color: #3b82f6; }
-    .code-terminal span.string { color: #10b981; }
+    .code-terminal span.comment { color: #52525b; }
+    .code-terminal span.highlight { color: #ffffff; }
 
     .error-msg {
       display: none;
       margin-top: 18px;
       padding: 14px 16px;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 6px;
       font-size: 13px;
       color: #fca5a5;
-      animation: fadeIn 0.4s;
     }
 
     .error-msg.visible { display: block; }
@@ -437,7 +373,7 @@
 
     .footer {
       font-size: 12px;
-      color: #4b5563;
+      color: var(--text-muted);
       text-align: center;
       letter-spacing: 0.3px;
     }
@@ -446,24 +382,16 @@
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(12px);
       }
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
-  <!-- Decorative Glowing Background Blobs -->
-  <div class="glow-blob-1"></div>
-  <div class="glow-blob-2"></div>
 
   <div class="container">
     <div class="header-logo">
@@ -478,9 +406,7 @@
       <form id="signup-form">
         <div class="form-group">
           <label for="email">Work email</label>
-          <div class="input-wrapper">
-            <input type="email" id="email" name="email" placeholder="you@company.com" required>
-          </div>
+          <input type="email" id="email" name="email" placeholder="you@company.com" required>
         </div>
 
         <label class="checkbox-row" for="tos">
@@ -517,12 +443,12 @@
           <p>Run your first benchmark:</p>
           <div class="code-terminal">
             <span class="comment"># Submit a scoring assessment run</span><br>
-            curl -X POST <span class="url">https://aletheia.dev/v1/assessments</span> \<br>
-            &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer YOUR_KEY"</span> \<br>
-            &nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span> \<br>
-            &nbsp;&nbsp;-d '<span class="string">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
+            curl -X POST <span class="highlight">https://aletheia.dev/v1/assessments</span> \<br>
+            &nbsp;&nbsp;-H <span class="highlight">"Authorization: Bearer YOUR_KEY"</span> \<br>
+            &nbsp;&nbsp;-H <span class="highlight">"Content-Type: application/json"</span> \<br>
+            &nbsp;&nbsp;-d '<span class="highlight">{"model": {"provider": "openai", "model_id": "gpt-4o", "api_key": "sk-..."}, "signatures": "all"}</span>'
           </div>
-          Full documentation available at <a href="/docs" style="color:#a5b4fc;">aletheia.dev/docs</a>
+          Full documentation available at <a href="/docs" style="color:#ffffff;">aletheia.dev/docs</a>
         </div>
       </div>
 
