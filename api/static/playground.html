@@ -11,24 +11,24 @@
 
   <style>
     :root {
-      --bg-dark: #202124;
-      --card-bg: #2d2e30;
-      --border: #3c4043;
-      --border-strong: #5f6368;
+      --bg-dark: #121214;
+      --card-bg: #202124;
+      --border: #475569;
+      --border-strong: #64748b;
       
-      --text: #e8eaed;
-      --text-muted: #9aa0a6;
-      --text-dim: #5f6368;
+      --text: #ffffff;
+      --text-muted: #f1f5f9;
+      --text-dim: #cbd5e1;
       
-      --accent: #8ab4f8;
-      --accent-hover: #aecbfa;
+      --accent: #38bdf8;
+      --accent-hover: #7dd3fc;
       
-      --green: #81c995;
-      --green-bg: rgba(129, 201, 149, 0.05);
-      --red: #f28b82;
-      --red-bg: rgba(242, 139, 130, 0.05);
-      --amber: #fdd663;
-      --amber-bg: rgba(253, 214, 99, 0.05);
+      --green: #00ff88;
+      --green-bg: rgba(0, 255, 136, 0.08);
+      --red: #ff3366;
+      --red-bg: rgba(255, 51, 102, 0.08);
+      --amber: #ffcc00;
+      --amber-bg: rgba(255, 204, 0, 0.08);
       
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', sans-serif;
@@ -487,22 +487,25 @@
       animation: hex-pulse 1.5s infinite;
     }
     .hex-node.evaluating .hex-id { color: var(--accent); }
+    .hex-node.evaluating .hex-name { color: var(--accent); }
     .hex-node.evaluating .hex-status { color: var(--accent); }
     
     .hex-node.pass {
       border-color: var(--green);
-      background: rgba(16, 185, 129, 0.08);
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.1);
+      background: rgba(0, 255, 136, 0.08);
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.15);
     }
     .hex-node.pass .hex-id { color: var(--green); }
+    .hex-node.pass .hex-name { color: var(--green); }
     .hex-node.pass .hex-status { color: var(--green); }
 
     .hex-node.fail {
       border-color: var(--red);
-      background: rgba(244, 63, 94, 0.08);
-      box-shadow: 0 0 16px rgba(244, 63, 94, 0.1);
+      background: rgba(255, 51, 102, 0.08);
+      box-shadow: 0 0 16px rgba(255, 51, 102, 0.15);
     }
     .hex-node.fail .hex-id { color: var(--red); }
+    .hex-node.fail .hex-name { color: var(--red); }
     .hex-node.fail .hex-status { color: var(--red); }
 
     .hex-node.focused {
