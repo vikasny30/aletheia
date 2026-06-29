@@ -266,7 +266,11 @@ BASELINES = {
         "S5": 0.29,  "S6": 0.11,  "S7": 0.29, "S8": 0.60,
     },
     "llama3.2": {
-        # To be populated after baseline run: ollama pull llama3.2 + run benchmarks
+        "S1": 0.2, "S2a": 0.4, "S2b": 0.4, "S3": 0.0,
+        "S4": 0.0, "S5": 0.2,  "S6": 0.4,  "S7": 0.0, "S8": 0.2,
+    },
+    "grok-3-mini": {
+        # Populated after baseline run against xAI grok-3-mini
     },
 }
 

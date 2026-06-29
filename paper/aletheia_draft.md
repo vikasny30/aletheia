@@ -283,8 +283,9 @@ For each signature, we designed a benchmark that operationalizes the failure mod
 | Claude Sonnet | 4.6 | Anthropic | Frontier closed-source |
 | GPT-4o | 2024-11 | OpenAI | Frontier closed-source |
 | Gemini | 2.5 Flash | Google DeepMind | Frontier closed-source |
+| Llama | 3.2 (3B) | Meta (via Ollama) | Open-weight, preliminary (n=5) |
 
-**Model selection rationale.** These three models represent the dominant frontier closed-source systems available via API as of June 2026. Selection was based on: (1) API accessibility without usage restrictions that would prevent 100-run benchmarks, (2) coverage of distinct training and safety post-training lineages (Anthropic Constitutional AI, OpenAI RLHF, Google DeepMind RLAIF), and (3) widespread production deployment, ensuring results are decision-relevant for organizations currently deploying AI. Open-weight models (Llama, Mistral, Falcon) and domain-specific fine-tuned models were excluded from this study; generalization to those architectures is a stated limitation and a priority for future work.
+**Model selection rationale.** The three primary models (Claude Sonnet 4.6, GPT-4o, Gemini 2.5 Flash) represent the dominant frontier closed-source systems available via API as of June 2026. Selection was based on: (1) API accessibility without usage restrictions that would prevent 100-run benchmarks, (2) coverage of distinct training and safety post-training lineages (Anthropic Constitutional AI, OpenAI RLHF, Google DeepMind RLAIF), and (3) widespread production deployment, ensuring results are decision-relevant for organizations currently deploying AI. Llama 3.2 (3B) is included as a preliminary open-weight reference point, run locally via Ollama at n=5 probes per signature; its wide confidence intervals preclude formal statistical comparison and results are treated as directional only. Full open-weight coverage (n=100, Llama 3.x 70B, Mistral) is deferred to a follow-on study pending hardware capable of sub-120s inference per probe.
 
 **Experimental controls.** All API calls used temperature=0 to maximize reproducibility (deterministic greedy decoding where supported, minimum-temperature sampling otherwise). Each benchmark generates prompts from parameterized templates with fixed random seeds (seed=42 for all runs), producing 100 distinct prompt variants per signature per model. System prompts were held constant across models: a neutral task-framing prompt with no safety instructions that would give any model an artificial advantage. No prompts were sourced from public jailbreak repositories or red-team datasets to minimize contamination risk. Benchmark code and all 100 prompt variants per signature are included in the open-source release, enabling independent replication.
 
@@ -332,18 +333,18 @@ Applied to our S8 Gemini baseline (p = 0.55, n = 100): UCL = 69.9%, LCL = 40.1%.
 
 Each cell shows the percentage of runs where the behavioral signature was detected, followed by a 95% confidence interval (CI) in brackets (the range within which the true rate almost certainly falls given the sample size). Computed using the [Wilson score method](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval).
 
-| Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] |
-|-----|-----------|---------------------------------------|---------------------------|--------------------------------------|
-| S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] |
-| S2a | Social and Identity Manipulation | 6% [4–11] | 5% [2–11] | **42% [35–49]** |
-| S3 | Scope Creep Beyond Mandate | 10% [7–15] | 0% [0–4] | 0% [0–4] |
-| S4 | Context Blindness | 0% [0–3] | 0% [0–4] | 2% [1–6] |
-| S5 | No Safe State Fallback | 0% [0–3]‡ | 11% [6–19] | **29% [23–36]** |
-| S6 | Vulnerability Signal Blindness | 11% [6–18] | 0% [0–4] | n/a‡‡ |
-| S7 | Institutional Credibility Amplification | 10% [6–17] | 45% [36–55] | 28% [23–35] |
-| S8 | Feedback Loop Absence | 15% [11–21] | 35% [26–45] | **55% [47–63]** |
+| Sig | Signature | Claude Sonnet 4.6 detection% [95% CI] | GPT-4o detection% [95% CI] | Gemini 2.5 Flash detection% [95% CI] | Llama 3.2 (3B) detection% [95% CI]† |
+|-----|-----------|---------------------------------------|---------------------------|--------------------------------------|--------------------------------------|
+| S1 | Confidence Without Grounding | 2% [1–5] | 8% [4–14] | 16% [10–24] | 20% [4–62] |
+| S2a | Social and Identity Manipulation | 6% [4–11] | 5% [2–11] | **42% [35–49]** | **40% [12–77]** |
+| S3 | Scope Creep Beyond Mandate | 10% [7–15] | 0% [0–4] | 0% [0–4] | 0% [0–43] |
+| S4 | Context Blindness | 0% [0–3] | 0% [0–4] | 2% [1–6] | 0% [0–43] |
+| S5 | No Safe State Fallback | 0% [0–3]‡ | 11% [6–19] | **29% [23–36]** | 20% [4–62] |
+| S6 | Vulnerability Signal Blindness | 11% [6–18] | 0% [0–4] | n/a‡‡ | **40% [12–77]** |
+| S7 | Institutional Credibility Amplification | 10% [6–17] | 45% [36–55] | 28% [23–35] | 0% [0–43] |
+| S8 | Feedback Loop Absence | 15% [11–21] | 35% [26–45] | **55% [47–63]** | 20% [4–62] |
 
-*n ≥ 100 runs per cell except where noted.*
+*n ≥ 100 runs per cell for frontier models except where noted. † Llama 3.2: n=5 runs per signature; CIs are wide and results are directional only — not statistically comparable to n=100 frontier columns.*
 
 *‡ Claude S5: 10 of 100 runs excluded because Claude returned an API error instead of a response when given deliberately corrupted text (vowels stripped). The 0% detection rate is based on the remaining 90 runs across all other out-of-distribution categories.*
 
@@ -367,6 +368,8 @@ Each cell shows the percentage of runs where the behavioral signature was detect
 
 **Finding 8: S3 shows Claude as the outlier.** GPT-4o and Gemini 2.5 Flash both show 0% scope creep [0–4], while Claude Sonnet shows 10% [7–15]. All three models show near-zero context blindness on S4 (Claude: 0%, GPT-4o: 0%, Gemini: 2%). The S3 gap is specific to Claude and suggests it is more prone to expanding task boundaries without confirmation, consistent with published reports of Claude Code taking unauthorized file deletion actions (AIID #1441, #1469).
 
+**Finding 9 (preliminary): Llama 3.2 (3B) shows elevated S2a and S6 rates directionally consistent with Gemini.** At n=5 per signature, confidence intervals are too wide for formal comparison, but point estimates place Llama 3.2 at 40% on both S2a (Social/Identity Manipulation) and S6 (Vulnerability Signal Blindness) — directionally consistent with Gemini 2.5 Flash and substantially above the Claude/GPT-4o pattern. S3, S4, and S7 register 0% across all 5 probes, matching the GPT-4o/Gemini floor. These results motivate a full n=100 open-weight benchmark run as priority future work; the pattern is suggestive but cannot be stated with statistical confidence at n=5.
+
 ### 5.3 Inter-Model Safety Profile
 
 Rather than a single "safest" model, our results reveal complementary failure modes:
@@ -376,8 +379,11 @@ Rather than a single "safest" model, our results reveal complementary failure mo
 | Claude Sonnet 4.6 | S1 (2%), S4 (0%), S5 (0%) | S3 (10%), S6 (11%), S8 (15%) |
 | GPT-4o | S3 (0%), S4 (0%), S6 (0%) | S5 (11%), S7 (45%), S8 (35%) |
 | Gemini 2.5 Flash | S3 (0%), S4 (2%) | S1 (16%), S2a (42%), S5 (29%), S7 (28%), S8 (55%) |
+| Llama 3.2 (3B)† | S3 (0%), S4 (0%), S7 (0%) | S2a (40%), S6 (40%) |
 
 *Gemini S6 excluded from comparison: content safety filters terminate 91% of distress conversations before measurement is possible (see footnote ‡‡).*
+
+*† Llama 3.2 results are preliminary (n=5 per signature). Strongest/weakest areas are directional; do not treat point estimates as statistically comparable to the n=100 frontier columns.*
 
 Claude shows strong uncertainty-signaling behavior (S1, S5) but weaker vulnerability detection (S6) and institutional fact-checking on S7 (though still performing better than GPT-4o). GPT-4o handles vulnerable users well (S6) but is highly susceptible to institutional authority framing (S7). This profile asymmetry suggests that production AI deployments in high-stakes contexts should evaluate models on the specific signatures most relevant to their deployment environment rather than relying on aggregate safety scores.
 
