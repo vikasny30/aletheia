@@ -114,9 +114,19 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 80px 24px 72px;
-      text-align: center;
       border-bottom: 1px solid var(--border);
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 96px 24px 80px;
+    }
+    .hero-content {
+      text-align: left;
     }
     .hero-badge {
       display: inline-flex;
@@ -129,35 +139,30 @@
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.3px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .hero h1 {
       font-family: var(--display);
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 800;
-      line-height: 1.1;
+      line-height: 1.12;
       letter-spacing: -1.5px;
       color: var(--text);
       margin-bottom: 20px;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
     }
     .hero h1 span { color: inherit; }
     .hero-sub {
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.65;
       color: var(--text-2);
-      max-width: 580px;
-      margin: 0 auto 36px;
+      margin: 0 0 32px;
     }
     .hero-ctas {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
@@ -182,12 +187,86 @@
     }
     .btn-secondary:hover { border-color: var(--text); }
     .hero-trust {
-      display: flex; align-items: center; justify-content: center;
-      gap: 20px; flex-wrap: wrap;
+      display: flex; align-items: center;
+      gap: 16px; flex-wrap: wrap;
       font-size: 13px; color: var(--text-3); font-weight: 500;
     }
     .hero-trust span { display: flex; align-items: center; gap: 6px; }
     .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-strong); }
+
+    /* ── TELEMETRY MOCKUP WINDOW ── */
+    .mockup-window {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: left;
+    }
+    .mockup-titlebar {
+      background: #0f172a;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+    }
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .mockup-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .mockup-status {
+      font-size: 10px;
+      font-weight: 700;
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--sans);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .mockup-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.8s infinite;
+    }
+    .mockup-body {
+      padding: 20px;
+      line-height: 1.6;
+      background: #090d16;
+    }
+    .mockup-line {
+      margin-bottom: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mockup-line.ingest { color: #64748b; }
+    .mockup-line.eval-pass { color: #34d399; }
+    .mockup-line.eval-fail { color: #f87171; }
+    .mockup-alert {
+      margin-top: 14px;
+      padding: 10px 12px;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      border-radius: 6px;
+      color: #f87171;
+      font-weight: 600;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
 
     /* ── WHAT IT IS (product type clarification) ── */
     .what-strip {
@@ -806,45 +885,78 @@
 </nav>
 
 <!-- ── HERO ── -->
-<section>
-  <div class="hero inner">
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px;">
-      <div style="width:44px;height:44px;border-radius:11px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:22px;">A</div>
-      <div style="font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-0.5px;">Aletheia</div>
-    </div>
-    <div class="hero-badge">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Behavioral Observability for LLM Applications
+<section class="hero">
+  <div class="hero-layout">
+    
+    <!-- Left Column: Content -->
+    <div class="hero-content">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:20px;">A</div>
+        <div style="font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-0.5px;">Aletheia</div>
+      </div>
+      
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Behavioral Observability for LLM Applications
+      </div>
+
+      <h1>Know your model's failure rate before your users do.</h1>
+
+      <p class="hero-sub">
+        Aletheia is an open-source evaluation framework that identifies, measures, and monitors repeatable failure patterns across frontier LLMs &mdash; shifting AI safety from abstract alignment to real-time deployment observability.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/playground" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Run Playground · Free
+        </a>
+        <a href="#get-started" class="btn-secondary">
+          Get API key
+        </a>
+      </div>
+
+      <div class="hero-trust">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Source available · BSL 1.1
+        </span>
+        <div class="trust-dot"></div>
+        <button class="trust-link" onclick="openDatabasesModal()">2,571 incidents validated</button>
+        <div class="trust-dot"></div>
+        <span>9 signatures</span>
+        <div class="trust-dot"></div>
+        <span>REST API · BYOK</span>
+      </div>
     </div>
 
-    <h1>Know your model's failure rate before your users do.</h1>
-
-    <p class="hero-sub">
-      Aletheia is an open-source evaluation framework that identifies, measures, and monitors repeatable failure patterns across frontier LLMs &mdash; shifting AI safety from abstract alignment to real-time deployment observability.
-    </p>
-
-    <div class="hero-ctas">
-      <a href="/playground" class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Run Playground · No signup required
-      </a>
-      <a href="https://github.com/vikasny30/aletheia/blob/main/paper/aletheia_draft.md" target="_blank" rel="noopener" class="btn-secondary">
-        Read the Research &rarr;
-      </a>
+    <!-- Right Column: Telemetry Window Mockup -->
+    <div class="mockup-window">
+      <div class="mockup-titlebar">
+        <div class="mockup-dots">
+          <div class="mockup-dot" style="background:#ff5f56;"></div>
+          <div class="mockup-dot" style="background:#ffbd2e;"></div>
+          <div class="mockup-dot" style="background:#27c93f;"></div>
+        </div>
+        <div class="mockup-status">
+          <div class="mockup-pulse"></div>
+          Live telemetry stream
+        </div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-line ingest">[10:14:22] INGEST: session_8f3d · 3 turns</div>
+        <div class="mockup-line eval-pass">[10:14:23] EVAL: S2a (Authority Bias) &rarr; PASS (conf 0.05)</div>
+        <div class="mockup-line eval-pass">[10:14:23] EVAL: S3 (Scope Creep) &rarr; PASS (conf 0.08)</div>
+        <div class="mockup-line ingest">[10:14:24] INGEST: session_9a12 · 1 turn</div>
+        <div class="mockup-line eval-fail">[10:14:25] EVAL: S1 (Fact Fabrication) &rarr; FAIL (conf 0.91)</div>
+        <div class="mockup-line ingest">[10:14:25] TELEMETRY: Streaming metrics...</div>
+        
+        <div class="mockup-alert">
+          ▲ DRIFT ALERT: S1 failure rate (12.4%) crossed 3σ control limit (UCL: 8.2%). Routing alert.
+        </div>
+      </div>
     </div>
 
-    <div class="hero-trust">
-      <span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        Source available · BSL 1.1
-      </span>
-      <div class="trust-dot"></div>
-      <button class="trust-link" onclick="openDatabasesModal()">2,571 incidents validated</button>
-      <div class="trust-dot"></div>
-      <span>9 behavioral signatures</span>
-      <div class="trust-dot"></div>
-      <span>REST API · BYOK</span>
-    </div>
   </div>
 </section>
 
