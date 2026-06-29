@@ -1,3 +1,14 @@
+---
+title: Aletheia
+emoji: 🛡️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+license: bsl-1.0
+---
+
 # Aletheia: Behavioral Observability for Production AI
 
 > Know your model's failure rate before your users do.
