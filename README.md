@@ -1,33 +1,36 @@
-# Aletheia: A Behavioral Signature Framework for Systematic AI Failure Detection
+# Aletheia: Behavioral Observability for Production AI
 
-> Shifting AI safety from an alignment problem to a deployment observability problem.
+> Know your model's failure rate before your users do.
 
 **Vikas Shivpuriya** — Independent Research — vikas.ny30@gmail.com
+
+> **License:** Source available under [BSL 1.1](LICENSE). Free for non-commercial and development use. Commercial hosting requires a license — contact vikas.ny30@gmail.com.
 
 ---
 
 ## What This Is
 
-Aletheia is an open-source framework that identifies, measures, and monitors **8 universal behavioral signatures** — repeatable failure patterns that appear across different AI models, domains, and deployment contexts.
+Aletheia identifies, measures, and monitors **9 behavioral signatures** — repeatable failure patterns validated against real-world AI incidents and deployable as a REST API against any LLM endpoint.
 
 Rather than asking "is this model safe?" (a question that cannot be answered in the abstract), Aletheia asks: which failure patterns does this model exhibit, at what rates, and does that rate change over time?
 
-The benchmarks are validated against **995 real-world incidents** from the AI Incident Database (AIID) and produce empirical detection rates with 95% confidence intervals across three frontier models: Claude Sonnet 4.6, GPT-4o, and Gemini 2.5 Flash.
+The signatures are validated against **2,571 real-world incidents** from the AI Incident Database (AIID), AVID, and the MIT AI Risk Repository — producing empirical failure rates with 95% Wilson confidence intervals across frontier models.
 
 ---
 
-## The 8 Signatures
+## The 9 Signatures
 
 | ID | Signature | Description |
 |----|-----------|-------------|
-| S1 | Confidence Without Grounding | Produces specific-sounding facts, citations, or statistics without hedging when the information is fabricated or unverifiable |
-| S2 | Credibility Surface Exploitation | Modifies behavior based on claimed authority or identity it cannot verify |
-| S3 | Scope Creep Beyond Mandate | Takes actions outside the stated task boundary without requesting confirmation |
-| S4 | Context Blindness | Responds to literal surface content while missing pragmatic intent, sarcasm, or emotional subtext |
-| S5 | No Safe State Fallback | Proceeds confidently on out-of-domain or impossible queries rather than expressing uncertainty |
-| S6 | Vulnerability Signal Blindness | Fails to detect escalating user distress signals and modify response accordingly |
-| S7 | Institutional Credibility Amplification | Reproduces false information when it is framed as coming from an authoritative source |
-| S8 | Feedback Loop Absence | Monotonically amplifies content properties (sensationalism, certainty, alarm) across iterations without self-correction |
+| S1 | Fact Fabrication | Asserts fabricated citations or statistics without hedging |
+| S2a | Authority Bias | Alters safety-relevant behavior when a user claims expert credentials |
+| S2b | Prompt Injection | Responds to injected instructions embedded in user content |
+| S3 | Scope Creep | Performs tasks beyond the declared operation boundary |
+| S4 | Context Literalness | Interprets figurative speech as literal intent |
+| S5 | Cascading Errors | Compounds early mistakes in multi-step reasoning without self-correction |
+| S6 | Crisis Blindness | Fails to route distress signals to crisis resources |
+| S7 | Authority Amplification | Uncritically amplifies institutional statistics without epistemic qualification |
+| S8 | Emotional Drift | Progressively amplifies emotional certainty across conversation turns |
 
 ---
 
@@ -105,7 +108,7 @@ Run a single benchmark:
 python benchmarks/s1_confidence/benchmark.py --runs 100 --models claude gpt4o gemini
 ```
 
-Run all 8 benchmarks for one model:
+Run all 9 benchmarks for one model:
 
 ```bash
 for sig in s1_confidence s2_credibility s3_scope s4_context s5_fallback s6_vulnerability s7_institutional s8_feedback; do
@@ -143,12 +146,11 @@ Example: S8 Gemini baseline is 55% with control limits [40.1%, 69.9%]. A future 
 
 ## Dataset
 
-- **AIID Full Export:** 627 incidents (2013-2024), keyword-classified against all 8 signatures
-- **AIID HuggingFace Mirror:** 178 incidents, pre-2021 coverage
-- **Curated Supplemental:** 190 hand-curated incidents for signatures with low AIID prevalence
-- **Total:** 995 incidents across all sources
-
-Per-signature incident counts: S1=130, S2=309, S3=48, S4=36, S5=61, S6=68, S7=143, S8=59
+- **AI Incident Database (AIID):** incidentdatabase.ai — real-world AI harms and near-misses
+- **AVID:** avidml.org — developer-centric vulnerability catalog aligned with MITRE ATLAS
+- **MIT AI Risk Repository:** airisk.mit.edu — 700+ risk categories from MIT FutureTech
+- **NIST AI RMF alignment:** scoring output maps to Govern, Map, Measure, Manage functions
+- **Total:** 2,571 validated incidents across all sources
 
 ---
 
@@ -174,4 +176,10 @@ AI Failure Detection. Independent Research. https://github.com/vikasny30/alethei
 
 ## License
 
-MIT — open for use, extension, and contribution.
+Source available under [Business Source License 1.1](LICENSE).
+
+- **Free for:** non-commercial use, development, testing, internal evaluation
+- **Requires a commercial license for:** offering a hosted or managed AI observability/evaluation service to third parties
+- **Converts to:** Apache 2.0 on 2030-06-28
+
+The probe corpus is proprietary and not included in this repository. Contact vikas.ny30@gmail.com for commercial licensing.
