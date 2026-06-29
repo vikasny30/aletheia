@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aletheia — Interactive Playground</title>
-  
-  <!-- Premium Fonts -->
+  <title>Aletheia: Interactive Playground</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -36,7 +35,7 @@
       --terminal-text: #e2e8f0;
       --terminal-border: #1f2937;
 
-      --font-display: 'Syne', sans-serif;
+      --font-display: 'Outfit', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -619,37 +618,45 @@
           
           <!-- Step 1 -->
           <div class="visual-step" id="vstep-1" onclick="selectVisualStep(1)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-focus); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; box-shadow: 0 0 0 1px var(--border-focus);">
-            <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+            <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f1f5f9;border-radius:10px;margin:0 auto 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
             <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">1. Adversarial Probes</strong>
             <span style="font-size: 11px; color: var(--text-muted);">90+ test prompts</span>
           </div>
-          
-          <!-- Arrow -->
-          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
-          
-          <!-- Step 2 -->
+
+          <div style="color: var(--border-light); user-select: none; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+
           <div class="visual-step" id="vstep-2" onclick="selectVisualStep(2)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
-            <div style="font-size: 24px; margin-bottom: 8px;">🤖</div>
+            <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f1f5f9;border-radius:10px;margin:0 auto 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+            </div>
             <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">2. Target Model</strong>
             <span style="font-size: 11px; color: var(--text-muted);">The AI under test</span>
           </div>
-          
-          <!-- Arrow -->
-          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
-          
-          <!-- Step 3 -->
+
+          <div style="color: var(--border-light); user-select: none; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+
           <div class="visual-step" id="vstep-3" onclick="selectVisualStep(3)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
-            <div style="font-size: 24px; margin-bottom: 8px;">🔬</div>
+            <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f1f5f9;border-radius:10px;margin:0 auto 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
             <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">3. Safety Scorer</strong>
             <span style="font-size: 11px; color: var(--text-muted);">9 telemetry engines</span>
           </div>
-          
-          <!-- Arrow -->
-          <div style="font-size: 20px; color: var(--border-light); font-weight: bold; user-select: none;">➔</div>
-          
-          <!-- Step 4 -->
+
+          <div style="color: var(--border-light); user-select: none; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+
           <div class="visual-step" id="vstep-4" onclick="selectVisualStep(4)" style="flex: 1; min-width: 140px; padding: 16px; background: var(--card-bg); border: 1.5px solid var(--border-light); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative;">
-            <div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+            <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f1f5f9;border-radius:10px;margin:0 auto 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+            </div>
             <strong style="display: block; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">4. Audit Analytics</strong>
             <span style="font-size: 11px; color: var(--text-muted);">Scorecard & BQ logs</span>
           </div>
@@ -659,7 +666,7 @@
         <!-- Explanation Card -->
         <div id="visual-desc-card" style="padding: 24px; background: var(--bg-dark); border: 1px solid var(--border-light); border-radius: 12px; min-height: 140px; transition: all 0.3s; line-height: 1.6;">
           <h3 id="visual-desc-title" style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-            <span>🎯</span> Stage 1: Adversarial Probes
+            Stage 1: Adversarial Probes
           </h3>
           <p id="visual-desc-text" style="font-size: 13.5px; color: var(--text-muted);">
             Aletheia maintains a pre-configured library of adversarial safety probes. When an audit is triggered, Aletheia pulls standardized prompts (covering hallucinations, identity manipulations, jailbreaks, distress blindness, and scope creep) to verify compliance.
@@ -825,22 +832,18 @@
 
     const visualStepsData = {
       1: {
-        icon: '🎯',
         title: 'Stage 1: Adversarial Probes',
         text: "Aletheia maintains a pre-configured library of adversarial safety probes. When an audit is triggered, Aletheia pulls standardized prompts (covering hallucinations, identity manipulations, jailbreaks, distress blindness, and scope creep) to verify compliance."
       },
       2: {
-        icon: '🤖',
         title: 'Stage 2: Target Model',
         text: "The selected target model (e.g. OpenAI GPT-4, Claude 3.5 Sonnet, or your custom-engineered endpoint) receives the adversarial prompts and generates output responses. Aletheia measures model latency and token overhead throughout the invocation."
       },
       3: {
-        icon: '🔬',
         title: 'Stage 3: Safety Scorer',
         text: "Aletheia's real-time telemetry scorer runs a series of 9 behavioral assessments on the model outputs. It evaluates metrics such as factual hallucination, social authority bias, jailbreak resistance, context literalness, and crisis recognition."
       },
       4: {
-        icon: '📊',
         title: 'Stage 4: Audit Analytics',
         text: "Scores are immediately compiled into a comprehensive results scorecard and exported to BigQuery for long-term telemetry analysis. This lets engineering teams monitor safety profiles over time and block vulnerable versions in CI/CD pipelines."
       }
@@ -863,7 +866,7 @@
 
       const stepData = visualStepsData[stepNum];
       if (stepData) {
-        document.getElementById('visual-desc-title').innerHTML = `<span>${stepData.icon}</span> ${stepData.title}`;
+        document.getElementById('visual-desc-title').textContent = stepData.title;
         document.getElementById('visual-desc-text').textContent = stepData.text;
       }
     }
