@@ -11,24 +11,24 @@
 
   <style>
     :root {
-      --bg-dark: #070a13;
-      --card-bg: #0d1220;
-      --border: #1e293b;
-      --border-strong: #334155;
+      --bg-dark: #202124;
+      --card-bg: #2d2e30;
+      --border: #3c4043;
+      --border-strong: #5f6368;
       
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
+      --text: #e8eaed;
+      --text-muted: #9aa0a6;
+      --text-dim: #5f6368;
       
-      --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
+      --accent: #8ab4f8;
+      --accent-hover: #aecbfa;
       
-      --green: #10b981;
-      --green-bg: rgba(16, 185, 129, 0.05);
-      --red: #f43f5e;
-      --red-bg: rgba(244, 63, 94, 0.05);
-      --amber: #f59e0b;
-      --amber-bg: rgba(245, 158, 11, 0.05);
+      --green: #81c995;
+      --green-bg: rgba(129, 201, 149, 0.05);
+      --red: #f28b82;
+      --red-bg: rgba(242, 139, 130, 0.05);
+      --amber: #fdd663;
+      --amber-bg: rgba(253, 214, 99, 0.05);
       
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', sans-serif;
@@ -55,7 +55,7 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
-      background: #090d16;
+      background: var(--bg-dark);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -109,7 +109,7 @@
     .key-indicator {
       font-size: 11px;
       padding: 5px 12px;
-      background: #0b0f19;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 20px;
       font-family: var(--mono);
@@ -143,7 +143,7 @@
 
     /* ── SIDEBAR (CONFIG PANEL) ── */
     .sidebar {
-      background: #090d16;
+      background: var(--bg-dark);
       border-right: 1px solid var(--border);
       padding: 24px;
       overflow-y: auto;
@@ -174,7 +174,7 @@
     .radio-toggle-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: #0b0f19;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 2px;
@@ -199,7 +199,7 @@
       color: var(--text);
     }
     .form-input {
-      background: #0b0f19;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 10px 12px;
@@ -251,7 +251,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #0b0f19;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 8px 12px;
@@ -419,7 +419,7 @@
       position: absolute;
       width: 100px;
       height: 115px;
-      background: #090d16;
+      background: var(--card-bg);
       border: 1.5px solid var(--border-strong);
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
       cursor: pointer;
@@ -529,7 +529,7 @@
     }
     .terminal-log {
       flex: 1;
-      background: #070a13;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 16px;
@@ -597,7 +597,7 @@
       gap: 12px;
     }
     .inspect-box {
-      background: #070a13;
+      background: var(--bg-dark);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 14px;
@@ -791,7 +791,7 @@
           <div id="byok_form_fields" style="display: none;">
             <div class="form-group">
               <label for="provider">Model Provider</label>
-              <select class="form-input" id="provider" style="background:#0b0f19;">
+              <select class="form-input" id="provider" style="background:var(--bg-dark);">
                 <option value="openai">OpenAI (GPT)</option>
                 <option value="anthropic">Anthropic (Claude)</option>
                 <option value="google">Google (Gemini)</option>
@@ -1266,7 +1266,7 @@
           item.style.marginBottom = '16px';
           item.innerHTML = `
             <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">Prompt ${idx + 1}</label>
-            <textarea class="modal-prompt-input" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 80px; background: #070a13; color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-family: var(--sans); font-size: 13px; resize: vertical; line-height: 1.5; outline: none;">${escapeHtml(p)}</textarea>
+            <textarea class="modal-prompt-input" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 80px; background: var(--bg-dark); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-family: var(--sans); font-size: 13px; resize: vertical; line-height: 1.5; outline: none;">${escapeHtml(p)}</textarea>
           `;
           container.appendChild(item);
         }
