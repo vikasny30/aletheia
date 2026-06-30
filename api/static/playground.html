@@ -431,8 +431,28 @@
     }
     .hex-node:hover {
       transform: scale(1.05);
-      border-color: var(--text-muted);
+      border-color: var(--accent) !important;
       z-index: 10;
+    }
+    .hex-node::after {
+      content: '🔍 INSPECT';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(18, 18, 20, 0.92);
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    .hex-node:hover::after {
+      opacity: 1;
     }
     .hex-content {
       display: flex;
@@ -862,13 +882,14 @@
         
         <!-- Honeycomb Hexagonal Matrix -->
         <div class="monitor-card" style="height: 380px;">
-          <div class="card-header">
+          <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
             <h4>Behavioral Signature Matrix</h4>
             <div class="monitor-status-light">
               <span class="pulse-dot" id="pulse-dot"></span>
               <span id="pulse-status-text">Scanner Idle</span>
             </div>
           </div>
+          <p style="font-size: 11px; color: var(--text-dim); text-align: center; margin-top: 8px; margin-bottom: -16px; font-family: var(--sans);">💡 Click any active or resolved cell below to inspect its telemetry.</p>
           <div class="honeycomb-container">
             <div class="honeycomb-grid">
               
