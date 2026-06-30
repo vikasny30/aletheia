@@ -196,72 +196,60 @@
 
     /* ── TELEMETRY MOCKUP WINDOW ── */
     .mockup-window {
-      background: #090d16;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+      background: #0a0a0a;
+      border: 1px solid #1f1f1f;
+      border-radius: 10px;
       overflow: hidden;
       font-family: var(--mono);
       font-size: 13px;
-      color: #94a3b8;
+      color: #a3a3a3;
       text-align: left;
     }
     .mockup-titlebar {
-      background: #0f172a;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-    }
-    .mockup-dots {
-      display: flex;
-      gap: 6px;
-    }
-    .mockup-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-    .mockup-status {
-      font-size: 10px;
-      font-weight: 700;
-      color: #10b981;
+      background: #111;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-family: var(--sans);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      border-bottom: 1px solid #1f1f1f;
     }
-    .mockup-pulse {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-      animation: pulse 1.8s infinite;
+    .mockup-title-text {
+      font-size: 12px;
+      color: #525252;
+      font-family: var(--mono);
     }
     .mockup-body {
-      padding: 20px;
-      line-height: 1.6;
-      background: #090d16;
+      padding: 20px 20px 16px;
+      line-height: 1.7;
     }
     .mockup-line {
-      margin-bottom: 8px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 2px;
     }
-    .mockup-line.ingest { color: #64748b; }
-    .mockup-line.eval-pass { color: #34d399; }
-    .mockup-line.eval-fail { color: #f87171; }
-    .mockup-alert {
-      margin-top: 14px;
-      padding: 10px 12px;
-      background: rgba(248, 113, 113, 0.1);
-      border: 1px solid rgba(248, 113, 113, 0.2);
-      border-radius: 6px;
+    .mockup-prompt { color: #525252; flex-shrink: 0; }
+    .mockup-cmd   { color: #e5e5e5; }
+    .mockup-dim   { color: #404040; }
+    .mockup-divider { color: #2a2a2a; margin: 8px 0; letter-spacing: 1px; }
+    .mockup-sig   { display: flex; gap: 0; }
+    .mockup-sig-id   { color: #737373; width: 36px; flex-shrink: 0; }
+    .mockup-sig-name { color: #737373; flex: 1; }
+    .mockup-sig-rate { color: #e5e5e5; width: 48px; text-align: right; flex-shrink: 0; margin-right: 8px; }
+    .mockup-pass { color: #4ade80; flex-shrink: 0; }
+    .mockup-fail { color: #f87171; flex-shrink: 0; }
+    .mockup-warn { color: #fbbf24; flex-shrink: 0; }
+    .mockup-alert-line {
+      margin-top: 10px;
       color: #f87171;
-      font-weight: 600;
+      font-size: 12px;
     }
+    .mockup-cursor {
+      display: inline-block;
+      width: 7px; height: 13px;
+      background: #e5e5e5;
+      vertical-align: middle;
+      animation: blink 1.2s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     @keyframes pulse {
       0% { opacity: 0.4; }
       50% { opacity: 1; }
@@ -1051,30 +1039,52 @@
     <!-- Right Column: Telemetry Window Mockup -->
     <div class="mockup-window">
       <div class="mockup-titlebar">
-        <div class="mockup-dots">
-          <div class="mockup-dot" style="background:#ff5f56;"></div>
-          <div class="mockup-dot" style="background:#ffbd2e;"></div>
-          <div class="mockup-dot" style="background:#27c93f;"></div>
-        </div>
-        <div class="mockup-status">
-          <div class="mockup-pulse"></div>
-          Live telemetry stream
-        </div>
+        <span class="mockup-title-text">aletheia — behavioral audit</span>
       </div>
       <div class="mockup-body">
-        <div class="mockup-line ingest">[10:14:22] INGEST: session_8f3d · 3 turns</div>
-        <div class="mockup-line eval-pass">[10:14:23] EVAL: S2a (Authority Bias) &rarr; PASS (conf 0.05)</div>
-        <div class="mockup-line eval-pass">[10:14:23] EVAL: S3 (Scope Creep) &rarr; PASS (conf 0.08)</div>
-        <div class="mockup-line eval-pass">[10:14:23] EVAL: S6 (Crisis Blindness) &rarr; PASS (conf 0.11)</div>
-        <div class="mockup-line ingest">[10:14:24] INGEST: session_9a12 · 1 turn</div>
-        <div class="mockup-line eval-fail">[10:14:25] EVAL: S1 (Fact Fabrication) &rarr; FAIL (conf 0.91)</div>
-        <div class="mockup-line eval-pass">[10:14:25] EVAL: S7 (Premise Validation) &rarr; PASS (conf 0.04)</div>
-        <div class="mockup-line ingest">[10:14:26] INGEST: session_b3e1 · 2 turns</div>
-        <div class="mockup-line eval-fail">[10:14:27] EVAL: S8 (Feedback Loop) &rarr; FAIL (conf 0.87)</div>
-        <div class="mockup-line ingest">[10:14:27] TELEMETRY: Streaming metrics...</div>
-        
-        <div class="mockup-alert">
-          ▲ DRIFT ALERT: S1 failure rate (12.4%) crossed 3σ control limit (UCL: 8.2%). Routing alert.
+        <div class="mockup-line">
+          <span class="mockup-prompt">$</span>
+          <span class="mockup-cmd">aletheia run --model gpt-4o --probes 20</span>
+        </div>
+        <div class="mockup-line mockup-dim" style="margin-bottom:10px;">
+          <span>&nbsp;&nbsp;auditing 9 signatures · 20 probes each</span>
+        </div>
+        <div class="mockup-divider">&nbsp;&nbsp;────────────────────────────────────</div>
+        <div class="mockup-sig">
+          <span class="mockup-sig-id">&nbsp;&nbsp;S1</span>
+          <span class="mockup-sig-name">Fact Fabrication &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="mockup-sig-rate">0.0%</span>
+          <span class="mockup-pass">✓</span>
+        </div>
+        <div class="mockup-sig">
+          <span class="mockup-sig-id">&nbsp;&nbsp;S2a</span>
+          <span class="mockup-sig-name">Authority Bias &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="mockup-sig-rate">5.0%</span>
+          <span class="mockup-pass">✓</span>
+        </div>
+        <div class="mockup-sig">
+          <span class="mockup-sig-id">&nbsp;&nbsp;S5</span>
+          <span class="mockup-sig-name">Expert Deferral &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="mockup-sig-rate">11.0%</span>
+          <span class="mockup-warn">·</span>
+        </div>
+        <div class="mockup-sig">
+          <span class="mockup-sig-id">&nbsp;&nbsp;S7</span>
+          <span class="mockup-sig-name">Premise Blindness &nbsp;&nbsp;&nbsp;</span>
+          <span class="mockup-sig-rate" style="color:#f87171;">45.0%</span>
+          <span class="mockup-fail">✗</span>
+        </div>
+        <div class="mockup-sig">
+          <span class="mockup-sig-id">&nbsp;&nbsp;S8</span>
+          <span class="mockup-sig-name">Sycophancy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="mockup-sig-rate" style="color:#f87171;">35.0%</span>
+          <span class="mockup-fail">✗</span>
+        </div>
+        <div class="mockup-divider">&nbsp;&nbsp;────────────────────────────────────</div>
+        <div class="mockup-alert-line">&nbsp;&nbsp;⚠  2 signatures above threshold</div>
+        <div class="mockup-line" style="margin-top:10px;">
+          <span class="mockup-prompt">$</span>
+          <span class="mockup-cursor"></span>
         </div>
       </div>
     </div>
