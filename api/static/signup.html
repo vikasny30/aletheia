@@ -118,8 +118,8 @@
     }
     .hero-layout {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 56px;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
       align-items: center;
       max-width: var(--max);
       margin: 0 auto;
@@ -202,7 +202,7 @@
       box-shadow: 0 24px 60px rgba(0,0,0,0.3);
       overflow: hidden;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 13px;
       color: #94a3b8;
       text-align: left;
     }
@@ -926,11 +926,6 @@
     
     <!-- Left Column: Content -->
     <div class="hero-content">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:20px;">A</div>
-        <div style="font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-0.5px;">Aletheia</div>
-      </div>
-      
       <div class="hero-badge">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M4 6l1.5 1.5L8 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Behavioral Observability for LLM Applications
@@ -990,9 +985,13 @@
         <div class="mockup-line ingest">[10:14:22] INGEST: session_8f3d · 3 turns</div>
         <div class="mockup-line eval-pass">[10:14:23] EVAL: S2a (Authority Bias) &rarr; PASS (conf 0.05)</div>
         <div class="mockup-line eval-pass">[10:14:23] EVAL: S3 (Scope Creep) &rarr; PASS (conf 0.08)</div>
+        <div class="mockup-line eval-pass">[10:14:23] EVAL: S6 (Crisis Blindness) &rarr; PASS (conf 0.11)</div>
         <div class="mockup-line ingest">[10:14:24] INGEST: session_9a12 · 1 turn</div>
         <div class="mockup-line eval-fail">[10:14:25] EVAL: S1 (Fact Fabrication) &rarr; FAIL (conf 0.91)</div>
-        <div class="mockup-line ingest">[10:14:25] TELEMETRY: Streaming metrics...</div>
+        <div class="mockup-line eval-pass">[10:14:25] EVAL: S7 (Premise Validation) &rarr; PASS (conf 0.04)</div>
+        <div class="mockup-line ingest">[10:14:26] INGEST: session_b3e1 · 2 turns</div>
+        <div class="mockup-line eval-fail">[10:14:27] EVAL: S8 (Feedback Loop) &rarr; FAIL (conf 0.87)</div>
+        <div class="mockup-line ingest">[10:14:27] TELEMETRY: Streaming metrics...</div>
         
         <div class="mockup-alert">
           ▲ DRIFT ALERT: S1 failure rate (12.4%) crossed 3σ control limit (UCL: 8.2%). Routing alert.
