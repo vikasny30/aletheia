@@ -98,15 +98,15 @@
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta {
-      padding: 8px 18px;
-      background: var(--accent);
-      color: #fff !important;
-      border-radius: 6px;
-      font-weight: 600 !important;
+      padding: 7px 18px;
+      background: var(--text);
+      color: var(--bg) !important;
+      border-radius: 20px;
+      font-weight: 500 !important;
       font-size: 13px !important;
-      transition: background 0.15s !important;
+      transition: opacity 0.15s !important;
     }
-    .nav-cta:hover { background: var(--accent-hover) !important; }
+    .nav-cta:hover { opacity: 0.8 !important; background: var(--text) !important; }
 
     /* ── SECTIONS ── */
     section { width: 100%; }
@@ -166,24 +166,24 @@
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px;
-      background: var(--accent);
-      color: #fff;
-      border: none; border-radius: 8px;
-      font-size: 15px; font-weight: 600; font-family: var(--sans);
+      padding: 13px 28px;
+      background: var(--text);
+      color: var(--bg);
+      border: none; border-radius: 24px;
+      font-size: 15px; font-weight: 500; font-family: var(--sans);
       cursor: pointer; text-decoration: none;
-      transition: background 0.15s;
+      transition: opacity 0.15s;
     }
-    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:hover { opacity: 0.8; }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 24px;
+      padding: 12px 24px;
       background: transparent;
       color: var(--text);
-      border: 1.5px solid var(--border-strong); border-radius: 8px;
-      font-size: 15px; font-weight: 600; font-family: var(--sans);
+      border: 1px solid var(--border-strong); border-radius: 24px;
+      font-size: 15px; font-weight: 500; font-family: var(--sans);
       cursor: pointer; text-decoration: none;
-      transition: all 0.15s;
+      transition: border-color 0.15s;
     }
     .btn-secondary:hover { border-color: var(--text); }
     .hero-trust {
@@ -832,14 +832,14 @@
     .tos-text { font-size: 13px; color: var(--text-2); line-height: 1.6; }
     .tos-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
     .submit-btn {
-      width: 100%; padding: 14px;
-      background: var(--accent); color: #fff;
-      border: none; border-radius: 8px;
-      font-size: 15px; font-weight: 600; font-family: var(--sans);
-      cursor: pointer; transition: background 0.15s;
+      width: 100%; padding: 13px;
+      background: var(--text); color: var(--bg);
+      border: none; border-radius: 24px;
+      font-size: 15px; font-weight: 500; font-family: var(--sans);
+      cursor: pointer; transition: opacity 0.15s;
     }
-    .submit-btn:hover:not(:disabled) { background: var(--accent-hover); }
-    .submit-btn:disabled { background: var(--border); color: var(--text-3); cursor: not-allowed; }
+    .submit-btn:hover:not(:disabled) { opacity: 0.8; }
+    .submit-btn:disabled { background: var(--border); color: var(--text-3); cursor: not-allowed; opacity: 1; }
     .or-divider {
       text-align: center; font-size: 13px; color: var(--text-3);
       margin-bottom: 16px;
@@ -865,8 +865,8 @@
     .result-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
     .key-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
     .key-val { flex: 1; font-family: var(--mono); font-size: 12.5px; color: var(--text); background: var(--surface); border: 1px solid var(--border); padding: 12px 14px; border-radius: 6px; word-break: break-all; line-height: 1.4; }
-    .copy-btn { padding: 10px 16px; background: var(--bg); border: 1.5px solid var(--border-strong); border-radius: 6px; font-size: 13px; font-weight: 600; font-family: var(--sans); cursor: pointer; color: var(--text); white-space: nowrap; flex-shrink: 0; transition: all 0.15s; }
-    .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .copy-btn { padding: 9px 16px; background: var(--bg); border: 1px solid var(--border-strong); border-radius: 20px; font-size: 13px; font-weight: 500; font-family: var(--sans); cursor: pointer; color: var(--text); white-space: nowrap; flex-shrink: 0; transition: opacity 0.15s; }
+    .copy-btn:hover { opacity: 0.7; }
     .terminal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .terminal-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-3); }
     .copy-cmd { font-size: 12px; font-weight: 500; color: var(--accent); background: none; border: none; cursor: pointer; font-family: var(--sans); padding: 0; text-decoration: underline; text-underline-offset: 2px; }
@@ -876,8 +876,8 @@
     .playground-action { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; border-top: 1px solid var(--border); }
     .playground-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
     .playground-text span { font-size: 13px; color: var(--text-2); }
-    .playground-btn { padding: 10px 20px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; font-family: var(--sans); transition: background 0.15s; flex-shrink: 0; }
-    .playground-btn:hover { background: var(--accent-hover); }
+    .playground-btn { padding: 10px 22px; background: var(--text); color: var(--bg); border: none; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; font-family: var(--sans); transition: opacity 0.15s; flex-shrink: 0; }
+    .playground-btn:hover { opacity: 0.8; }
 
     /* ── FOOTER ── */
     footer {
