@@ -998,54 +998,66 @@
 
       </div>
 
-      <!-- Diagnostic Inspector (Reveals when evaluation runs or cell is clicked) -->
-      <div class="monitor-card inspector" id="inspector-card" style="display: none;">
-        <div class="card-header">
-          <h4 style="display:flex; align-items:center; gap:8px;">
-            <span>Diagnostic Inspector</span>
-            <span style="color:var(--text-dim); font-weight:400; font-size:12px;" id="inspect-sig-id">S1</span>
-          </h4>
-          <span class="inspect-badge pass" id="inspect-verdict-badge">PASSED</span>
+      <!-- Diagnostic Inspector -->
+      <div class="monitor-card inspector" id="inspector-card">
+        
+        <!-- Awaiting Selection Placeholder -->
+        <div id="inspect-placeholder" style="text-align: center; padding: 48px 24px; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; height: 100%; min-height: 280px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.3));"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p style="font-size: 14px; font-weight: 700; color: var(--text); font-family: var(--display); letter-spacing: 0.5px; text-transform: uppercase;">Select a cell to inspect</p>
+          <p style="font-size: 13px; color: var(--text-muted); max-width: 440px; line-height: 1.6; margin: 0 auto;">Click on any active or completed signature cell in the honeycomb matrix above to inspect its adversarial prompt, model response output, and safety telemetry.</p>
         </div>
-        <div class="inspector-content">
-          <div class="inspector-layout">
-            
-            <div class="inspect-col">
-              <span class="inspect-title">Adversarial Probe Query</span>
-              <div class="inspect-box prompt-box" id="inspect-prompt">
-                Evaluating...
-              </div>
+
+        <!-- Telemetry Details Content -->
+        <div id="inspect-details" style="display: none;">
+          <div class="card-header" style="border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;">
+            <h4 style="display:flex; align-items:center; gap:8px;">
+              <span>Diagnostic Inspector</span>
+              <span style="color:var(--text-dim); font-weight:400; font-size:12px;" id="inspect-sig-id">S1</span>
+            </h4>
+            <span class="inspect-badge pass" id="inspect-verdict-badge">PASSED</span>
+          </div>
+          
+          <div class="inspector-content">
+            <div class="inspector-layout">
               
-              <span class="inspect-title">Model Response under test</span>
-              <div class="inspect-box output-box" id="inspect-response">
-                Waiting...
+              <div class="inspect-col">
+                <span class="inspect-title">Adversarial Probe Query</span>
+                <div class="inspect-box prompt-box" id="inspect-prompt">
+                  Evaluating...
+                </div>
+                
+                <span class="inspect-title">Model Response under test</span>
+                <div class="inspect-box output-box" id="inspect-response">
+                  Waiting...
+                </div>
               </div>
-            </div>
 
-            <div class="inspect-col">
-              <span class="inspect-title">Aletheia Safety Telemetry</span>
-              <table class="inspect-table">
-                <tbody>
-                  <tr>
-                    <td>Assessed Signature:</td>
-                    <td id="inspect-sig-name" style="font-family:var(--sans); font-weight:600; color:var(--text);">Fact Fabrication</td>
-                  </tr>
-                  <tr>
-                    <td>Violation Probability:</td>
-                    <td id="inspect-fail-rate">0%</td>
-                  </tr>
-                  <tr>
-                    <td>Confidence Score:</td>
-                    <td id="inspect-confidence">0.00</td>
-                  </tr>
-                  <tr>
-                    <td>Evaluation Rationale:</td>
-                    <td id="inspect-rationale" style="font-family:var(--sans); font-weight:400; color:var(--text-muted); line-height:1.5;">No anomalies detected.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              <div class="inspect-col">
+                <span class="inspect-title">Aletheia Safety Telemetry</span>
+                <table class="inspect-table">
+                  <tbody>
+                    <tr>
+                      <td>Assessed Signature:</td>
+                      <td id="inspect-sig-name" style="font-family:var(--sans); font-weight:600; color:var(--text);">Fact Fabrication</td>
+                    </tr>
+                    <tr>
+                      <td>Violation Probability:</td>
+                      <td id="inspect-fail-rate">0%</td>
+                    </tr>
+                    <tr>
+                      <td>Confidence Score:</td>
+                      <td id="inspect-confidence">0.00</td>
+                    </tr>
+                    <tr>
+                      <td>Evaluation Rationale:</td>
+                      <td id="inspect-rationale" style="font-family:var(--sans); font-weight:400; color:var(--text-muted); line-height:1.5;">No anomalies detected.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
+            </div>
           </div>
         </div>
       </div>
@@ -1326,7 +1338,8 @@
           hex.querySelector('.hex-status').textContent = 'IDLE';
         }
       });
-      inspectorCard.style.display = 'none';
+      document.getElementById('inspect-placeholder').style.display = 'flex';
+      document.getElementById('inspect-details').style.display = 'none';
     }
 
     function focusSignature(sigId) {
@@ -1360,8 +1373,11 @@
         document.getElementById('inspect-response').className = 'inspect-box output-box pass';
       }
 
-      inspectorCard.style.display = 'block';
-      inspectorCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById('inspect-placeholder').style.display = 'none';
+      document.getElementById('inspect-details').style.display = 'block';
+      
+      // Smooth scroll if needed
+      document.getElementById('inspector-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     form.addEventListener('submit', async (e) => {
