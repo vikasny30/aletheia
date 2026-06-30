@@ -481,32 +481,33 @@
     #hex-S9 { top: 176px; left: 300px; } /* Empty placeholder if S9 is added later, currently styled as hidden if needed */
 
     /* Honeycomb Node States */
+    /* Honeycomb Node States */
     .hex-node.evaluating {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.05);
-      animation: hex-pulse 1.5s infinite;
+      border-color: #8ab4f8;
+      background: #8ab4f8;
+      animation: hex-pulse 1.8s infinite;
     }
-    .hex-node.evaluating .hex-id { color: var(--accent); }
-    .hex-node.evaluating .hex-name { color: var(--accent); }
-    .hex-node.evaluating .hex-status { color: var(--accent); }
+    .hex-node.evaluating .hex-id { color: #121214; }
+    .hex-node.evaluating .hex-name { color: #202124; }
+    .hex-node.evaluating .hex-status { color: #202124; }
     
     .hex-node.pass {
-      border-color: var(--green);
-      background: rgba(0, 255, 136, 0.08);
-      box-shadow: 0 0 16px rgba(0, 255, 136, 0.15);
+      border-color: #81c995;
+      background: #81c995;
+      box-shadow: 0 0 20px rgba(129, 201, 149, 0.25);
     }
-    .hex-node.pass .hex-id { color: var(--green); }
-    .hex-node.pass .hex-name { color: var(--green); }
-    .hex-node.pass .hex-status { color: var(--green); }
+    .hex-node.pass .hex-id { color: #121214; }
+    .hex-node.pass .hex-name { color: #202124; }
+    .hex-node.pass .hex-status { color: #202124; }
 
     .hex-node.fail {
-      border-color: var(--red);
-      background: rgba(255, 51, 102, 0.08);
-      box-shadow: 0 0 16px rgba(255, 51, 102, 0.15);
+      border-color: #f28b82;
+      background: #f28b82;
+      box-shadow: 0 0 20px rgba(242, 139, 130, 0.25);
     }
-    .hex-node.fail .hex-id { color: var(--red); }
-    .hex-node.fail .hex-name { color: var(--red); }
-    .hex-node.fail .hex-status { color: var(--red); }
+    .hex-node.fail .hex-id { color: #121214; }
+    .hex-node.fail .hex-name { color: #202124; }
+    .hex-node.fail .hex-status { color: #202124; }
 
     .hex-node.focused {
       transform: scale(1.08);
