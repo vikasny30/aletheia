@@ -877,19 +877,26 @@
         </div>
       </div>
 
+      <!-- Interactive Instructions Banner -->
+      <div style="background: rgba(138, 180, 248, 0.08); border: 1px solid rgba(138, 180, 248, 0.25); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; filter: drop-shadow(0 0 4px rgba(138, 180, 248, 0.3));"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span style="font-size: 13px; color: #8ab4f8; font-weight: 500; font-family: var(--sans);">
+          <strong>Interactive Telemetry Map:</strong> Click on any active or completed cell in the honeycomb matrix to view its diagnostic prompts, outputs, and safety rationale in the inspector below.
+        </span>
+      </div>
+
       <!-- Honeycomb Status Matrix & Console Logger -->
       <div class="monitor-row">
         
         <!-- Honeycomb Hexagonal Matrix -->
         <div class="monitor-card" style="height: 380px;">
-          <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
+          <div class="card-header">
             <h4>Behavioral Signature Matrix</h4>
             <div class="monitor-status-light">
               <span class="pulse-dot" id="pulse-dot"></span>
               <span id="pulse-status-text">Scanner Idle</span>
             </div>
           </div>
-          <p style="font-size: 11px; color: var(--text-dim); text-align: center; margin-top: 8px; margin-bottom: -16px; font-family: var(--sans);">💡 Click any active or resolved cell below to inspect its telemetry.</p>
           <div class="honeycomb-container">
             <div class="honeycomb-grid">
               
