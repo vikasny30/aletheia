@@ -22,9 +22,10 @@ from typing import Dict, List, Optional, Union
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from starlette.middleware.sessions import SessionMiddleware
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from api.prompts import SIGNATURES, ALL_SIGNATURE_IDS
@@ -62,8 +63,35 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.environ.get("SESSION_SECRET", "aletheia-dev-secret-change-in-prod"),
+)
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# ── Google OAuth setup ─────────────────────────────────────────────────────────
+
+_GOOGLE_CLIENT_ID     = os.environ.get("GOOGLE_CLIENT_ID", "")
+_GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+_google_oauth_ready   = bool(_GOOGLE_CLIENT_ID and _GOOGLE_CLIENT_SECRET)
+
+if _google_oauth_ready:
+    from authlib.integrations.starlette_client import OAuth as _OAuth
+    _oauth = _OAuth()
+    _oauth.register(
+        name="google",
+        client_id=_GOOGLE_CLIENT_ID,
+        client_secret=_GOOGLE_CLIENT_SECRET,
+        server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
+        client_kwargs={
+            "scope": "openid email profile https://www.googleapis.com/auth/generative-language",
+        },
+    )
+
+# In-memory key store: {email: {provider: api_key}}
+# Keys survive the session; lost on server restart (swap for DB in production)
+_user_keys: Dict[str, Dict[str, str]] = {}
 
 
 # ── Consent ────────────────────────────────────────────────────────────────────
@@ -113,6 +141,75 @@ def _check_auth(authorization: Optional[str]):
         raise HTTPException(status_code=401, detail="Invalid API key")
 
 
+# ── Google OAuth routes ────────────────────────────────────────────────────────
+
+@app.get("/auth/me")
+def auth_me(request: Request):
+    user = request.session.get("user")
+    if not user:
+        return {"logged_in": False}
+    email = user["email"]
+    return {
+        "logged_in": True,
+        "email": email,
+        "name": user.get("name", ""),
+        "picture": user.get("picture", ""),
+        "google_connected": bool(user.get("google_token")),
+        "has_keys": list(_user_keys.get(email, {}).keys()),
+    }
+
+
+@app.get("/auth/google")
+async def auth_google(request: Request):
+    if not _google_oauth_ready:
+        raise HTTPException(400, "Google OAuth not configured — add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env")
+    redirect_uri = str(request.url_for("auth_callback"))
+    return await _oauth.google.authorize_redirect(request, redirect_uri)
+
+
+@app.get("/auth/callback", name="auth_callback")
+async def auth_callback(request: Request):
+    token = await _oauth.google.authorize_access_token(request)
+    info = token.get("userinfo", {})
+    request.session["user"] = {
+        "email": info.get("email", ""),
+        "name": info.get("name", ""),
+        "picture": info.get("picture", ""),
+        "google_token": token.get("access_token", ""),
+    }
+    return RedirectResponse("/")
+
+
+@app.get("/auth/logout")
+def auth_logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/")
+
+
+@app.get("/auth/keys")
+def get_saved_keys(request: Request):
+    user = request.session.get("user")
+    if not user:
+        return {}
+    # Return which providers have keys saved — never return the actual key value
+    return {"saved": list(_user_keys.get(user["email"], {}).keys())}
+
+
+@app.post("/auth/keys")
+async def save_user_keys(request: Request):
+    user = request.session.get("user")
+    if not user:
+        raise HTTPException(401, "Not logged in")
+    body = await request.json()
+    email = user["email"]
+    if email not in _user_keys:
+        _user_keys[email] = {}
+    for provider, key in body.items():
+        if key and isinstance(key, str):
+            _user_keys[email][provider.lower()] = key.strip()
+    return {"ok": True, "saved": list(_user_keys[email].keys())}
+
+
 # ── Request / response models ──────────────────────────────────────────────────
 
 class ModelConfig(BaseModel):
@@ -150,6 +247,11 @@ class AssessmentRequest(BaseModel):
     custom_probes: Optional[Dict[str, List[Union[str, dict]]]] = Field(default=None)
 
 
+class SingleEvaluationRequest(BaseModel):
+    prompt: str = Field(description="The user query or prompt sent to the LLM")
+    response: str = Field(description="The model output text to analyze")
+
+
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 def _resolve_signatures(signatures) -> list[str]:
@@ -178,7 +280,7 @@ class RegisterRequest(BaseModel):
 
 @app.get("/")
 def root():
-    index = os.path.join(STATIC_DIR, "signup.html")
+    index = os.path.join(STATIC_DIR, "index.html")
     if os.path.exists(index):
         return FileResponse(index)
     return {
@@ -195,6 +297,200 @@ def playground():
     if os.path.exists(path):
         return FileResponse(path)
     raise HTTPException(status_code=404, detail="Playground UI not found")
+
+
+@app.get("/research")
+def research():
+    path = os.path.join(STATIC_DIR, "research.html")
+    if os.path.exists(path):
+        return FileResponse(path)
+    raise HTTPException(status_code=404, detail="Research UI not found")
+
+
+class CompareModel(BaseModel):
+    name: str                          # display name, e.g. "GPT-4o"
+    provider: str                      # openai | anthropic | google | ollama
+    model_id: str                      # e.g. gpt-4o, claude-sonnet-4-6, llama3.2
+    api_key: Optional[str] = None      # not required for ollama
+    base_url: Optional[str] = None
+
+
+class CompareRequest(BaseModel):
+    prompt: str
+    models: List[CompareModel]
+
+
+@app.post("/v1/compare")
+def compare_models(
+    req: CompareRequest,
+    request: Request,
+    x_agree_tos: Optional[str] = Header(default=None),
+):
+    """
+    Send a prompt to multiple models simultaneously, score each response,
+    and return results ranked by reliability score.
+    """
+    _check_consent(x_agree_tos, request)
+
+    if not req.prompt.strip():
+        raise HTTPException(status_code=400, detail="prompt is required")
+    if not req.models:
+        raise HTTPException(status_code=400, detail="at least one model is required")
+
+    # For logged-in users, fill missing api_keys from server-stored keys or Google OAuth token
+    session_user = request.session.get("user")
+    stored_keys: Dict[str, str] = {}
+    google_oauth_token: str = ""
+    if session_user:
+        stored_keys = _user_keys.get(session_user["email"], {})
+        google_oauth_token = session_user.get("google_token", "")
+
+    from api.runner import _call_model
+    from api.scorer import score_response as _score
+
+    SIG_IDS = ["S1", "S2a", "S3", "S4", "S5", "S6", "S7", "S8"]
+    FIDELITY = {"S1", "S7"}
+    STABILITY = {"S2a", "S4", "S5", "S8"}
+    SAFETY = {"S2b", "S3", "S6"}
+
+    PROVIDER_KEY_MAP = {"openai": "openai", "anthropic": "anthropic", "google": "google"}
+
+    results = []
+    for m in req.models:
+        # Priority: request body key → Google OAuth token (Gemini only) → server-stored key
+        if m.provider == "google" and not m.api_key and google_oauth_token:
+            api_key = google_oauth_token
+        else:
+            api_key = m.api_key or stored_keys.get(PROVIDER_KEY_MAP.get(m.provider, ""), "") or ""
+        model_cfg = {
+            "provider": m.provider,
+            "model_id": m.model_id,
+            "api_key": api_key,
+            "base_url": m.base_url,
+            "max_tokens": 512,
+        }
+        called = _call_model(model_cfg, req.prompt)
+        if called["error"]:
+            results.append({
+                "name": m.name,
+                "model_id": m.model_id,
+                "error": called["error"],
+                "overall_score": None,
+                "response": None,
+                "latency_ms": called["latency_ms"],
+            })
+            continue
+
+        response_text = called["text"]
+        sig_scores = {}
+        for sig_id in SIG_IDS:
+            try:
+                sig_scores[sig_id] = _score(sig_id, req.prompt, response_text)
+            except Exception:
+                sig_scores[sig_id] = {"failed": False, "confidence": 0.0, "reason": ""}
+
+        def cat_score(ids):
+            vals = [1 - sig_scores[s]["confidence"] if sig_scores[s]["failed"] else 1.0
+                    for s in ids if s in sig_scores]
+            return round(sum(vals) / len(vals) * 100) if vals else 100
+
+        fidelity = cat_score(FIDELITY)
+        stability = cat_score(STABILITY)
+        safety = cat_score(SAFETY)
+        overall = round((fidelity + stability + safety) / 3)
+
+        results.append({
+            "name": m.name,
+            "model_id": m.model_id,
+            "error": None,
+            "overall_score": overall,
+            "response": response_text,
+            "latency_ms": called["latency_ms"],
+            "categories": {"fidelity": fidelity, "stability": stability, "safety": safety},
+            "signatures": {
+                sid: {
+                    "name": SIGNATURES[sid]["name"],
+                    "failed": sig_scores[sid]["failed"],
+                    "confidence": sig_scores[sid]["confidence"],
+                    "reason": sig_scores[sid]["reason"],
+                }
+                for sid in SIG_IDS if sid in sig_scores
+            },
+        })
+
+    results.sort(key=lambda r: r["overall_score"] if r["overall_score"] is not None else -1, reverse=True)
+    for i, r in enumerate(results):
+        r["rank"] = i + 1
+
+    return {"prompt": req.prompt, "results": results}
+
+
+@app.post("/v1/evaluate-output")
+def evaluate_output(
+    req: SingleEvaluationRequest,
+    request: Request,
+    x_agree_tos: Optional[str] = Header(default=None),
+):
+    """
+    Evaluate a single prompt + response output across all 9 signatures.
+    Classifies and groups signatures into three key categories.
+    """
+    _check_consent(x_agree_tos, request)
+    from api.scorer import score_response
+    
+    results = {}
+    for sig_id in SIGNATURES.keys():
+        results[sig_id] = score_response(sig_id, req.prompt, req.response)
+        
+    fidelity_sigs = ["S1", "S7"]
+    stability_sigs = ["S2a", "S4", "S5", "S8"]
+    safety_sigs = ["S2b", "S3", "S6"]
+    
+    def calc_category_score(sigs):
+        failed_sum = 0.0
+        for s in sigs:
+            res = results.get(s, {"failed": False, "confidence": 0.0})
+            if res["failed"]:
+                failed_sum += res["confidence"]
+        score = 100 - (failed_sum / len(sigs)) * 100
+        return max(0, min(100, round(score)))
+        
+    fidelity_score = calc_category_score(fidelity_sigs)
+    stability_score = calc_category_score(stability_sigs)
+    safety_score = calc_category_score(safety_sigs)
+    
+    overall_score = round((fidelity_score + stability_score + safety_score) / 3)
+    
+    signature_details = {}
+    for sig_id, res in results.items():
+        signature_details[sig_id] = {
+            "name": SIGNATURES[sig_id]["name"],
+            "failed": res["failed"],
+            "confidence": res["confidence"],
+            "reason": res["reason"],
+        }
+        
+    return {
+        "overall_score": overall_score,
+        "categories": {
+            "fidelity": {
+                "name": "Factual Fidelity",
+                "score": fidelity_score,
+                "description": "Adherence to ground truth facts and resistance to hallucination."
+            },
+            "stability": {
+                "name": "Reasoning Stability",
+                "score": stability_score,
+                "description": "Logical consistency and resistance to credential/identity manipulation."
+            },
+            "safety": {
+                "name": "Safety & Guardrails",
+                "score": safety_score,
+                "description": "Resistance to prompt injections, scope creep, and crisis ignorance."
+            }
+        },
+        "signatures": signature_details
+    }
 
 
 @app.post("/v1/auth/register", status_code=201)
