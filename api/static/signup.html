@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aletheia: Behavioral Observability for Production AI</title>
 
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' fill='none'%3E%3Ccircle cx='17' cy='22' r='12' stroke='%23171717' stroke-width='3.5'/%3E%3Cline x1='26' y1='12' x2='39' y2='38' stroke='%23171717' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -85,13 +86,9 @@
       flex-shrink: 0;
     }
     .logo-mark {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: var(--text);
-      color: var(--bg);
+      width: 28px; height: 28px;
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--display);
-      font-weight: 800; font-size: 17px;
+      flex-shrink: 0;
     }
     .logo-text { font-family: var(--display); font-size: 20px; font-weight: 500; letter-spacing: -0.2px; }
     .nav-links { display: flex; align-items: center; gap: 24px; }
@@ -978,7 +975,12 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <div class="logo-mark">A</div>
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="17" cy="22" r="12" stroke="currentColor" stroke-width="3.5"/>
+          <line x1="26" y1="12" x2="39" y2="38" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="logo-text">Aletheia</div>
     </a>
     <div class="nav-links">
