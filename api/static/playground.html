@@ -751,6 +751,104 @@
       font-weight: 600;
       cursor: pointer;
     }
+
+    /* ── PRINT REPORT STYLES ── */
+    #print-report {
+      display: none;
+      color: #111827;
+      background: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-report, #print-report * {
+        visibility: visible;
+      }
+      #print-report {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      @page {
+        size: A4;
+        margin: 1.5cm;
+      }
+    }
+    .print-header {
+      border-bottom: 2px solid #1a73e8;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    .print-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a73e8;
+    }
+    .print-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+      font-size: 13px;
+    }
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    .print-table th, .print-table td {
+      border: 1px solid #e5e7eb;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 12px;
+    }
+    .print-table th {
+      background: #f3f4f6;
+      font-weight: 700;
+    }
+    .print-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .print-badge.pass {
+      background: #e6f4ea;
+      color: #137333;
+    }
+    .print-badge.fail {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+    .print-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 4px;
+    }
+    .print-signature-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 16px;
+      background: #fdfdfd;
+      page-break-inside: avoid;
+    }
   </style>
 </head>
 <body>
@@ -841,6 +939,9 @@
           <button type="submit" class="run-btn" id="run-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Run Assessment
+          </button>
+          <button type="button" class="form-btn-secondary" id="export-btn" style="width: 100%; padding: 12px; background: none; border: 1.5px solid var(--border-strong); border-radius: 6px; font-size: 14px; font-weight: 700; color: var(--text-muted); cursor: not-allowed; transition: all 0.15s; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.5;" disabled onclick="exportPdfReport()">
+            📄 Export PDF Report
           </button>
         </form>
       </div>
@@ -1268,15 +1369,23 @@
           item.dataset.id = id;
 
           item.innerHTML = `
-            <div class="guardrail-info">
+            <div class="guardrail-info" style="flex: 1; min-width: 0;">
               <span class="guardrail-id">${id}</span>
-              <span class="guardrail-name">${meta.name}</span>
+              <span class="guardrail-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 140px;" title="${meta.name}">${meta.name}</span>
             </div>
-            <div class="guardrail-checkbox"></div>
+            <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+              <button type="button" class="configure-btn" title="Configure Custom Prompts" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 14px; padding: 4px; display: flex; align-items: center; justify-content: center; transition: color 0.15s;">⚙️</button>
+              <div class="guardrail-checkbox"></div>
+            </div>
           `;
 
+          // Wire up configure-btn
+          item.querySelector('.configure-btn').addEventListener('click', (e) => {
+            openPromptsModal(id, e);
+          });
+
           item.addEventListener('click', (e) => {
-            e.stopPropagation();
+            if (e.target.closest('.configure-btn')) return;
             if (selectedSignatures.has(id)) {
               selectedSignatures.delete(id);
               item.classList.remove('selected');
@@ -1294,6 +1403,40 @@
       }
     }
 
+    function addNewPromptInput(value = '') {
+      const container = document.getElementById('modal-prompts-container');
+      const idx = container.querySelectorAll('.modal-prompt-item-wrapper').length;
+      
+      const item = document.createElement('div');
+      item.className = 'modal-prompt-item-wrapper';
+      item.style.marginBottom = '16px';
+      item.style.position = 'relative';
+      item.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block;">Prompt ${idx + 1}</label>
+          <button type="button" class="delete-prompt-btn" style="background: none; border: none; color: var(--red); cursor: pointer; font-size: 11px; font-weight: 600; font-family: var(--sans);">Delete</button>
+        </div>
+        <textarea class="modal-prompt-input" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 80px; background: var(--bg-dark); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-family: var(--sans); font-size: 13px; resize: vertical; line-height: 1.5; outline: none; display: block;">${escapeHtml(value)}</textarea>
+      `;
+      
+      // Wire delete button
+      item.querySelector('.delete-prompt-btn').addEventListener('click', () => {
+        item.remove();
+        // re-index labels
+        container.querySelectorAll('.modal-prompt-item-wrapper').forEach((wrapper, newIdx) => {
+          wrapper.querySelector('label').textContent = `Prompt ${newIdx + 1}`;
+        });
+      });
+      
+      // Append right before the Add button
+      const addBtn = container.querySelector('.add-prompt-trigger-btn');
+      if (addBtn) {
+        container.insertBefore(item, addBtn);
+      } else {
+        container.appendChild(item);
+      }
+    }
+
     function openPromptsModal(sigId, event) {
       if (event) event.stopPropagation();
       activeEditingSigId = sigId;
@@ -1303,18 +1446,49 @@
       const container = document.getElementById('modal-prompts-container');
       container.innerHTML = '';
       
+      // Add the "+ Add New Prompt" button trigger
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'add-prompt-trigger-btn';
+      addBtn.style.width = '100%';
+      addBtn.style.padding = '10px';
+      addBtn.style.background = 'none';
+      addBtn.style.border = '1.5px dashed var(--border-strong)';
+      addBtn.style.borderRadius = '6px';
+      addBtn.style.color = 'var(--accent)';
+      addBtn.style.fontFamily = 'var(--sans)';
+      addBtn.style.fontSize = '13px';
+      addBtn.style.fontWeight = '600';
+      addBtn.style.cursor = 'pointer';
+      addBtn.style.transition = 'all 0.15s';
+      addBtn.style.marginTop = '10px';
+      addBtn.textContent = '+ Add New Prompt';
+      
+      addBtn.addEventListener('mouseover', () => {
+        addBtn.style.borderColor = 'var(--accent)';
+        addBtn.style.background = 'rgba(56, 189, 248, 0.03)';
+      });
+      addBtn.addEventListener('mouseout', () => {
+        addBtn.style.borderColor = 'var(--border-strong)';
+        addBtn.style.background = 'none';
+      });
+      addBtn.addEventListener('click', () => {
+        addNewPromptInput('');
+      });
+      
+      container.appendChild(addBtn);
+      
       const prompts = customPromptsStore[sigId] || [];
-      prompts.forEach((p, idx) => {
+      prompts.forEach((p) => {
         if (typeof p === 'string') {
-          const item = document.createElement('div');
-          item.style.marginBottom = '16px';
-          item.innerHTML = `
-            <label style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">Prompt ${idx + 1}</label>
-            <textarea class="modal-prompt-input" data-idx="${idx}" data-type="string" style="width: 100%; min-height: 80px; background: var(--bg-dark); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-family: var(--sans); font-size: 13px; resize: vertical; line-height: 1.5; outline: none;">${escapeHtml(p)}</textarea>
-          `;
-          container.appendChild(item);
+          addNewPromptInput(p);
         }
       });
+      
+      // If no prompts exist, add one empty input by default
+      if (prompts.length === 0) {
+        addNewPromptInput('');
+      }
       
       document.getElementById('prompts-modal').classList.add('visible');
     }
@@ -1347,6 +1521,17 @@
       });
       document.getElementById('inspect-placeholder').style.display = 'flex';
       document.getElementById('inspect-details').style.display = 'none';
+
+      // Disable Export PDF button
+      const exportBtn = document.getElementById('export-btn');
+      if (exportBtn) {
+        exportBtn.disabled = true;
+        exportBtn.style.opacity = '0.5';
+        exportBtn.style.cursor = 'not-allowed';
+        exportBtn.style.color = 'var(--text-muted)';
+        exportBtn.style.background = 'none';
+        exportBtn.style.borderColor = 'var(--border-strong)';
+      }
     }
 
     function focusSignature(sigId) {
@@ -1542,6 +1727,15 @@
           runBtn.disabled = false;
           runBtn.textContent = 'Run Assessment';
 
+          // Enable Export PDF button
+          const exportBtn = document.getElementById('export-btn');
+          if (exportBtn) {
+            exportBtn.disabled = false;
+            exportBtn.style.opacity = '1';
+            exportBtn.style.cursor = 'pointer';
+            exportBtn.style.color = 'var(--text)';
+          }
+
           // Auto inspect the first failure
           focusSignature('S1');
           return;
@@ -1711,10 +1905,156 @@
           focusSignature(firstSigId);
         }
 
+        // Enable Export PDF button
+        const exportBtn = document.getElementById('export-btn');
+        if (exportBtn) {
+          exportBtn.disabled = false;
+          exportBtn.style.opacity = '1';
+          exportBtn.style.cursor = 'pointer';
+          exportBtn.style.color = 'var(--text)';
+        }
+
       } catch (err) {
         console.error('Error rendering results:', err);
       }
     }
+
+    // Save Changes button logic inside Configure Prompts modal
+    document.getElementById('save-prompts-btn').addEventListener('click', () => {
+      if (!activeEditingSigId) return;
+      const inputs = document.querySelectorAll('.modal-prompt-input');
+      const updatedPrompts = [];
+      inputs.forEach(input => {
+        const val = input.value.trim();
+        if (val) updatedPrompts.push(val);
+      });
+      customPromptsStore[activeEditingSigId] = updatedPrompts;
+      
+      const sigMeta = availableSignatures[activeEditingSigId] || { name: activeEditingSigId };
+      logConsole(`Saved ${updatedPrompts.length} custom prompts for ${sigMeta.name}`, 'success');
+      
+      // Reset layout details since target prompts changed
+      resetHexagons();
+      
+      closePromptsModal();
+    });
+
+    // Expose PDF Executive Summary Report
+    function exportPdfReport() {
+      if (Object.keys(lastRunResults).length === 0) {
+        alert("No assessment results available. Please run an audit first.");
+        return;
+      }
+      
+      const container = document.getElementById('print-report');
+      const isSandbox = (document.getElementById('play_mode_sandbox').checked);
+      const modelName = isSandbox ? 'aletheia-sandbox-v1' : (document.getElementById('model_id').value || 'Custom Model');
+      const provider = isSandbox ? 'Local Sandbox' : document.getElementById('provider').value;
+      const failRateText = document.getElementById('stat-failure-rate').textContent;
+      const passedCount = document.getElementById('stat-audited').textContent;
+      const safetyStatusText = document.getElementById('stat-status').textContent;
+      
+      let sigTableRows = '';
+      let sigDetailsHtml = '';
+      
+      Object.entries(lastRunResults).forEach(([sigId, res]) => {
+        const statusBadge = res.failed 
+          ? `<span class="print-badge fail">VIOLATION</span>` 
+          : `<span class="print-badge pass">CLEAN</span>`;
+          
+        sigTableRows += `
+          <tr>
+            <td><strong>${sigId}</strong></td>
+            <td>${res.name}</td>
+            <td>${statusBadge}</td>
+            <td>${(res.failRate * 100).toFixed(0)}%</td>
+            <td>${res.confidence.toFixed(2)}</td>
+          </tr>
+        `;
+        
+        // Detailed section for each signature
+        sigDetailsHtml += `
+          <div class="print-signature-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px dashed #e5e7eb; padding-bottom:6px;">
+              <span style="font-weight:700; font-size:13px; color:#1a73e8;">[${sigId}] ${res.name}</span>
+              ${statusBadge}
+            </div>
+            <div style="font-size:11px; margin-bottom:6px; line-height:1.4;"><strong>Adversarial Probe Query:</strong> <span style="font-family:monospace; color:#374151;">${escapeHtml(res.prompt)}</span></div>
+            <div style="font-size:11px; margin-bottom:6px; line-height:1.4;"><strong>Model Response:</strong> <span style="font-family:monospace; color:#374151;">${escapeHtml(res.response).replace(/\n/g, '<br>')}</span></div>
+            <div style="font-size:11px; margin-top:8px; background:#f9fafb; padding:8px; border-radius:4px; border-left:3px solid ${res.failed ? '#c5221f' : '#137333'};">
+              <strong>Evaluation Rationale:</strong> ${escapeHtml(res.rationale)}
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = `
+        <div class="print-header">
+          <div class="print-title">Aletheia Safety Assessment Report</div>
+          <div style="font-size:12px; color:#6b7280; margin-top:4px;">Behavioral Guardrails Compliance Audit</div>
+        </div>
+        
+        <div class="print-meta-grid">
+          <div>
+            <strong>Audit Target Model:</strong> ${modelName} (${provider})<br>
+            <strong>Report Generated:</strong> ${new Date().toLocaleString()}<br>
+            <strong>Client Environment:</strong> Antigravity Aletheia Playground
+          </div>
+          <div>
+            <strong>Safety Classification:</strong> <span style="font-weight:800; color:${safetyStatusText === 'SECURE' ? '#137333' : '#c5221f'}">${safetyStatusText}</span><br>
+            <strong>Total Failure Rate:</strong> ${failRateText}<br>
+            <strong>Signatures Passed:</strong> ${passedCount}
+          </div>
+        </div>
+        
+        <div class="print-section-title">Evaluation Summary Matrix</div>
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Behavioral Signature</th>
+              <th>Status Verdict</th>
+              <th>Violation Probability</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${sigTableRows}
+          </tbody>
+        </table>
+        
+        <div class="print-section-title" style="page-break-before: always;">Diagnostic Evaluation Details</div>
+        ${sigDetailsHtml}
+        
+        <div style="text-align:center; font-size:10px; color:#9ca3af; margin-top:40px; border-top:1px solid #e5e7eb; padding-top:12px;">
+          This report was generated securely on the client machine using the Aletheia Scorer API. Confidential.
+        </div>
+      `;
+      
+      window.print();
+    }
+
+    // Export button hover states
+    const exportBtn = document.getElementById('export-btn');
+    if (exportBtn) {
+      exportBtn.addEventListener('mouseover', () => {
+        if (!exportBtn.disabled) {
+          exportBtn.style.borderColor = 'var(--accent)';
+          exportBtn.style.color = 'var(--text)';
+          exportBtn.style.background = 'rgba(56, 189, 248, 0.05)';
+        }
+      });
+      exportBtn.addEventListener('mouseout', () => {
+        if (!exportBtn.disabled) {
+          exportBtn.style.borderColor = 'var(--border-strong)';
+          exportBtn.style.color = 'var(--text-muted)';
+          exportBtn.style.background = 'none';
+        }
+      });
+    }
   </script>
+  
+  <!-- Print Report Container -->
+  <div id="print-report" style="display: none;"></div>
 </body>
 </html>
