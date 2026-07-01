@@ -1244,10 +1244,10 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#4285F4"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">G</text></svg>
           Gemini
         </label>
-        <label class="mcheck" data-model="llama3.2" data-provider="ollama" title="Requires local Ollama">
-          <input type="checkbox"><span class="chk-box"></span>
-          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#0866FF"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">M</text></svg>
-          Llama 3
+        <label class="mcheck" id="chip-groq" data-model="llama-3.3-70b-versatile" data-provider="groq" data-key-id="groq">
+          <input type="checkbox" checked><span class="chk-box"></span>
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#f55036"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">L</text></svg>
+          Llama 3.3
         </label>
         <label class="mcheck" data-model="qwen2.5:7b" data-provider="ollama" title="Requires local Ollama">
           <input type="checkbox"><span class="chk-box"></span>
@@ -1255,13 +1255,13 @@
           Qwen 2.5
         </label>
       </div>
-      <div class="connections-note">Frontier models need API keys · Llama &amp; Qwen require local Ollama. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
+      <div class="connections-note">Llama 3.3 runs via Groq (free key). GPT-4o, Claude, Gemini need their own keys. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
       <div class="live-generate-wrap">
         <button class="live-generate-btn" id="live-btn" onclick="generateAndRank()">
           <span class="eval-spinner" id="live-spinner"></span>
           Compare Models
         </button>
-        <div class="free-badge">Add an API key above to run frontier models</div>
+        <div class="free-badge">Llama 3.3 via Groq is free · <button class="connections-link" onclick="openKeySetup()" style="font-size:12px;">Add keys →</button></div>
       </div>
       <!-- results area — example shown by default, replaced by real results on generate -->
       <div id="live-results" style="border-top:1px solid var(--border);padding:12px 12px 4px;">
@@ -2245,16 +2245,16 @@
   }
 
   const MODEL_CONFIGS = {
-    'gpt-4o':            { name: 'GPT-4o',     provider: 'openai',    keyId: 'openai' },
-    'claude-sonnet-4-6': { name: 'Claude',      provider: 'anthropic', keyId: 'anthropic' },
-    'gemini-2.5-flash':  { name: 'Gemini 2.5', provider: 'google',    keyId: 'google' },
-    'llama3.2':          { name: 'Llama 3',     provider: 'ollama',    keyId: null },
-    'qwen2.5:7b':        { name: 'Qwen 2.5',   provider: 'ollama',    keyId: null },
+    'gpt-4o':                    { name: 'GPT-4o',     provider: 'openai',    keyId: 'openai' },
+    'claude-sonnet-4-6':         { name: 'Claude',      provider: 'anthropic', keyId: 'anthropic' },
+    'gemini-2.5-flash':          { name: 'Gemini 2.5', provider: 'google',    keyId: 'google' },
+    'llama-3.3-70b-versatile':   { name: 'Llama 3.3',  provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
+    'qwen2.5:7b':                { name: 'Qwen 2.5',   provider: 'ollama',    keyId: null },
   };
 
   const DOT_COLORS = {
     'gpt-4o': '#111', 'claude-sonnet-4-6': '#c96442', 'gemini-2.5-flash': '#4285F4',
-    'llama3.2': '#0082fb', 'qwen2.5:7b': '#6b21a8'
+    'llama-3.3-70b-versatile': '#f55036', 'qwen2.5:7b': '#6b21a8'
   };
 
   async function generateAndRank() {
@@ -2284,7 +2284,7 @@
         }
       }
       if (hasAccess) {
-        models.push({ name: cfg.name, provider: cfg.provider, model_id: modelId, api_key: apiKey });
+        models.push({ name: cfg.name, provider: cfg.provider, model_id: modelId, api_key: apiKey, base_url: cfg.baseUrl || null });
       }
     }
 
@@ -2570,7 +2570,7 @@
   }
 
   function openKeySetup() {
-    ['openai','anthropic'].forEach(function(p) {
+    ['openai','anthropic','groq'].forEach(function(p) {
       const saved = localStorage.getItem('aletheia_key_' + p) || '';
       const inp = document.getElementById('ks-key-' + p);
       if (inp) inp.value = '';
@@ -2596,7 +2596,7 @@
   }
 
   function saveKeySetup() {
-    ['openai','anthropic'].forEach(function(p) {
+    ['openai','anthropic','groq'].forEach(function(p) {
       const inp = document.getElementById('ks-key-' + p);
       if (inp && inp.value.trim()) {
         const key = inp.value.trim();
@@ -2680,6 +2680,16 @@
         <input id="ks-key-anthropic" type="password" placeholder="sk-ant-…" style="width:100%;border:1.5px solid #e5e5e5;border-radius:8px;padding:9px 12px;font-size:13px;font-family:monospace;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#a3a3a3'" onblur="this.style.borderColor='#e5e5e5'">
         <div id="ks-preview-anthropic" style="font-size:11px;font-family:monospace;color:#a3a3a3;margin-top:4px;letter-spacing:0.5px;"></div>
         <div style="font-size:11px;color:#a3a3a3;margin-top:2px;">Get at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#525252;">console.anthropic.com/settings/keys</a></div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">
+          <div style="width:14px;height:14px;border-radius:3px;background:#f55036;flex-shrink:0;"></div>
+          <span style="font-size:13px;font-weight:600;color:#171717;">Groq <span style="font-weight:400;color:#a3a3a3;">(Llama 3.3 · free)</span></span>
+          <span id="ks-saved-groq" style="font-size:11px;color:#16a34a;margin-left:auto;"></span>
+        </div>
+        <input id="ks-key-groq" type="password" placeholder="gsk_…" style="width:100%;border:1.5px solid #e5e5e5;border-radius:8px;padding:9px 12px;font-size:13px;font-family:monospace;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#a3a3a3'" onblur="this.style.borderColor='#e5e5e5'">
+        <div id="ks-preview-groq" style="font-size:11px;font-family:monospace;color:#a3a3a3;margin-top:4px;letter-spacing:0.5px;"></div>
+        <div style="font-size:11px;color:#a3a3a3;margin-top:2px;">Free at <a href="https://console.groq.com/keys" target="_blank" style="color:#525252;">console.groq.com/keys</a></div>
       </div>
       <div>
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">

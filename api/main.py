@@ -353,7 +353,7 @@ def compare_models(
     STABILITY = {"S2a", "S4", "S5", "S8"}
     SAFETY = {"S2b", "S3", "S6"}
 
-    PROVIDER_KEY_MAP = {"openai": "openai", "anthropic": "anthropic", "google": "google"}
+    PROVIDER_KEY_MAP = {"openai": "openai", "anthropic": "anthropic", "google": "google", "groq": "groq"}
 
     results = []
     for m in req.models:
