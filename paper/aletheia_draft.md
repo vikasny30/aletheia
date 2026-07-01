@@ -1,4 +1,4 @@
-# Aletheia: A Behavioral Signature Framework for Systematic AI Failure Detection
+# Aletheia: A Taxonomy and Empirical Evaluation of Behavioral Failure Patterns in Large Language Models
 
 **Vikas Shivpuriya**
 Independent Research
@@ -423,7 +423,7 @@ When the synchronous intercept layer experiences latency violations or saturatio
 
 **Two-model limitation on some signatures:** S5 and portions of S8 have lower Claude sample sizes due to API credit exhaustion during initial runs; these results should be interpreted with the wider confidence intervals noted.
 
-**Validation corpus expansion [future work]:** The current incident dataset draws exclusively from AIID. Planned automated connectors will ingest raw vulnerability and exploit data from AVID, MITRE ATLAS, and the MIT AI Risk Repository, expanding the validation footprint and enabling cross-corpus signature prevalence comparisons.
+**Validation corpus expansion:** This paper's cross-corpus analysis spans AIID, AVID, and the MIT AI Risk Repository (2,571 entries total). Planned extensions include MITRE ATLAS adversarial technique entries and automated ingestion pipelines to keep all three corpora current as new incidents are documented. A formal 200-incident holdout with independent annotators is planned to produce population-level precision/recall curves and threshold sensitivity analysis beyond the current 25-case ground-truth suite.
 
 **Cross-engine verification [future work]:** Results in this paper were generated via direct API calls to each model. A planned verification pass will route identical prompts through a parallel Gemini API pipeline using Python-based ensemble routing, producing independent detection rate estimates for each signature. Agreement between the two pipelines would strengthen confidence in results where classifiers rely on keyword heuristics; disagreements would surface classifier edge cases for manual review.
 
@@ -435,7 +435,7 @@ When the synchronous intercept layer experiences latency violations or saturatio
 
 ## 7. Related Work
 
-**AI incident documentation:** The AIID (McGregor, 2021) provides the primary incident corpus. Related efforts include the OECD AI Incidents Monitor and the Center for AI Safety's incident database. AVID (AI Vulnerability Database) catalogs AI vulnerabilities with structured taxonomy entries; MITRE ATLAS (Adversarial Threat Landscape for AI Systems) maps adversarial attack techniques against ML systems; and the MIT AI Risk Repository aggregates risk classifications from academic and policy sources. These three corpora complement AIID's incident-first approach with vulnerability-first and risk-first perspectives and are planned sources for Aletheia's next validation round.
+**AI incident documentation:** The AIID (McGregor, 2021) provides the primary incident corpus. Related efforts include the OECD AI Incidents Monitor and the Center for AI Safety's incident database. AVID (AI Vulnerability Database) catalogs AI vulnerabilities with structured taxonomy entries; MITRE ATLAS (Adversarial Threat Landscape for AI Systems) maps adversarial attack techniques against ML systems; and the MIT AI Risk Repository aggregates risk classifications from academic and policy sources. These three corpora complement AIID's incident-first approach with vulnerability-first and risk-first perspectives; all three are used in this paper's cross-corpus validation (Section 3).
 
 **AI hallucination:** Extensive literature on LLM hallucination (Ji et al., 2023; Maynez et al., 2020) focuses on factual accuracy. Our S1 signature extends this by emphasizing the *confidence calibration* failure rather than factual error alone.
 
@@ -447,7 +447,7 @@ When the synchronous intercept layer experiences latency violations or saturatio
 
 ## 8. Conclusion
 
-We introduced Aletheia, a framework of nine behavioral signatures characterizing systematic AI failure modes, including the discovery of a mechanistic split within S2 into social/identity manipulation (S2a) and adversarial input exploitation (S2b). Validated against 2,432 entries across three independent sources (AIID, AVID, and the MIT AI Risk Repository) and empirically measured across three frontier models, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
+We introduced Aletheia, a framework of nine behavioral signatures characterizing systematic AI failure modes, including the discovery of a mechanistic split within S2 into social/identity manipulation (S2a) and adversarial input exploitation (S2b). Validated against 2,571 entries across three independent sources — the AI Incident Database, the AVID AI Vulnerability Database, and the MIT AI Risk Repository — and empirically measured across three frontier AI systems with 95% Wilson confidence intervals, the framework provides a foundation for standardized, reproducible AI behavioral monitoring. The signatures are model-agnostic, empirically grounded, and operationalizable as production monitoring rules, enabling a shift from post-hoc incident analysis to prospective behavioral observability.
 
 As AI architectures evolve, the nine signatures will require ongoing stewardship: new failure modes may warrant additional signatures, and existing signatures may need refined operationalizations for multi-modal or agentic systems. A formal community process for proposing, validating against new incident corpora, and deprecating signatures ensures the framework remains calibrated to observed reality rather than becoming a fixed taxonomy. The open-source release is the first step toward that governance structure.
 
