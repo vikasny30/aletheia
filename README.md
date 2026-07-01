@@ -167,7 +167,7 @@ Example: S8 Gemini baseline is 55% with control limits [40.1%, 69.9%]. A future 
 
 ## Paper
 
-*Aletheia: A Behavioral Signature Framework for Systematic AI Failure Detection*
+*Aletheia: A Taxonomy and Empirical Evaluation of Behavioral Failure Patterns in Large Language Models*
 Vikas Shivpuriya, Independent Research, 2026.
 
 Full draft: [`paper/aletheia_draft.md`](paper/aletheia_draft.md)
@@ -179,8 +179,8 @@ arXiv submission forthcoming.
 ## Citation
 
 ```
-Shivpuriya, V. (2026). Aletheia: A Behavioral Signature Framework for Systematic
-AI Failure Detection. Independent Research. https://github.com/vikasny30/aletheia
+Shivpuriya, V. (2026). Aletheia: A Taxonomy and Empirical Evaluation of Behavioral
+Failure Patterns in Large Language Models. Independent Research. https://github.com/vikasny30/aletheia
 ```
 
 ---
