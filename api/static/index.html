@@ -1244,24 +1244,24 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#4285F4"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">G</text></svg>
           Gemini
         </label>
-        <label class="mcheck" data-model="llama3.2" data-provider="ollama">
-          <input type="checkbox" checked><span class="chk-box"></span>
+        <label class="mcheck" data-model="llama3.2" data-provider="ollama" title="Requires local Ollama">
+          <input type="checkbox"><span class="chk-box"></span>
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#0866FF"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">M</text></svg>
           Llama 3
         </label>
-        <label class="mcheck" data-model="qwen2.5:7b" data-provider="ollama">
-          <input type="checkbox" checked><span class="chk-box"></span>
+        <label class="mcheck" data-model="qwen2.5:7b" data-provider="ollama" title="Requires local Ollama">
+          <input type="checkbox"><span class="chk-box"></span>
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#6b21a8"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">Q</text></svg>
           Qwen 2.5
         </label>
       </div>
-      <div class="connections-note">Some models require API keys. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
+      <div class="connections-note">Frontier models need API keys · Llama &amp; Qwen require local Ollama. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
       <div class="live-generate-wrap">
         <button class="live-generate-btn" id="live-btn" onclick="generateAndRank()">
           <span class="eval-spinner" id="live-spinner"></span>
           Compare Models
         </button>
-        <div class="free-badge">✓ Llama &amp; Qwen free, no key needed</div>
+        <div class="free-badge">Add an API key above to run frontier models</div>
       </div>
       <!-- results area — example shown by default, replaced by real results on generate -->
       <div id="live-results" style="border-top:1px solid var(--border);padding:12px 12px 4px;">
