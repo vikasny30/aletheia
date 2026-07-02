@@ -1251,10 +1251,10 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#f55036"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">L</text></svg>
           Llama 3.3
         </label>
-        <label class="mcheck" id="chip-openrouter" data-model="qwen/qwen-2.5-7b-instruct:free" data-provider="openrouter" data-key-id="openrouter">
+        <label class="mcheck" id="chip-gemma" data-model="gemma2-9b-it" data-provider="groq" data-key-id="groq">
           <input type="checkbox" checked><span class="chk-box"></span>
-          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#6b21a8"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">Q</text></svg>
-          Qwen 2.5
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#1a73e8"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">G</text></svg>
+          Gemma 2
         </label>
       </div>
       <div class="connections-note">Llama 3.3 runs via Groq (free key). GPT-4o, Claude, Gemini need their own keys. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
@@ -2251,12 +2251,12 @@
     'claude-sonnet-4-6':         { name: 'Claude',      provider: 'anthropic', keyId: 'anthropic' },
     'gemini-2.5-flash':          { name: 'Gemini 2.5', provider: 'google',    keyId: 'google' },
     'llama-3.3-70b-versatile':   { name: 'Llama 3.3',  provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
-    'qwen/qwen-2.5-7b-instruct:free': { name: 'Qwen 2.5', provider: 'openrouter', keyId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1' },
+    'gemma2-9b-it':                    { name: 'Gemma 2',  provider: 'groq',       keyId: 'groq' },
   };
 
   const DOT_COLORS = {
     'gpt-4o': '#111', 'claude-sonnet-4-6': '#c96442', 'gemini-2.5-flash': '#4285F4',
-    'llama-3.3-70b-versatile': '#f55036', 'qwen/qwen-2.5-7b-instruct:free': '#6b21a8'
+    'llama-3.3-70b-versatile': '#f55036', 'gemma2-9b-it': '#1a73e8'
   };
 
   async function generateAndRank() {
