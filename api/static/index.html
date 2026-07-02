@@ -2575,6 +2575,16 @@
     if (connectedEl) connectedEl.style.display = connected ? 'flex' : 'none';
     if (nameEl && _currentUser) nameEl.textContent = _currentUser.name ? _currentUser.name.split(' ')[0] : _currentUser.email.split('@')[0];
 
+    // Permanently lock local-only models (Ollama)
+    document.querySelectorAll('#live-chips .mcheck[data-provider="ollama"]').forEach(function(chip) {
+      const chk = chip.querySelector('input[type=checkbox]');
+      chk.checked = false;
+      chk.disabled = true;
+      chip.classList.add('mcheck--locked');
+      chip.title = 'Requires local Ollama — not available here';
+      chip.onclick = null;
+    });
+
     // Lock/unlock BYOK chips based on available keys
     const needKey = [];
     document.querySelectorAll('#live-chips .mcheck[data-key-id]').forEach(function(chip) {
