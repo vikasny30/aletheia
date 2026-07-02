@@ -1057,6 +1057,8 @@
     .mcheck input[type=checkbox]:checked + .chk-box::after { content: ''; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg); }
     .brand-logo { width: 18px; height: 18px; flex-shrink: 0; border-radius: 4px; }
     .mcheck:has(input:not(:checked)) { opacity: 0.4; }
+    .mcheck--locked { opacity: 0.3; }
+    .mcheck--locked .chk-box { pointer-events: none; }
     .connections-note { padding: 0 20px 14px; font-size: 12px; color: var(--text-3); border-bottom: 1px solid var(--border); }
     .connections-link { background: none; border: none; font-size: 12px; color: var(--text-2); cursor: pointer; font-family: var(--sans); padding: 0; text-decoration: underline; text-underline-offset: 2px; }
     .connections-link:hover { color: var(--text); }
@@ -2273,7 +2275,10 @@
       if (!cfg) continue;
       let apiKey = null;
       let hasAccess = true;
-      if (cfg.keyId) {
+      if (cfg.keyId === 'groq') {
+        // Free via server-side key — always accessible, pass null
+        apiKey = null;
+      } else if (cfg.keyId) {
         if (cfg.keyId === 'google' && _currentUser && _currentUser.google_connected) {
           apiKey = null;
         } else if (_currentUser && cfg.keyId !== 'google') {
@@ -2289,7 +2294,9 @@
     }
 
     if (!models.length) {
-      openKeySetup();
+      const el = document.getElementById('live-results');
+      el.innerHTML = '<div style="padding:20px 16px;font-size:13px;color:var(--text-3);">No models available. <button class="connections-link" onclick="openKeySetup()">Add API keys →</button></div>';
+      el.style.display = 'block';
       return;
     }
 
@@ -2567,6 +2574,38 @@
     if (ssoBtn) ssoBtn.style.display = connected ? 'none' : '';
     if (connectedEl) connectedEl.style.display = connected ? 'flex' : 'none';
     if (nameEl && _currentUser) nameEl.textContent = _currentUser.name ? _currentUser.name.split(' ')[0] : _currentUser.email.split('@')[0];
+
+    // Lock/unlock BYOK chips based on available keys
+    const needKey = [];
+    document.querySelectorAll('#live-chips .mcheck[data-key-id]').forEach(function(chip) {
+      const keyId = chip.dataset.keyId;
+      if (keyId === 'groq') return; // free via server key — always unlocked
+      const hasKey = connected && keyId === 'google'
+        ? true
+        : !!(_currentUser && keyId !== 'google') || !!(localStorage.getItem('aletheia_key_' + keyId));
+      const chk = chip.querySelector('input[type=checkbox]');
+      if (!hasKey) {
+        chk.checked = false;
+        chk.disabled = true;
+        chip.classList.add('mcheck--locked');
+        chip.onclick = function(e) { e.preventDefault(); openKeySetup(); };
+        needKey.push(chip.textContent.trim());
+      } else {
+        chk.disabled = false;
+        chip.classList.remove('mcheck--locked');
+        chip.onclick = null;
+      }
+    });
+
+    // Update connections note dynamically
+    const note = document.querySelector('.connections-note');
+    if (note) {
+      if (needKey.length) {
+        note.innerHTML = 'Llama 3.3 is free. ' + needKey.join(', ') + ' need API keys. <button class="connections-link" onclick="openKeySetup()">Add keys →</button>';
+      } else {
+        note.innerHTML = 'All models connected. <button class="connections-link" onclick="openKeySetup()">Manage keys →</button>';
+      }
+    }
   }
 
   function openKeySetup() {
