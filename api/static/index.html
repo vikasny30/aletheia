@@ -1284,7 +1284,6 @@
           <span class="eval-spinner" id="live-spinner"></span>
           Compare Models
         </button>
-        <div class="free-badge">Llama 3.3 via Groq is free · <button class="connections-link" onclick="openKeySetup()" style="font-size:12px;">Add keys →</button></div>
       </div>
       <!-- results area — example shown by default, replaced by real results on generate -->
       <div id="live-results" style="border-top:1px solid var(--border);padding:12px 12px 4px;">
@@ -2537,23 +2536,13 @@
       const excerptHtml = hasMore
         ? '<div id="' + cardId + '" style="max-height:none;overflow:visible;">' + rendered + '</div><button class="connections-link" style="font-size:11px;margin-top:4px;display:block;" onclick="(function(b,id){var el=document.getElementById(id);var expanded=el.style.maxHeight===\'none\';el.style.maxHeight=expanded?\'160px\':\'none\';el.style.overflow=expanded?\'hidden\':\'visible\';b.textContent=expanded?\'more ↓\':\'less ↑\';})(this,\'' + cardId + '\')">less ↑</button>'
         : rendered;
-      const cats = r.categories || {};
-      const pillHtml = (cats.fidelity !== undefined) ? [
-        ['Fidelity', cats.fidelity],
-        ['Stability', cats.stability],
-        ['Safety', cats.safety]
-      ].map(function(pair) {
-        var cls = pair[1] >= 90 ? 'rcl-pill--ok' : pair[1] >= 70 ? 'rcl-pill--warn' : 'rcl-pill--fail';
-        var sym = pair[1] >= 90 ? '✓' : pair[1] >= 70 ? '⚠' : '✗';
-        return '<span class="rcl-pill ' + cls + '">' + pair[0] + ' ' + sym + '</span>';
-      }).join('') : '';
       const excerptBorder = score >= 90 ? '#16a34a' : score >= 70 ? '#d97706' : '#dc2626';
       const excerptBg = score >= 90 ? '#f0fdf4' : score >= 70 ? '#fffbeb' : '#fef2f2';
       return '<div class="rank-card-live animating' + (isWinner ? ' rank-card-live--winner' : '') + '" style="animation-delay:' + (i * 80) + 'ms">' +
         '<div class="rcl-rank"' + (isWinner ? ' style="color:#f59e0b;"' : '') + '>#' + r.rank + '</div>' +
         '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div>' +
         '<div class="rcl-excerpt" style="border-left:3px solid ' + excerptBorder + ';background:' + excerptBg + ';padding:6px 10px;border-radius:0 4px 4px 0;margin:4px 0;display:block;-webkit-line-clamp:unset;overflow:visible;">' + excerptHtml + legendHtml + '</div>' +
-        (pillHtml ? '<div class="rcl-pills">' + pillHtml + '</div>' : '') + '</div>' +
+        '</div>' +
         '<div class="rcl-score"><div class="live-score" data-target="' + score + '" data-color="' + color + '" style="font-size:26px;font-weight:600;color:' + color + ';line-height:1;">0</div><div style="font-size:11px;color:var(--text-3);">reliability</div></div></div>';
     });
     el.innerHTML = headerHtml + cards.join('') + lockedNote;
