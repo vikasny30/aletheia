@@ -1145,6 +1145,22 @@
     .bd-pill.warn { background: #fffbeb; color: #92400e; }
     @media (prefers-color-scheme: dark) { .bd-pill.warn { background: rgba(234,179,8,0.1); color: #fbbf24; } }
   </style>
+  <!-- markdown renderer for model responses -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <style>
+    .rcl-excerpt p { margin: 4px 0; }
+    .rcl-excerpt p:first-child { margin-top: 0; }
+    .rcl-excerpt p:last-child { margin-bottom: 0; }
+    .rcl-excerpt h1, .rcl-excerpt h2, .rcl-excerpt h3 { font-size: 13px; font-weight: 600; margin: 8px 0 2px; color: var(--text); }
+    .rcl-excerpt ul, .rcl-excerpt ol { padding-left: 18px; margin: 4px 0; }
+    .rcl-excerpt li { margin: 2px 0; }
+    .rcl-excerpt hr { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
+    .rcl-excerpt table { border-collapse: collapse; width: 100%; font-size: 11px; margin: 6px 0; }
+    .rcl-excerpt th, .rcl-excerpt td { border: 1px solid var(--border); padding: 3px 6px; text-align: left; }
+    .rcl-excerpt th { background: var(--bg-2); font-weight: 600; }
+    .rcl-excerpt code { background: var(--bg-2); padding: 1px 4px; border-radius: 3px; font-size: 11px; font-family: monospace; }
+    .rcl-excerpt strong { color: var(--text); }
+  </style>
 </head>
 <body>
 
@@ -2365,12 +2381,13 @@
       const color = score >= 90 ? '#16a34a' : score >= 70 ? '#d97706' : '#dc2626';
       const dot = DOT_COLORS[r.model_id] || '#737373';
       const isWinner = r.rank === 1;
-      const fullText = (r.response || '').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-      const hasMore = fullText.length > 300;
+      const rawResponse = r.response || '';
+      const rendered = (typeof marked !== 'undefined') ? marked.parse(rawResponse) : rawResponse.replace(/</g,'&lt;');
+      const hasMore = rawResponse.length > 400;
       const cardId = 'resp-' + i + '-' + Date.now();
       const excerptHtml = hasMore
-        ? '<span id="' + cardId + 'f">"' + fullText + '" <button class="connections-link" style="font-size:11px;" onclick="document.getElementById(\'' + cardId + 'f\').style.display=\'none\';document.getElementById(\'' + cardId + 's\').style.display=\'\';">less ↑</button></span><span id="' + cardId + 's" style="display:none">"' + fullText.slice(0, 300) + '…" <button class="connections-link" style="font-size:11px;" onclick="document.getElementById(\'' + cardId + 'f\').style.display=\'\';document.getElementById(\'' + cardId + 's\').style.display=\'none\';">more ↓</button></span>'
-        : '"' + fullText + '"';
+        ? '<div id="' + cardId + '" style="max-height:none;overflow:visible;">' + rendered + '</div><button class="connections-link" style="font-size:11px;margin-top:4px;display:block;" onclick="(function(b,id){var el=document.getElementById(id);var expanded=el.style.maxHeight===\'none\';el.style.maxHeight=expanded?\'160px\':\'none\';el.style.overflow=expanded?\'hidden\':\'visible\';b.textContent=expanded?\'more ↓\':\'less ↑\';})(this,\'' + cardId + '\')">less ↑</button>'
+        : rendered;
       const cats = r.categories || {};
       const pillHtml = (cats.fidelity !== undefined) ? [
         ['Fidelity', cats.fidelity],
