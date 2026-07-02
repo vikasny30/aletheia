@@ -66,6 +66,8 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
         api_key = os.getenv("OPENROUTER_API_KEY", "")
     if not api_key and provider == "huggingface":
         api_key = os.getenv("HF_TOKEN", "")
+    if not api_key and provider == "dashscope":
+        api_key = os.getenv("DASHSCOPE_API_KEY", "")
     max_tokens = model_config.get("max_tokens", 512)
 
     start = time.time()
