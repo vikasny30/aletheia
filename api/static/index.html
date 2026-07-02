@@ -1059,6 +1059,8 @@
     .mcheck:has(input:not(:checked)) { opacity: 0.4; }
     .mcheck--locked { opacity: 0.3; }
     .mcheck--locked .chk-box { pointer-events: none; }
+    .paste-chip { opacity: 0.4; }
+    .paste-chip.active { opacity: 1; }
     .connections-note { padding: 0 20px 14px; font-size: 12px; color: var(--text-3); border-bottom: 1px solid var(--border); }
     .connections-link { background: none; border: none; font-size: 12px; color: var(--text-2); cursor: pointer; font-family: var(--sans); padding: 0; text-decoration: underline; text-underline-offset: 2px; }
     .connections-link:hover { color: var(--text); }
@@ -1202,15 +1204,9 @@
     <!-- ── PASTE TAB ── -->
     <div class="eval-content" id="tab-paste">
       <div class="live-prompt-wrap">
-        <div class="model-tags-row" style="margin-bottom:10px;">
-          <button class="mtag active" onclick="selectModel(this)"><span class="mtag-dot" style="background:#000;"></span>GPT-4o</button>
-          <button class="mtag" onclick="selectModel(this)"><span class="mtag-dot" style="background:#c96442;"></span>Claude</button>
-          <button class="mtag" onclick="selectModel(this)"><span class="mtag-dot" style="background:#4285F4;"></span>Gemini</button>
-          <button class="mtag" onclick="selectModel(this)"><span class="mtag-dot" style="background:#0866FF;"></span>Llama</button>
-        </div>
         <p class="prompt-instruction">Paste the prompt you used, then the response you got.</p>
         <div class="live-prompt-box" style="min-height:56px;margin-bottom:10px;">
-          <textarea class="eval-textarea" id="eval-prompt" rows="2" placeholder="What did you ask the AI?" oninput="autoExpand(this)"></textarea>
+          <textarea class="eval-textarea" id="eval-prompt" rows="3" placeholder="What did you ask the AI?" oninput="autoExpand(this)"></textarea>
         </div>
         <div class="live-prompt-box" style="min-height:120px;">
           <textarea class="eval-textarea" id="eval-response" rows="6" placeholder="Paste the AI response here…" oninput="autoExpand(this)"></textarea>
@@ -1222,6 +1218,28 @@
           <span class="eval-spinner" id="eval-spinner"></span>
           Score this response →
         </button>
+      </div>
+      <div class="model-check-row" style="padding:10px 20px 4px;border-top:1px solid var(--border);">
+        <label class="mcheck paste-chip active" onclick="selectPasteChip(this)">
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#000"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">O</text></svg>
+          GPT-4o
+        </label>
+        <label class="mcheck paste-chip" onclick="selectPasteChip(this)">
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#c96442"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">A</text></svg>
+          Claude
+        </label>
+        <label class="mcheck paste-chip" onclick="selectPasteChip(this)">
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#4285F4"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">G</text></svg>
+          Gemini
+        </label>
+        <label class="mcheck paste-chip" onclick="selectPasteChip(this)">
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#f55036"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">L</text></svg>
+          Llama
+        </label>
+        <label class="mcheck paste-chip" onclick="selectPasteChip(this)">
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#525252"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">?</text></svg>
+          Other
+        </label>
       </div>
       <div class="eval-demos">
         <span class="eval-demos-label">Try an example:</span>
@@ -2200,6 +2218,11 @@
     el.classList.add('active');
     const saved = modelCache[el.textContent.trim()];
     if (saved !== undefined) document.getElementById('eval-response').value = saved;
+  }
+
+  function selectPasteChip(el) {
+    document.querySelectorAll('.paste-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
   }
 
   function loadDemo(key) {
