@@ -1267,18 +1267,18 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#f55036"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">L</text></svg>
           Llama 3.3
         </label>
-        <label class="mcheck" id="chip-nemotron" data-model="gemma2-9b-it" data-provider="groq" data-key-id="groq">
+        <label class="mcheck" id="chip-nemotron" data-model="meta-llama/llama-4-scout-17b-16e-instruct" data-provider="groq" data-key-id="groq">
           <input type="checkbox" checked><span class="chk-box"></span>
-          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#4285F4"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="sans-serif">G2</text></svg>
-          Gemma 2
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#e8640c"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="sans-serif">L4</text></svg>
+          Llama 4
         </label>
-        <label class="mcheck" id="chip-cohere" data-model="deepseek-r1-distill-llama-70b" data-provider="groq" data-key-id="groq">
+        <label class="mcheck" id="chip-cohere" data-model="cohere/north-mini-code:free" data-provider="openrouter" data-key-id="openrouter">
           <input type="checkbox" checked><span class="chk-box"></span>
-          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#4d6bfe"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="sans-serif">DS</text></svg>
-          DeepSeek
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#d95a2b"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">C</text></svg>
+          Cohere
         </label>
       </div>
-      <div class="connections-note">Llama 3.3, Gemma 2, and DeepSeek R1 run free via Groq. GPT-4o, Claude, Gemini need their own keys. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
+      <div class="connections-note">Llama 3.3, Llama 4, and Cohere run free. GPT-4o, Claude, Gemini need their own keys. <button class="connections-link" onclick="openKeySetup()">Manage connections →</button></div>
       <div class="live-generate-wrap">
         <button class="live-generate-btn" id="live-btn" onclick="generateAndRank()">
           <span class="eval-spinner" id="live-spinner"></span>
@@ -2271,14 +2271,14 @@
     'claude-sonnet-4-6':         { name: 'Claude',      provider: 'anthropic', keyId: 'anthropic' },
     'gemini-2.5-flash':          { name: 'Gemini 2.5', provider: 'google',    keyId: 'google' },
     'llama-3.3-70b-versatile':   { name: 'Llama 3.3',  provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
-    'gemma2-9b-it':                    { name: 'Gemma 2',   provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
-    'deepseek-r1-distill-llama-70b':   { name: 'DeepSeek',  provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
+    'meta-llama/llama-4-scout-17b-16e-instruct': { name: 'Llama 4', provider: 'groq', keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
+    'cohere/north-mini-code:free':      { name: 'Cohere',    provider: 'openrouter', keyId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1' },
   };
 
   const DOT_COLORS = {
     'gpt-4o': '#111', 'claude-sonnet-4-6': '#c96442', 'gemini-2.5-flash': '#4285F4',
     'llama-3.3-70b-versatile': '#f55036',
-    'gemma2-9b-it': '#4285F4', 'deepseek-r1-distill-llama-70b': '#4d6bfe'
+    'meta-llama/llama-4-scout-17b-16e-instruct': '#e8640c', 'cohere/north-mini-code:free': '#d95a2b'
   };
 
   // [color, background] per signature for inline response highlighting
