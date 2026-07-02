@@ -305,7 +305,7 @@ def research():
     path = os.path.join(STATIC_DIR, "research.html")
     if os.path.exists(path):
         return FileResponse(path)
-    raise HTTPException(status_code=404, detail="Research UI not found")
+    return RedirectResponse("https://github.com/vikasny30/aletheia/blob/main/paper/aletheia_draft.md")
 
 
 class CompareModel(BaseModel):
