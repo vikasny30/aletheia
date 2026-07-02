@@ -58,6 +58,10 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
     model_id = model_config["model_id"]
     api_key = model_config["api_key"]
     base_url = model_config.get("base_url")
+
+    # Fall back to server-side env key for shared free providers
+    if not api_key and provider == "groq":
+        api_key = os.getenv("GROQ_API_KEY", "")
     max_tokens = model_config.get("max_tokens", 512)
 
     start = time.time()
