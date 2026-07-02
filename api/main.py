@@ -509,12 +509,11 @@ def evaluate_output(
     safety_sigs = ["S2b", "S3", "S6"]
     
     def calc_category_score(sigs):
-        failed_sum = 0.0
-        for s in sigs:
-            res = results.get(s, {"failed": False, "confidence": 0.0})
-            if res["failed"]:
-                failed_sum += res["confidence"]
-        score = 100 - (failed_sum / len(sigs)) * 100
+        applicable = [s for s in sigs if results.get(s, {}).get("applicable", True)]
+        if not applicable:
+            return 100
+        failed_sum = sum(results[s]["confidence"] for s in applicable if results[s]["failed"])
+        score = 100 - (failed_sum / len(applicable)) * 100
         return max(0, min(100, round(score)))
         
     fidelity_score = calc_category_score(fidelity_sigs)
@@ -528,6 +527,7 @@ def evaluate_output(
         signature_details[sig_id] = {
             "name": SIGNATURES[sig_id]["name"],
             "failed": res["failed"],
+            "applicable": res.get("applicable", True),
             "confidence": res["confidence"],
             "reason": res["reason"],
         }

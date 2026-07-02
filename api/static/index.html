@@ -1145,7 +1145,8 @@
     .bd-pill.pass { background: var(--green-bg); color: var(--green); }
     .bd-pill.fail { background: var(--red-bg); color: var(--red); }
     .bd-pill.warn { background: #fffbeb; color: #92400e; }
-    @media (prefers-color-scheme: dark) { .bd-pill.warn { background: rgba(234,179,8,0.1); color: #fbbf24; } }
+    .bd-pill.na { background: #f5f5f5; color: #a3a3a3; }
+    @media (prefers-color-scheme: dark) { .bd-pill.warn { background: rgba(234,179,8,0.1); color: #fbbf24; } .bd-pill.na { background: #262626; color: #737373; } }
   </style>
   <!-- markdown renderer for model responses -->
   <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
@@ -2657,10 +2658,7 @@
       stability: getBulletLevel(cats.stability?.score ?? 100),
       safety: getBulletLevel(cats.safety?.score ?? 100)
     };
-    const counts = { pass: 0, warn: 0, fail: 0 };
-    Object.values(levels).forEach(l => counts[l]++);
-    document.getElementById('res-summary').textContent =
-      `${counts.fail} issue${counts.fail !== 1 ? 's' : ''} · ${counts.warn} caution${counts.warn !== 1 ? 's' : ''} · ${counts.pass} clear`;
+    // summary line is set after breakdown rows are counted (below)
 
     const bulletsEl = document.getElementById('res-bullets');
     bulletsEl.innerHTML = '';
@@ -2676,19 +2674,24 @@
     const sigs = data.signatures || {};
     const rowsEl = document.getElementById('breakdown-rows');
     rowsEl.innerHTML = '';
+    let issueCount = 0, clearCount = 0;
     Object.entries(sigs).forEach(([id, sig]) => {
-      const lvl = sig.failed ? 'fail' : 'pass';
-      const label = lvl === 'fail' ? 'Issue' : lvl === 'warn' ? 'Caution' : 'Clear';
+      const isNA = sig.applicable === false;
+      const lvl = isNA ? 'na' : (sig.failed ? 'fail' : 'pass');
+      const label = isNA ? 'N/A' : (sig.failed ? 'Issue' : 'Clear');
+      if (!isNA) { sig.failed ? issueCount++ : clearCount++; }
       const row = document.createElement('div');
       row.className = 'breakdown-row';
       row.innerHTML = `
         <div>
           <div class="bd-name">${sig.name || id}<span class="bd-code">${id}</span></div>
-          <div class="bd-reason">${sig.reason || ''}</div>
+          <div class="bd-reason" style="${isNA ? 'color:var(--text-3);font-style:italic;' : ''}">${sig.reason || ''}</div>
         </div>
         <div style="text-align:center;"><span class="bd-pill ${lvl}">${label}</span></div>`;
       rowsEl.appendChild(row);
     });
+    document.getElementById('res-summary').textContent =
+      `${issueCount} issue${issueCount !== 1 ? 's' : ''} · ${clearCount} clear`;
 
     document.getElementById('res-compare').textContent = getCompareText(score);
     document.getElementById('eval-results').style.display = 'block';
