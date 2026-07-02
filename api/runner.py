@@ -138,8 +138,13 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
                 messages.append({"role": "system", "content": system_prompt})
             messages.append({"role": "user", "content": prompt})
             payload = {"model": model_id, "messages": messages, "max_tokens": max_tokens}
-            resp = _requests.post(url, headers=headers, json=payload, timeout=60)
-            resp.raise_for_status()
+            for attempt in range(3):
+                resp = _requests.post(url, headers=headers, json=payload, timeout=60)
+                if resp.status_code == 429 and attempt < 2:
+                    time.sleep(3 * (attempt + 1))
+                    continue
+                resp.raise_for_status()
+                break
             text = resp.json()["choices"][0]["message"]["content"]
 
         latency_ms = round((time.time() - start) * 1000)
@@ -147,7 +152,6 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
 
     except Exception as e:
         err = str(e)
-        # Include response body if available for HTTP errors
         if hasattr(e, "response") and e.response is not None:
             try:
                 err += " | " + e.response.text[:300]
