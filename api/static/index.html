@@ -2352,7 +2352,13 @@
       const color = score >= 90 ? '#16a34a' : score >= 70 ? '#d97706' : '#dc2626';
       const dot = DOT_COLORS[r.model_id] || '#737373';
       const isWinner = r.rank === 1;
-      const excerpt = (r.response || '').slice(0, 160).replace(/</g,'&lt;');
+      const fullText = (r.response || '').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      const shortText = fullText.slice(0, 160);
+      const hasMore = fullText.length > 160;
+      const cardId = 'resp-' + i + '-' + Date.now();
+      const excerptHtml = '"' + shortText + (hasMore
+        ? '… <button class="connections-link" style="font-size:11px;" onclick="(function(b,id){var s=document.getElementById(id);var open=s.style.display!==\'none\';s.style.display=open?\'none\':\'inline\';b.textContent=open?\'more ↓\':\'less ↑\';})(this,\'' + cardId + '\')">more ↓</button><span id="' + cardId + '" style="display:none">' + fullText.slice(160) + '</span>'
+        : '') + '"';
       const cats = r.categories || {};
       const pillHtml = (cats.fidelity !== undefined) ? [
         ['Fidelity', cats.fidelity],
@@ -2363,9 +2369,20 @@
         var sym = pair[1] >= 90 ? '✓' : pair[1] >= 70 ? '⚠' : '✗';
         return '<span class="rcl-pill ' + cls + '">' + pair[0] + ' ' + sym + '</span>';
       }).join('') : '';
+      const sigs = r.signatures || {};
+      const sigRows = Object.keys(sigs).map(function(sid) {
+        var s = sigs[sid];
+        var failed = s.failed;
+        var style = failed
+          ? 'color:#dc2626;text-decoration:underline;text-underline-offset:2px;'
+          : 'color:#16a34a;';
+        var marker = failed ? '✗' : '✓';
+        return '<div style="' + style + 'font-size:11px;padding:2px 0;">' + marker + ' ' + s.name + '</div>';
+      }).join('');
+      const sigHtml = sigRows ? '<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">' + sigRows + '</div>' : '';
       return '<div class="rank-card-live animating' + (isWinner ? ' rank-card-live--winner' : '') + '" style="animation-delay:' + (i * 80) + 'ms">' +
         '<div class="rcl-rank"' + (isWinner ? ' style="color:#f59e0b;"' : '') + '>#' + r.rank + '</div>' +
-        '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div><div class="rcl-excerpt">"' + excerpt + (r.response && r.response.length > 160 ? '…' : '') + '"</div>' + (pillHtml ? '<div class="rcl-pills">' + pillHtml + '</div>' : '') + '</div>' +
+        '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div><div class="rcl-excerpt">' + excerptHtml + '</div>' + (pillHtml ? '<div class="rcl-pills">' + pillHtml + '</div>' : '') + sigHtml + '</div>' +
         '<div class="rcl-score"><div class="live-score" data-target="' + score + '" data-color="' + color + '" style="font-size:26px;font-weight:600;color:' + color + ';line-height:1;">0</div><div style="font-size:11px;color:var(--text-3);">reliability</div></div></div>';
     });
     el.innerHTML = headerHtml + cards.join('') + lockedNote;
