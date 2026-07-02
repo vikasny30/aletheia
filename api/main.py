@@ -148,7 +148,7 @@ def _check_auth(authorization: Optional[str]):
 def auth_me(request: Request):
     user = request.session.get("user")
     if not user:
-        return {"logged_in": False}
+        return {"logged_in": False, "google_oauth_available": _google_oauth_ready}
     email = user["email"]
     return {
         "logged_in": True,
@@ -157,6 +157,7 @@ def auth_me(request: Request):
         "picture": user.get("picture", ""),
         "google_connected": bool(user.get("google_token")),
         "has_keys": list(_user_keys.get(email, {}).keys()),
+        "google_oauth_available": _google_oauth_ready,
     }
 
 

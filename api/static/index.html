@@ -2708,6 +2708,14 @@
       const res = await fetch('/auth/me');
       const data = await res.json();
       _currentUser = data.logged_in ? data : null;
+      if (!data.google_oauth_available) {
+        document.querySelectorAll('a[href="/auth/google"], #ks-google-btn').forEach(function(el) {
+          el.style.display = 'none';
+        });
+        document.querySelectorAll('.google-oauth-section').forEach(function(el) {
+          el.style.display = 'none';
+        });
+      }
     } catch(e) { _currentUser = null; }
     updateGeminiChip();
   }
@@ -2853,7 +2861,7 @@
 </script>
 
 <!-- ── Google auth modal (Gemini) ── -->
-<div id="google-auth-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeGoogleAuth()">
+<div id="google-auth-modal" class="google-oauth-section" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeGoogleAuth()">
   <div style="background:#fff;border-radius:16px;padding:36px;max-width:360px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;text-align:center;">
     <button onclick="closeGoogleAuth()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:18px;color:#a3a3a3;cursor:pointer;">✕</button>
     <div style="width:36px;height:36px;background:#4285F4;border-radius:10px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
@@ -2907,7 +2915,7 @@
         <div id="ks-preview-groq" style="font-size:11px;font-family:monospace;color:#a3a3a3;margin-top:4px;letter-spacing:0.5px;"></div>
         <div style="font-size:11px;color:#a3a3a3;margin-top:2px;">Free at <a href="https://console.groq.com/keys" target="_blank" style="color:#525252;">console.groq.com/keys</a></div>
       </div>
-      <div>
+      <div class="google-oauth-section">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">
           <div style="width:10px;height:10px;border-radius:50%;background:#4285F4;flex-shrink:0;"></div>
           <span style="font-size:13px;font-weight:600;color:#171717;">Gemini</span>
