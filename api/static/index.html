@@ -2288,6 +2288,19 @@
     'nvidia/nemotron-3-ultra-550b-a55b:free': '#76b900', 'cohere/north-mini-code:free': '#d95a2b'
   };
 
+  // [color, background] per signature for inline response highlighting
+  const SIG_COLORS = {
+    S1:  ['#dc2626', 'rgba(220,38,38,0.13)'],   // red     — hallucination
+    S2a: ['#d97706', 'rgba(217,119,6,0.13)'],   // amber   — authority manipulation
+    S2b: ['#ea580c', 'rgba(234,88,12,0.13)'],   // orange  — adversarial input
+    S3:  ['#7c3aed', 'rgba(124,58,237,0.13)'],  // purple  — scope creep
+    S4:  ['#0891b2', 'rgba(8,145,178,0.13)'],   // teal    — context blindness
+    S5:  ['#0284c7', 'rgba(2,132,199,0.13)'],   // blue    — no safe state
+    S6:  ['#db2777', 'rgba(219,39,119,0.13)'],  // pink    — vulnerability blindness
+    S7:  ['#b45309', 'rgba(180,83,9,0.13)'],    // brown   — authority amplification
+    S8:  ['#4338ca', 'rgba(67,56,202,0.13)'],   // indigo  — feedback loop
+  };
+
   async function generateAndRank() {
     const prompt = document.getElementById('live-prompt').value.trim();
     if (!prompt) { alert('Enter a prompt first.'); return; }
@@ -2382,7 +2395,38 @@
       const dot = DOT_COLORS[r.model_id] || '#737373';
       const isWinner = r.rank === 1;
       const rawResponse = r.response || '';
-      const rendered = (typeof marked !== 'undefined') ? marked.parse(rawResponse) : rawResponse.replace(/</g,'&lt;');
+      const sigs = r.signatures || {};
+
+      // Annotate response text with per-signature colored marks
+      const failedSigs = [];
+      let annotated = rawResponse;
+      Object.keys(sigs).forEach(function(sid) {
+        var sig = sigs[sid];
+        if (!sig.failed) return;
+        var palette = SIG_COLORS[sid];
+        if (!palette) return;
+        failedSigs.push({ id: sid, name: sig.name, color: palette[0] });
+        // Extract quoted phrases from the reason field
+        var re = /['"“”]([^'"“”]{4,80})['"“”]/g;
+        var m;
+        while ((m = re.exec(sig.reason || '')) !== null) {
+          var phrase = m[1].trim();
+          if (/[*#|`\n\\]/.test(phrase)) continue; // skip markdown/escape chars
+          var escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          var rx = new RegExp('(' + escaped + ')', 'gi');
+          annotated = annotated.replace(rx,
+            '<mark style="background:' + palette[1] + ';border-bottom:2px solid ' + palette[0] + ';border-radius:2px;padding:0 1px;" title="' + sig.name + '">$1</mark>'
+          );
+        }
+      });
+
+      const rendered = (typeof marked !== 'undefined') ? marked.parse(annotated) : annotated.replace(/</g,'&lt;');
+      const legendHtml = failedSigs.length
+        ? '<div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:5px;">' +
+          failedSigs.map(function(s) {
+            return '<span style="font-size:10px;padding:2px 7px;border-radius:10px;border-left:3px solid ' + s.color + ';background:rgba(0,0,0,0.04);color:var(--text-2);">' + s.name + '</span>';
+          }).join('') + '</div>'
+        : '';
       const hasMore = rawResponse.length > 400;
       const cardId = 'resp-' + i + '-' + Date.now();
       const excerptHtml = hasMore
@@ -2403,7 +2447,7 @@
       return '<div class="rank-card-live animating' + (isWinner ? ' rank-card-live--winner' : '') + '" style="animation-delay:' + (i * 80) + 'ms">' +
         '<div class="rcl-rank"' + (isWinner ? ' style="color:#f59e0b;"' : '') + '>#' + r.rank + '</div>' +
         '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div>' +
-        '<div class="rcl-excerpt" style="border-left:3px solid ' + excerptBorder + ';background:' + excerptBg + ';padding:6px 10px;border-radius:0 4px 4px 0;margin:4px 0;display:block;-webkit-line-clamp:unset;overflow:visible;">' + excerptHtml + '</div>' +
+        '<div class="rcl-excerpt" style="border-left:3px solid ' + excerptBorder + ';background:' + excerptBg + ';padding:6px 10px;border-radius:0 4px 4px 0;margin:4px 0;display:block;-webkit-line-clamp:unset;overflow:visible;">' + excerptHtml + legendHtml + '</div>' +
         (pillHtml ? '<div class="rcl-pills">' + pillHtml + '</div>' : '') + '</div>' +
         '<div class="rcl-score"><div class="live-score" data-target="' + score + '" data-color="' + color + '" style="font-size:26px;font-weight:600;color:' + color + ';line-height:1;">0</div><div style="font-size:11px;color:var(--text-3);">reliability</div></div></div>';
     });
