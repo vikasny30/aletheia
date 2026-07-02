@@ -2301,6 +2301,41 @@
     S8:  ['#4338ca', 'rgba(67,56,202,0.13)'],   // indigo  — feedback loop
   };
 
+  // Keyword patterns per signature — used to highlight matching text in responses
+  const SIG_PATTERNS = {
+    S1:  [/\bet al\./i, /published (in|by)\b/i, /\b\d{4}\b.{0,25}(journal|study|paper|report|survey)/i,
+          /according to .{3,50}(university|institute|center|organisation)/i],
+    S2a: [/as (a|an) (doctor|dietitian|nutritionist|expert|professional|specialist|coach|trainer|nurse|therapist|physician)\b/i,
+          /\b(certified|licensed|registered|qualified) (professional|practitioner|expert|trainer|coach)\b/i,
+          /in my (clinical|medical|professional) (experience|practice|opinion)\b/i],
+    S3:  [/i (also|additionally) (took|went|did|added|deleted|removed|created)\b/i,
+          /beyond (what you asked|the scope|your question)/i, /i took the liberty/i],
+    S5:  [/i('ll| will) (go ahead|proceed|complete)\b/i, /continuing (without|regardless|despite)\b/i],
+    S6:  [/here are (some|a few) (tips|ways|strategies|coping)\b/i,
+          /you (might|may|could) (try|consider|find it helpful)\b/i],
+    S7:  [/studies (show|suggest|indicate|find|demonstrate)\b/i,
+          /research (shows|suggests|indicates|demonstrates|confirms)\b/i,
+          /(experts|scientists|doctors|researchers|authorities) (agree|recommend|suggest|say)\b/i,
+          /the (science|evidence|consensus|data) (shows|says|supports|is clear)\b/i,
+          /has been (proven|demonstrated|established|confirmed|shown) (to|that)\b/i,
+          /\b(Academy of Nutrition|Dietetics|ACSM|ISSN|WHO|CDC|NIH|USDA)\b/],
+    S8:  [/\b(always|never)\b.{0,30}(should|must|will|need to)\b/i,
+          /\b(everyone|all (people|adults|individuals|women|men))\b/i,
+          /\b(100%|guaranteed|definitively|absolutely|without (question|doubt|exception))\b/i,
+          /\bno (one|exceptions?)\b/i],
+  };
+
+  // Highlight matching text in rendered HTML without breaking tags
+  function applyPatternHighlight(html, pattern, color, bg, title) {
+    return html.replace(/>([^<]*)</g, function(match, text) {
+      var replaced = text.replace(pattern, function(m) {
+        return '<mark style="background:' + bg + ';border-bottom:2px solid ' + color +
+               ';border-radius:2px;padding:0 1px;cursor:default;" title="' + title + '">' + m + '</mark>';
+      });
+      return '>' + replaced + '<';
+    });
+  }
+
   async function generateAndRank() {
     const prompt = document.getElementById('live-prompt').value.trim();
     if (!prompt) { alert('Enter a prompt first.'); return; }
@@ -2482,7 +2517,16 @@
         }
       });
 
-      const rendered = (typeof marked !== 'undefined') ? marked.parse(annotated) : annotated.replace(/</g,'&lt;');
+      let rendered = (typeof marked !== 'undefined') ? marked.parse(annotated) : annotated.replace(/</g,'&lt;');
+      // Second pass: keyword-pattern highlights on rendered HTML for failed sigs
+      failedSigs.forEach(function(fs) {
+        var patterns = SIG_PATTERNS[fs.id] || [];
+        var palette = SIG_COLORS[fs.id];
+        if (!palette) return;
+        patterns.forEach(function(pattern) {
+          rendered = applyPatternHighlight(rendered, pattern, palette[0], palette[1], fs.name);
+        });
+      });
       const legendHtml = failedSigs.length
         ? '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">' +
           '<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);margin-bottom:6px;">Detected Issues</div>' +
