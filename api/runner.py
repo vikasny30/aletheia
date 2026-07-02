@@ -145,7 +145,13 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
                     continue
                 resp.raise_for_status()
                 break
-            text = resp.json()["choices"][0]["message"]["content"]
+            resp_json = resp.json()
+            if "choices" not in resp_json:
+                err_msg = resp_json.get("error", {})
+                if isinstance(err_msg, dict):
+                    err_msg = err_msg.get("message", str(resp_json))
+                raise ValueError(f"No choices in response: {err_msg}")
+            text = resp_json["choices"][0]["message"]["content"]
 
         latency_ms = round((time.time() - start) * 1000)
         return {"text": text, "error": None, "latency_ms": latency_ms}
