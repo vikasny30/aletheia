@@ -1044,7 +1044,7 @@
     .eval-submit { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 10px 26px; border-radius: 24px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: var(--sans); transition: border-color 0.15s; display: flex; align-items: center; gap: 8px; }
     .eval-submit:hover { border-color: var(--border-strong); }
     .eval-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-    .eval-spinner { width: 13px; height: 13px; border: 2px solid var(--border); border-top-color: var(--text); border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    .eval-spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* model selection (live tab) */
@@ -1212,13 +1212,6 @@
           <textarea class="eval-textarea" id="eval-response" rows="6" placeholder="Paste the AI response here…" oninput="autoExpand(this)"></textarea>
         </div>
       </div>
-      <div class="eval-action">
-        <span class="eval-hint">Free · no login · results in &lt;1s</span>
-        <button class="eval-submit" id="eval-btn" onclick="scoreResponse()">
-          <span class="eval-spinner" id="eval-spinner"></span>
-          Score this response →
-        </button>
-      </div>
       <div class="model-check-row" style="padding:10px 20px 4px;border-top:1px solid var(--border);">
         <label class="mcheck paste-chip active" onclick="selectPasteChip(this)">
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#000"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">O</text></svg>
@@ -1240,6 +1233,12 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#525252"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">?</text></svg>
           Other
         </label>
+      </div>
+      <div class="live-generate-wrap">
+        <button class="live-generate-btn" id="eval-btn" onclick="scoreResponse()">
+          <span class="eval-spinner" id="eval-spinner"></span>
+          Score this response
+        </button>
       </div>
       <div class="eval-demos">
         <span class="eval-demos-label">Try an example:</span>
