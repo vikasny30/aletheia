@@ -1251,10 +1251,10 @@
           <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#f55036"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">L</text></svg>
           Llama 3.3
         </label>
-        <label class="mcheck" id="chip-phi4" data-model="microsoft/phi-4-reasoning:free" data-provider="openrouter" data-key-id="openrouter">
+        <label class="mcheck" id="chip-llama8b" data-model="meta-llama/llama-3.1-8b-instruct:free" data-provider="openrouter" data-key-id="openrouter">
           <input type="checkbox" checked><span class="chk-box"></span>
-          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#0078d4"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">φ</text></svg>
-          Phi-4
+          <svg class="brand-logo" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#0064e0"/><text x="10" y="14.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="sans-serif">L</text></svg>
+          Llama 3.1 8B
         </label>
         <label class="mcheck" id="chip-nemotron" data-model="nvidia/nemotron-3-ultra-550b-a55b:free" data-provider="openrouter" data-key-id="openrouter">
           <input type="checkbox" checked><span class="chk-box"></span>
@@ -2261,14 +2261,14 @@
     'claude-sonnet-4-6':         { name: 'Claude',      provider: 'anthropic', keyId: 'anthropic' },
     'gemini-2.5-flash':          { name: 'Gemini 2.5', provider: 'google',    keyId: 'google' },
     'llama-3.3-70b-versatile':   { name: 'Llama 3.3',  provider: 'groq',      keyId: 'groq', baseUrl: 'https://api.groq.com/openai/v1' },
-    'microsoft/phi-4-reasoning:free': { name: 'Phi-4',      provider: 'openrouter', keyId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1' },
+    'meta-llama/llama-3.1-8b-instruct:free': { name: 'Llama 3.1 8B', provider: 'openrouter', keyId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1' },
     'nvidia/nemotron-3-ultra-550b-a55b:free': { name: 'Nemotron', provider: 'openrouter', keyId: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1' },
     'cohere/north-mini-code:free':     { name: 'Cohere',    provider: 'openrouter',  keyId: 'openrouter',  baseUrl: 'https://openrouter.ai/api/v1' },
   };
 
   const DOT_COLORS = {
     'gpt-4o': '#111', 'claude-sonnet-4-6': '#c96442', 'gemini-2.5-flash': '#4285F4',
-    'llama-3.3-70b-versatile': '#f55036', 'microsoft/phi-4-reasoning:free': '#0078d4',
+    'llama-3.3-70b-versatile': '#f55036', 'meta-llama/llama-3.1-8b-instruct:free': '#0064e0',
     'nvidia/nemotron-3-ultra-550b-a55b:free': '#76b900', 'cohere/north-mini-code:free': '#d95a2b'
   };
 
