@@ -18,11 +18,12 @@ import os
 import sys
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Optional, Union
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from starlette.middleware.sessions import SessionMiddleware
@@ -355,32 +356,17 @@ def compare_models(
 
     PROVIDER_KEY_MAP = {"openai": "openai", "anthropic": "anthropic", "google": "google", "groq": "groq", "openrouter": "openrouter"}
 
-    results = []
-    for m in req.models:
-        # Priority: request body key → Google OAuth token (Gemini only) → server-stored key
+    def _run_one(m):
         if m.provider == "google" and not m.api_key and google_oauth_token:
             api_key = google_oauth_token
         else:
             api_key = m.api_key or stored_keys.get(PROVIDER_KEY_MAP.get(m.provider, ""), "") or ""
-        model_cfg = {
-            "provider": m.provider,
-            "model_id": m.model_id,
-            "api_key": api_key,
-            "base_url": m.base_url,
-            "max_tokens": 512,
-        }
+        model_cfg = {"provider": m.provider, "model_id": m.model_id, "api_key": api_key,
+                     "base_url": m.base_url, "max_tokens": 512}
         called = _call_model(model_cfg, req.prompt)
         if called["error"]:
-            results.append({
-                "name": m.name,
-                "model_id": m.model_id,
-                "error": called["error"],
-                "overall_score": None,
-                "response": None,
-                "latency_ms": called["latency_ms"],
-            })
-            continue
-
+            return {"name": m.name, "model_id": m.model_id, "error": called["error"],
+                    "overall_score": None, "response": None, "latency_ms": called["latency_ms"]}
         response_text = called["text"]
         sig_scores = {}
         for sig_id in SIG_IDS:
@@ -388,41 +374,116 @@ def compare_models(
                 sig_scores[sig_id] = _score(sig_id, req.prompt, response_text)
             except Exception:
                 sig_scores[sig_id] = {"failed": False, "confidence": 0.0, "reason": ""}
-
         def cat_score(ids):
             vals = [1 - sig_scores[s]["confidence"] if sig_scores[s]["failed"] else 1.0
                     for s in ids if s in sig_scores]
             return round(sum(vals) / len(vals) * 100) if vals else 100
-
         fidelity = cat_score(FIDELITY)
         stability = cat_score(STABILITY)
         safety = cat_score(SAFETY)
-        overall = round((fidelity + stability + safety) / 3)
+        return {"name": m.name, "model_id": m.model_id, "error": None,
+                "overall_score": round((fidelity + stability + safety) / 3),
+                "response": response_text, "latency_ms": called["latency_ms"],
+                "categories": {"fidelity": fidelity, "stability": stability, "safety": safety},
+                "signatures": {sid: {"name": SIGNATURES[sid]["name"],
+                                     "failed": sig_scores[sid]["failed"],
+                                     "confidence": sig_scores[sid]["confidence"],
+                                     "reason": sig_scores[sid]["reason"]}
+                               for sid in SIG_IDS if sid in sig_scores}}
 
-        results.append({
-            "name": m.name,
-            "model_id": m.model_id,
-            "error": None,
-            "overall_score": overall,
-            "response": response_text,
-            "latency_ms": called["latency_ms"],
-            "categories": {"fidelity": fidelity, "stability": stability, "safety": safety},
-            "signatures": {
-                sid: {
-                    "name": SIGNATURES[sid]["name"],
-                    "failed": sig_scores[sid]["failed"],
-                    "confidence": sig_scores[sid]["confidence"],
-                    "reason": sig_scores[sid]["reason"],
-                }
-                for sid in SIG_IDS if sid in sig_scores
-            },
-        })
+    with ThreadPoolExecutor(max_workers=len(req.models)) as pool:
+        results = list(pool.map(_run_one, req.models))
 
     results.sort(key=lambda r: r["overall_score"] if r["overall_score"] is not None else -1, reverse=True)
     for i, r in enumerate(results):
         r["rank"] = i + 1
 
     return {"prompt": req.prompt, "results": results}
+
+
+@app.post("/v1/compare/stream")
+def compare_models_stream(
+    req: CompareRequest,
+    request: Request,
+    x_agree_tos: Optional[str] = Header(default=None),
+):
+    """Same as /v1/compare but streams each model result via SSE as it completes."""
+    _check_consent(x_agree_tos, request)
+    if not req.prompt.strip():
+        raise HTTPException(status_code=400, detail="prompt is required")
+    if not req.models:
+        raise HTTPException(status_code=400, detail="at least one model is required")
+
+    session_user = request.session.get("user")
+    stored_keys: Dict[str, str] = {}
+    google_oauth_token: str = ""
+    if session_user:
+        stored_keys = _user_keys.get(session_user["email"], {})
+        google_oauth_token = session_user.get("google_token", "")
+
+    from api.runner import _call_model
+    from api.scorer import score_response as _score
+
+    SIG_IDS = ["S1", "S2a", "S3", "S4", "S5", "S6", "S7", "S8"]
+    FIDELITY = {"S1", "S7"}
+    STABILITY = {"S2a", "S4", "S5", "S8"}
+    SAFETY = {"S2b", "S3", "S6"}
+    PROVIDER_KEY_MAP = {"openai": "openai", "anthropic": "anthropic", "google": "google",
+                        "groq": "groq", "openrouter": "openrouter"}
+
+    def _run_one(m):
+        if m.provider == "google" and not m.api_key and google_oauth_token:
+            api_key = google_oauth_token
+        else:
+            api_key = m.api_key or stored_keys.get(PROVIDER_KEY_MAP.get(m.provider, ""), "") or ""
+        model_cfg = {"provider": m.provider, "model_id": m.model_id, "api_key": api_key,
+                     "base_url": m.base_url, "max_tokens": 512}
+        called = _call_model(model_cfg, req.prompt)
+        if called["error"]:
+            return {"name": m.name, "model_id": m.model_id, "error": called["error"],
+                    "overall_score": None, "response": None, "latency_ms": called["latency_ms"]}
+        response_text = called["text"]
+        sig_scores = {}
+        for sig_id in SIG_IDS:
+            try:
+                sig_scores[sig_id] = _score(sig_id, req.prompt, response_text)
+            except Exception:
+                sig_scores[sig_id] = {"failed": False, "confidence": 0.0, "reason": ""}
+        def cat_score(ids):
+            vals = [1 - sig_scores[s]["confidence"] if sig_scores[s]["failed"] else 1.0
+                    for s in ids if s in sig_scores]
+            return round(sum(vals) / len(vals) * 100) if vals else 100
+        fidelity = cat_score(FIDELITY)
+        stability = cat_score(STABILITY)
+        safety = cat_score(SAFETY)
+        return {"name": m.name, "model_id": m.model_id, "error": None,
+                "overall_score": round((fidelity + stability + safety) / 3),
+                "response": response_text, "latency_ms": called["latency_ms"],
+                "categories": {"fidelity": fidelity, "stability": stability, "safety": safety},
+                "signatures": {sid: {"name": SIGNATURES[sid]["name"],
+                                     "failed": sig_scores[sid]["failed"],
+                                     "confidence": sig_scores[sid]["confidence"],
+                                     "reason": sig_scores[sid]["reason"]}
+                               for sid in SIG_IDS if sid in sig_scores}}
+
+    def generate():
+        all_results = []
+        with ThreadPoolExecutor(max_workers=len(req.models)) as pool:
+            futures = {pool.submit(_run_one, m): m for m in req.models}
+            for future in as_completed(futures):
+                result = future.result()
+                all_results.append(result)
+                yield f"data: {json.dumps({'type': 'result', 'result': result})}\n\n"
+        all_results.sort(key=lambda r: r["overall_score"] if r["overall_score"] is not None else -1, reverse=True)
+        for i, r in enumerate(all_results):
+            r["rank"] = i + 1
+        yield f"data: {json.dumps({'type': 'final', 'results': all_results})}\n\n"
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @app.post("/v1/evaluate-output")

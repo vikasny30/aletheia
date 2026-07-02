@@ -2350,14 +2350,35 @@
     showSkeletons(models.length);
 
     try {
-      const res = await fetch('/v1/compare', {
+      showSkeletons(models);
+      const res = await fetch('/v1/compare/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Agree-TOS': 'true' },
         body: JSON.stringify({ prompt, models })
       });
       if (!res.ok) { const t = await res.text(); throw new Error(t); }
-      const data = await res.json();
-      renderLiveResults(data.results, locked);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const msg = JSON.parse(line.slice(6));
+            if (msg.type === 'result') {
+              replaceSkeletonWithResult(msg.result);
+            } else if (msg.type === 'final') {
+              renderLiveResults(msg.results, locked);
+            }
+          } catch (_) {}
+        }
+      }
     } catch (e) {
       alert('Generation failed: ' + e.message);
       document.getElementById('live-results').style.display = 'none';
@@ -2368,12 +2389,53 @@
     }
   }
 
-  function showSkeletons(n) {
+  function _skelId(modelId) { return 'skel-' + modelId.replace(/[^a-zA-Z0-9]/g, '_'); }
+
+  function showSkeletons(models) {
     const el = document.getElementById('live-results');
-    const header = '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px;"><span style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;">Analyzing…</span></div>';
-    const card = '<div class="skeleton-card"><div class="skel skel-rank"></div><div class="skel-body"><div class="skel skel-line" style="width:40%;"></div><div class="skel skel-line" style="width:80%;"></div></div><div class="skel skel-score"></div></div>';
-    el.innerHTML = header + card.repeat(n);
+    const header = '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px;"><span style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;">Generating…</span></div>';
+    const cards = models.map(function(m) {
+      const dot = DOT_COLORS[m.model_id] || '#737373';
+      return '<div class="skeleton-card" id="' + _skelId(m.model_id) + '">' +
+        '<div class="skel skel-rank"></div>' +
+        '<div class="skel-body">' +
+          '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">' +
+            '<div style="width:14px;height:14px;border-radius:3px;background:' + dot + ';flex-shrink:0;"></div>' +
+            '<span style="font-size:13px;font-weight:600;color:var(--text);">' + m.name + '</span>' +
+            '<span style="font-size:11px;color:var(--text-3);margin-left:4px;">generating…</span>' +
+          '</div>' +
+          '<div class="skel skel-line" style="width:80%;"></div>' +
+          '<div class="skel skel-line" style="width:55%;"></div>' +
+        '</div>' +
+        '<div class="skel skel-score"></div>' +
+      '</div>';
+    });
+    el.innerHTML = header + cards.join('');
     el.style.display = 'block';
+  }
+
+  function replaceSkeletonWithResult(r) {
+    const skel = document.getElementById(_skelId(r.model_id));
+    if (!skel) return;
+    const score = r.overall_score;
+    const color = score >= 90 ? '#16a34a' : score >= 70 ? '#d97706' : '#dc2626';
+    const dot = DOT_COLORS[r.model_id] || '#737373';
+    const snippetRaw = (r.response || r.error || '').slice(0, 200);
+    const snippet = r.error
+      ? '<span style="color:#dc2626;font-size:12px;">' + snippetRaw.replace(/</g,'&lt;') + '</span>'
+      : (typeof marked !== 'undefined' ? marked.parse(snippetRaw + (r.response && r.response.length > 200 ? '…' : '')) : snippetRaw.replace(/</g,'&lt;'));
+    const done = r.error
+      ? '<div class="rank-card-live animating" id="' + _skelId(r.model_id) + '">' +
+          '<div class="rcl-rank" style="color:#dc2626;">—</div>' +
+          '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div>' +
+          '<div class="rcl-excerpt" style="color:#dc2626;font-size:12px;">' + r.error.replace(/</g,'&lt;') + '</div></div>' +
+          '<div class="rcl-score"><div style="font-size:26px;font-weight:600;color:#dc2626;line-height:1;">—</div></div></div>'
+      : '<div class="rank-card-live animating" id="' + _skelId(r.model_id) + '">' +
+          '<div class="rcl-rank" style="color:var(--text-3);font-size:18px;">✓</div>' +
+          '<div class="rcl-body"><div class="rcl-model"><div class="mdot" style="background:' + dot + ';border-radius:3px;width:14px;height:14px;flex-shrink:0;"></div><span style="font-size:13px;font-weight:600;color:var(--text);">' + r.name + '</span></div>' +
+          '<div class="rcl-excerpt" style="border-left:3px solid ' + color + ';background:' + (score>=90?'#f0fdf4':score>=70?'#fffbeb':'#fef2f2') + ';padding:6px 10px;border-radius:0 4px 4px 0;margin:4px 0;display:block;overflow:visible;">' + snippet + '</div></div>' +
+          '<div class="rcl-score"><div style="font-size:26px;font-weight:600;color:' + color + ';line-height:1;">' + score + '</div><div style="font-size:11px;color:var(--text-3);">reliability</div></div></div>';
+    skel.outerHTML = done;
   }
 
   function renderLiveResults(results, locked) {
