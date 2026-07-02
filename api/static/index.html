@@ -2794,7 +2794,7 @@
   }
 
   function openKeySetup() {
-    ['openai','anthropic','groq','google'].forEach(function(p) {
+    ['openai','anthropic','google'].forEach(function(p) {
       const saved = localStorage.getItem('aletheia_key_' + p) || '';
       const inp = document.getElementById('ks-key-' + p);
       if (inp) inp.value = '';
@@ -2812,7 +2812,7 @@
   }
 
   function saveKeySetup() {
-    ['openai','anthropic','groq','google'].forEach(function(p) {
+    ['openai','anthropic','google'].forEach(function(p) {
       const inp = document.getElementById('ks-key-' + p);
       if (inp && inp.value.trim()) {
         const key = inp.value.trim();
@@ -2896,16 +2896,6 @@
         <input id="ks-key-anthropic" type="password" placeholder="sk-ant-…" style="width:100%;border:1.5px solid #e5e5e5;border-radius:8px;padding:9px 12px;font-size:13px;font-family:monospace;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#a3a3a3'" onblur="this.style.borderColor='#e5e5e5'">
         <div id="ks-preview-anthropic" style="font-size:11px;font-family:monospace;color:#a3a3a3;margin-top:4px;letter-spacing:0.5px;"></div>
         <div style="font-size:11px;color:#a3a3a3;margin-top:2px;">Get at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#525252;">console.anthropic.com/settings/keys</a></div>
-      </div>
-      <div>
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">
-          <div style="width:14px;height:14px;border-radius:3px;background:#f55036;flex-shrink:0;"></div>
-          <span style="font-size:13px;font-weight:600;color:#171717;">Groq <span style="font-weight:400;color:#a3a3a3;">(Llama 3.3 · free)</span></span>
-          <span id="ks-saved-groq" style="font-size:11px;color:#16a34a;margin-left:auto;"></span>
-        </div>
-        <input id="ks-key-groq" type="password" placeholder="gsk_…" style="width:100%;border:1.5px solid #e5e5e5;border-radius:8px;padding:9px 12px;font-size:13px;font-family:monospace;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#a3a3a3'" onblur="this.style.borderColor='#e5e5e5'">
-        <div id="ks-preview-groq" style="font-size:11px;font-family:monospace;color:#a3a3a3;margin-top:4px;letter-spacing:0.5px;"></div>
-        <div style="font-size:11px;color:#a3a3a3;margin-top:2px;">Free at <a href="https://console.groq.com/keys" target="_blank" style="color:#525252;">console.groq.com/keys</a></div>
       </div>
       <div>
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">
