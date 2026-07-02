@@ -1133,10 +1133,10 @@
     .breakdown-toggle { background: none; border: none; font-family: var(--sans); font-size: 12px; color: var(--text-3); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; padding: 0 0 16px; display: block; }
     .breakdown-panel { display: none; border-top: 1px solid var(--border); }
     .breakdown-panel.open { display: block; }
-    .breakdown-header { display: grid; grid-template-columns: 1fr 80px 80px; padding: 8px 20px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); }
+    .breakdown-header { display: grid; grid-template-columns: 1fr 80px; padding: 8px 20px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); }
     .breakdown-header span { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; text-align: center; }
     .breakdown-header span:first-child { text-align: left; }
-    .breakdown-row { display: grid; grid-template-columns: 1fr 80px 80px; padding: 10px 20px; border-bottom: 1px solid var(--border); align-items: center; }
+    .breakdown-row { display: grid; grid-template-columns: 1fr 80px; padding: 10px 20px; border-bottom: 1px solid var(--border); align-items: center; }
     .breakdown-row:last-child { border-bottom: none; }
     .bd-name { font-size: 12.5px; font-weight: 500; color: var(--text); }
     .bd-code { font-size: 10px; color: var(--text-3); font-family: var(--mono); margin-left: 6px; }
@@ -1338,7 +1338,7 @@
       </div>
       <div class="breakdown-panel" id="breakdown-panel">
         <div class="breakdown-header">
-          <span>Check</span><span>Result</span><span>Confidence</span>
+          <span>Check</span><span>Result</span>
         </div>
         <div id="breakdown-rows"></div>
       </div>
@@ -2677,7 +2677,7 @@
     const rowsEl = document.getElementById('breakdown-rows');
     rowsEl.innerHTML = '';
     Object.entries(sigs).forEach(([id, sig]) => {
-      const lvl = sig.failed ? 'fail' : (sig.confidence > 0.5 ? 'warn' : 'pass');
+      const lvl = sig.failed ? 'fail' : 'pass';
       const label = lvl === 'fail' ? 'Issue' : lvl === 'warn' ? 'Caution' : 'Clear';
       const row = document.createElement('div');
       row.className = 'breakdown-row';
@@ -2686,8 +2686,7 @@
           <div class="bd-name">${sig.name || id}<span class="bd-code">${id}</span></div>
           <div class="bd-reason">${sig.reason || ''}</div>
         </div>
-        <div style="text-align:center;"><span class="bd-pill ${lvl}">${label}</span></div>
-        <div style="text-align:center;font-size:12px;color:var(--text-3);">${Math.round((sig.confidence ?? 0) * 100)}%</div>`;
+        <div style="text-align:center;"><span class="bd-pill ${lvl}">${label}</span></div>`;
       rowsEl.appendChild(row);
     });
 
