@@ -2422,9 +2422,15 @@
 
       const rendered = (typeof marked !== 'undefined') ? marked.parse(annotated) : annotated.replace(/</g,'&lt;');
       const legendHtml = failedSigs.length
-        ? '<div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:5px;">' +
+        ? '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);">' +
+          '<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);margin-bottom:6px;">Detected Issues</div>' +
           failedSigs.map(function(s) {
-            return '<span style="font-size:10px;padding:2px 7px;border-radius:10px;border-left:3px solid ' + s.color + ';background:rgba(0,0,0,0.04);color:var(--text-2);">' + s.name + '</span>';
+            var reason = (sigs[s.id] && sigs[s.id].reason) ? sigs[s.id].reason : '';
+            return '<div style="display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;">' +
+              '<div style="width:3px;background:' + s.color + ';border-radius:2px;flex-shrink:0;margin-top:3px;min-height:32px;"></div>' +
+              '<div><div style="font-size:11px;font-weight:600;color:' + s.color + ';margin-bottom:1px;">' + s.name + '</div>' +
+              (reason ? '<div style="font-size:11px;color:var(--text-2);line-height:1.5;">' + reason.replace(/</g,'&lt;') + '</div>' : '') +
+              '</div></div>';
           }).join('') + '</div>'
         : '';
       const hasMore = rawResponse.length > 400;
