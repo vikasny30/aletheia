@@ -62,6 +62,8 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
     # Fall back to server-side env key for shared free providers
     if not api_key and provider == "groq":
         api_key = os.getenv("GROQ_API_KEY", "")
+    if not api_key and provider == "openrouter":
+        api_key = os.getenv("OPENROUTER_API_KEY", "")
     max_tokens = model_config.get("max_tokens", 512)
 
     start = time.time()
@@ -124,6 +126,9 @@ def _call_model(model_config: dict, prompt: str, system_prompt: str = "") -> dic
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             }
+            if provider == "openrouter":
+                headers["HTTP-Referer"] = "https://aletheia.dev"
+                headers["X-Title"] = "Aletheia"
             messages = []
             if system_prompt:
                 messages.append({"role": "system", "content": system_prompt})
